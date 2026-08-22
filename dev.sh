@@ -467,7 +467,7 @@ start_dev_servers() {
 
     printf "\n"
     printf "${GREEN}============================================================${RESET}\n"
-    printf "${BOLD}${GREEN}  ✔ VOS3000 Portal Development Environment is READY!        ${RESET}\n"
+    printf "${BOLD}${GREEN}  ✔ CallWork Development Environment is READY!        ${RESET}\n"
     printf "${GREEN}============================================================${RESET}\n"
     printf "  ${BOLD}Web UI:${RESET}       ${CYAN}http://localhost:%s${RESET}\n" "$WEB_PORT"
     printf "  ${BOLD}API Server:${RESET}   ${CYAN}http://localhost:%s${RESET}\n" "$API_PORT"

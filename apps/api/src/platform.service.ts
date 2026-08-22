@@ -785,7 +785,11 @@ export class PlatformService {
     let customPayload:any=undefined;
 
     if(ctx){
-      if(routePath==="/app/billing/statements"&&ctx.tenantId){
+      if(routePath==="/app/devices/setup"||routePath.startsWith("/app/devices/setup/")||routePath==="/admin/devices/setup"||routePath.startsWith("/admin/devices/setup/")){
+        // Device Setup pages are fully client-rendered from the device registry; no rows needed.
+        rows=[];source="postgres";
+        warnings.push("Device setup data is served by /devices/setup/* APIs; this page payload is intentionally empty.");
+      } else if(routePath==="/app/billing/statements"&&ctx.tenantId){
         try{
           const stmts=await this.sources.getBillingStatements(ctx);
           rows=stmts.statements;
@@ -879,7 +883,7 @@ export class PlatformService {
             priceAmount: Number(amount),
             priceCurrency: currency,
             orderId: payment.id,
-            orderDescription: `VOS3000 Wallet Deposit - ${payment.id.slice(0,8)}`,
+            orderDescription: `CallWork Wallet Deposit - ${payment.id.slice(0,8)}`,
             ipnCallbackUrl: webhookUrl,
             successUrl: `${webUrlBase}/app/billing/payments`,
             cancelUrl: `${webUrlBase}/app/billing/add-funds`,
@@ -920,7 +924,7 @@ export class PlatformService {
       priceAmount: Number(amount),
       priceCurrency: currency,
       orderId: rec.id,
-      orderDescription: `VOS3000 Wallet Deposit - ${rec.id.slice(0,8)}`,
+      orderDescription: `CallWork Wallet Deposit - ${rec.id.slice(0,8)}`,
     });
     const standalonePayment = {
       ...rec,

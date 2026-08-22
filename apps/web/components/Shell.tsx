@@ -241,9 +241,8 @@ export function Shell({
       <aside className={`sidebar ${mobileNavOpen ? "open" : ""}`} aria-label={`${side} portal navigation`}>
         <div className="brand">
           <div style={{ display: "flex", alignItems: "center", gap: 12, minWidth: 0 }}>
-            <div className="brandMark">V</div>
+            <img src="/callwork/hor/logo.svg" alt="CallWork" width="112" height="32" style={{ height: "32px", width: "auto", display: "block" }} />
             <div style={{ minWidth: 0 }}>
-              <div style={{ fontWeight: 750, whiteSpace: "nowrap" }}>VOS Portal</div>
               <span className="brandSubtitle">{side} operations</span>
             </div>
           </div>

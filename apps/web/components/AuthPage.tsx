@@ -545,9 +545,8 @@ export function AuthPage({
       {/* Left Brand Hero Section */}
       <section className="authHero">
         <div className="brand" style={{ padding: 0 }}>
-          <div className="brandMark">V</div>
+          <img src="/callwork/hor/logo.svg" alt="CallWork" width="132" height="36" style={{ height: "36px", width: "auto", display: "block", filter: "brightness(0) invert(1)" }} />
           <div>
-            <div style={{ fontSize: 16, fontWeight: 800 }}>VOS Portal</div>
             <div className="brandSubtitle" style={{ color: "#93c5fd" }}>Carrier Telecom Platform</div>
           </div>
         </div>

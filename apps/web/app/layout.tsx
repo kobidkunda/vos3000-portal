@@ -11,10 +11,12 @@ export const viewport: Viewport = {
 };
 
 export const metadata: Metadata = {
-  title: "VOS3000 Operations & Client Platform",
-  description: "High-performance telecom operations, live CDR analytics, gateway routing, and customer self-service.",
+  title: "CallWork — Telecom Operations & Client Platform",
+  description: "CallWork — high-performance telecom operations, live CDR analytics, gateway routing, and customer self-service on callwork.com.",
   icons: {
-    icon: "data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='20' fill='%232563eb'/><text x='50%' y='50%' font-size='60' font-weight='800' font-family='sans-serif' fill='white' dominant-baseline='central' text-anchor='middle'>V</text></svg>",
+    icon: "/callwork/fabicon/fabicon.png",
+    shortcut: "/callwork/fabicon/fabicon.png",
+    apple: "/callwork/hor/logo.png",
   },
 };
 

@@ -199,7 +199,7 @@ export class NowpaymentsService {
       price_amount: params.priceAmount,
       price_currency: params.priceCurrency.toLowerCase(),
       order_id: params.orderId,
-      order_description: params.orderDescription || `VOS3000 Wallet Deposit ${params.orderId}`,
+      order_description: params.orderDescription || `CallWork Wallet Deposit ${params.orderId}`,
     };
 
     if (params.ipnCallbackUrl) {

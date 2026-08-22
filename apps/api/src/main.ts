@@ -89,7 +89,9 @@ async function bootstrap(){
     "GET /api/v1/cdr","GET /api/v1/cdr/recent","GET /api/v1/cdr/{id}",
     "GET /api/v1/admin/cdr","GET /api/v1/admin/cdr/recent","GET /api/v1/admin/cdr/{id}",
     "GET /api/v1/cdr/exports","POST /api/v1/cdr/exports","POST /api/v1/cdr/exports/estimate","DELETE /api/v1/cdr/exports/{id}","POST /api/v1/cdr/exports/{id}/cancel","GET /api/v1/cdr/exports/{id}/download",
-    "GET /api/v1/admin/cdr/exports","POST /api/v1/admin/cdr/exports","POST /api/v1/admin/cdr/exports/estimate","DELETE /api/v1/admin/cdr/exports/{id}"
+    "GET /api/v1/admin/cdr/exports","POST /api/v1/admin/cdr/exports","POST /api/v1/admin/cdr/exports/estimate","DELETE /api/v1/admin/cdr/exports/{id}",
+    "GET /api/v1/devices/setup/devices","GET /api/v1/devices/setup/instructions","POST /api/v1/devices/setup/verify","POST /api/v1/devices/setup/copy-event",
+    "GET /api/v1/admin/devices/setup/devices","GET /api/v1/admin/devices/setup/instructions","POST /api/v1/admin/devices/setup/verify"
   ]);
 
   for(const d of productApis as readonly ProductApiDefinition[]){
@@ -119,7 +121,7 @@ async function bootstrap(){
   registerStream("/api/v1/admin/noc/stream","/api/v1/admin/noc/stream");
   registerStream("/api/v1/calls/live/stream","/api/v1/calls/live/stream");
 
-  const doc:any=SwaggerModule.createDocument(app,new DocumentBuilder().setTitle("VOS3000 Portal API").setDescription("Portal API surface derived from the Admin and Customer specifications. VOS operations remain capability-gated until verified against the deployed VOS build.").setVersion("1.2").addBearerAuth().build());
+  const doc:any=SwaggerModule.createDocument(app,new DocumentBuilder().setTitle("CallWork Portal API").setDescription("CallWork portal API surface on callwork.com — derived from the Admin and Customer specifications. Softswitch operations remain capability-gated until verified against the deployed VOS build.").setVersion("1.2").addBearerAuth().build());
   for(const d of productApis){doc.paths[d.path]=doc.paths[d.path]??{};doc.paths[d.path][d.method.toLowerCase()]={summary:`${d.method} ${d.path}`,responses:{200:{description:"Successful portal response"},400:{description:"Validation error"},401:{description:"Authentication required"},403:{description:"Forbidden"},503:{description:"Dependency/capability unavailable"}}}}
   SwaggerModule.setup("docs",app,doc);
   await app.listen({port:Number(process.env.PORT??4000),host:"0.0.0.0"});
