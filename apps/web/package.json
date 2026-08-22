@@ -1,0 +1,25 @@
+{
+  "name": "@vos/web",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev -H 0.0.0.0 -p 3001",
+    "build": "next build",
+    "start": "next start -H 0.0.0.0 -p 3001",
+    "test": "tsx --test lib/wizard.test.ts lib/phone.test.ts lib/form-error.test.ts lib/form-error-state.test.ts lib/auth-forms-error.test.ts lib/m3-forms-error.test.ts"
+  },
+  "dependencies": {
+    "@vos/shared": "1.0.0",
+    "country-flag-icons": "^1.6.20",
+    "libphonenumber-js": "^1.13.11",
+    "next": "16.3.2",
+    "react": "19.2.8",
+    "react-dom": "19.2.8"
+  },
+  "devDependencies": {
+    "@types/node": "^24.0.0",
+    "@types/react": "^19.2.0",
+    "@types/react-dom": "^19.2.0",
+    "typescript": "7.0.2"
+  }
+}

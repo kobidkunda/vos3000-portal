@@ -1,0 +1,143 @@
+side,group,page,route,archetype,phase,template_file,feature_count,api_count
+Admin,Access & Identity,Admin Login,/admin/login,AUTH,"P02 — Identity, RBAC, Tenant Isolation & Audit Foundation",04_ADMIN_PAGES/001_admin-login.md,6,2
+Admin,Access & Identity,MFA Challenge,/admin/mfa,AUTH,"P02 — Identity, RBAC, Tenant Isolation & Audit Foundation",04_ADMIN_PAGES/002_mfa-challenge.md,5,1
+Admin,Access & Identity,Forgot / Reset Password,/admin/forgot-password,AUTH,"P02 — Identity, RBAC, Tenant Isolation & Audit Foundation",04_ADMIN_PAGES/003_forgot-reset-password.md,5,2
+Admin,Access & Identity,Admin Sessions & Devices,/admin/settings/sessions,DETAIL,"P12 — Observability, Security Hardening, Backup & High Availability",04_ADMIN_PAGES/004_admin-sessions-devices.md,5,2
+Admin,Command Center,Executive Dashboard,/admin,DASHBOARD,"P06 — Admin Portal Core — Customers, CDR, Gateways, Operations",04_ADMIN_PAGES/005_executive-dashboard.md,10,2
+Admin,Command Center,NOC Live Operations,/admin/noc,LIVE_MONITOR,"P06 — Admin Portal Core — Customers, CDR, Gateways, Operations",04_ADMIN_PAGES/006_noc-live-operations.md,10,2
+Admin,Command Center,System Health,/admin/system/health,LIVE_MONITOR,"P12 — Observability, Security Hardening, Backup & High Availability",04_ADMIN_PAGES/007_system-health.md,9,1
+Admin,Command Center,Alarm Center,/admin/alarms,LIST_TABLE,"P12 — Observability, Security Hardening, Backup & High Availability",04_ADMIN_PAGES/008_alarm-center.md,7,2
+Admin,Customers & Accounts,Customer Directory,/admin/customers,LIST_TABLE,"P06 — Admin Portal Core — Customers, CDR, Gateways, Operations",04_ADMIN_PAGES/009_customer-directory.md,7,2
+Admin,Customers & Accounts,Create Customer Wizard,/admin/customers/new,WIZARD,"P06 — Admin Portal Core — Customers, CDR, Gateways, Operations",04_ADMIN_PAGES/010_create-customer-wizard.md,9,1
+Admin,Customers & Accounts,Customer Overview,/admin/customers/{customerId},DETAIL,"P06 — Admin Portal Core — Customers, CDR, Gateways, Operations",04_ADMIN_PAGES/011_customer-overview.md,4,1
+Admin,Customers & Accounts,Customer Account Settings,/admin/customers/{customerId}/account,SETTINGS,"P06 — Admin Portal Core — Customers, CDR, Gateways, Operations",04_ADMIN_PAGES/012_customer-account-settings.md,12,2
+Admin,Customers & Accounts,Customer Balance & Adjustments,/admin/customers/{customerId}/balance,DETAIL,"P06 — Admin Portal Core — Customers, CDR, Gateways, Operations",04_ADMIN_PAGES/013_customer-balance-adjustments.md,10,2
+Admin,Customers & Accounts,Customer Packages,/admin/customers/{customerId}/packages,DETAIL,"P10 — Gateway, Rate, Package & Routing Configuration Workflows",04_ADMIN_PAGES/014_customer-packages.md,9,2
+Admin,Customers & Accounts,Customer Authorizations,/admin/customers/{customerId}/authorizations,SETTINGS,"P06 — Admin Portal Core — Customers, CDR, Gateways, Operations",04_ADMIN_PAGES/015_customer-authorizations.md,10,2
+Admin,Customers & Accounts,Agent & Subaccount Tree,/admin/customers/{customerId}/subaccounts,DETAIL,"P06 — Admin Portal Core — Customers, CDR, Gateways, Operations",04_ADMIN_PAGES/016_agent-subaccount-tree.md,8,1
+Admin,Customers & Accounts,Customer Number Section Limits,/admin/customers/{customerId}/number-limits,SETTINGS,"P06 — Admin Portal Core — Customers, CDR, Gateways, Operations",04_ADMIN_PAGES/017_customer-number-section-limits.md,6,2
+Admin,Gateways & Routing,Mapping Gateways,/admin/gateways/mapping,LIST_TABLE,"P10 — Gateway, Rate, Package & Routing Configuration Workflows",04_ADMIN_PAGES/018_mapping-gateways.md,6,2
+Admin,Gateways & Routing,Mapping Gateway Detail,/admin/gateways/mapping/{gatewayId},DETAIL,"P10 — Gateway, Rate, Package & Routing Configuration Workflows",04_ADMIN_PAGES/019_mapping-gateway-detail.md,14,2
+Admin,Gateways & Routing,Routing Gateways,/admin/gateways/routing,LIST_TABLE,"P10 — Gateway, Rate, Package & Routing Configuration Workflows",04_ADMIN_PAGES/020_routing-gateways.md,12,2
+Admin,Gateways & Routing,Routing Gateway Detail,/admin/gateways/routing/{gatewayId},DETAIL,"P10 — Gateway, Rate, Package & Routing Configuration Workflows",04_ADMIN_PAGES/021_routing-gateway-detail.md,12,2
+Admin,Gateways & Routing,Online Gateways,/admin/gateways/online,LIVE_MONITOR,"P10 — Gateway, Rate, Package & Routing Configuration Workflows",04_ADMIN_PAGES/022_online-gateways.md,12,1
+Admin,Gateways & Routing,Gateway Network Quality,/admin/gateways/network,DETAIL,"P10 — Gateway, Rate, Package & Routing Configuration Workflows",04_ADMIN_PAGES/023_gateway-network-quality.md,10,1
+Admin,Gateways & Routing,Gateway Status Analytics,/admin/gateways/status,ANALYTICS_REPORT,"P09 — Realtime Calls, Gateway Presence & NOC Streaming",04_ADMIN_PAGES/024_gateway-status-analytics.md,12,1
+Admin,Gateways & Routing,Gateway Groups,/admin/gateway-groups,LIST_TABLE,"P10 — Gateway, Rate, Package & Routing Configuration Workflows",04_ADMIN_PAGES/025_gateway-groups.md,8,2
+Admin,Gateways & Routing,Registration Management,/admin/registrations,LIST_TABLE,"P10 — Gateway, Rate, Package & Routing Configuration Workflows",04_ADMIN_PAGES/026_registration-management.md,12,2
+Admin,Gateways & Routing,Routing Analysis,/admin/tools/routing-analysis,EDITOR_FORM,"P10 — Gateway, Rate, Package & Routing Configuration Workflows",04_ADMIN_PAGES/027_routing-analysis.md,12,1
+Admin,Gateways & Routing,Network Test,/admin/tools/network-test,EDITOR_FORM,"P10 — Gateway, Rate, Package & Routing Configuration Workflows",04_ADMIN_PAGES/028_network-test.md,7,1
+Admin,Gateways & Routing,Domain Management,/admin/routing/domains,LIST_TABLE,"P10 — Gateway, Rate, Package & Routing Configuration Workflows",04_ADMIN_PAGES/029_domain-management.md,5,1
+Admin,Gateways & Routing,Prohibited Media IP,/admin/routing/prohibited-media-ips,DETAIL,"P10 — Gateway, Rate, Package & Routing Configuration Workflows",04_ADMIN_PAGES/030_prohibited-media-ip.md,6,1
+Admin,Gateways & Routing,Softswitches,/admin/softswitches,DETAIL,"P10 — Gateway, Rate, Package & Routing Configuration Workflows",04_ADMIN_PAGES/031_softswitches.md,6,1
+Admin,Phones & Terminals,Phone Directory,/admin/phones,LIST_TABLE,"P10 — Gateway, Rate, Package & Routing Configuration Workflows",04_ADMIN_PAGES/032_phone-directory.md,13,2
+Admin,Phones & Terminals,Phone Detail,/admin/phones/{phoneId},DETAIL,"P10 — Gateway, Rate, Package & Routing Configuration Workflows",04_ADMIN_PAGES/033_phone-detail.md,15,2
+Admin,Phones & Terminals,Online Phones,/admin/phones/online,LIVE_MONITOR,"P10 — Gateway, Rate, Package & Routing Configuration Workflows",04_ADMIN_PAGES/034_online-phones.md,12,1
+Admin,Live Calls & Diagnostics,Live Calls,/admin/calls/live,LIVE_MONITOR,"P09 — Realtime Calls, Gateway Presence & NOC Streaming",04_ADMIN_PAGES/035_live-calls.md,16,2
+Admin,Live Calls & Diagnostics,Live Call Detail,/admin/calls/live/{callId},DETAIL,"P09 — Realtime Calls, Gateway Presence & NOC Streaming",04_ADMIN_PAGES/036_live-call-detail.md,8,2
+Admin,Live Calls & Diagnostics,Call Analysis,/admin/diagnostics/call-analysis,DETAIL,"P06 — Admin Portal Core — Customers, CDR, Gateways, Operations",04_ADMIN_PAGES/037_call-analysis.md,8,1
+Admin,Live Calls & Diagnostics,Registration Analysis,/admin/diagnostics/registration-analysis,DETAIL,"P06 — Admin Portal Core — Customers, CDR, Gateways, Operations",04_ADMIN_PAGES/038_registration-analysis.md,6,1
+Admin,CDR & Call Analytics,Recent CDR,/admin/cdr/recent,LIST_TABLE,"P06 — Admin Portal Core — Customers, CDR, Gateways, Operations",04_ADMIN_PAGES/039_recent-cdr.md,8,1
+Admin,CDR & Call Analytics,CDR Explorer,/admin/cdr,LIST_TABLE,"P06 — Admin Portal Core — Customers, CDR, Gateways, Operations",04_ADMIN_PAGES/040_cdr-explorer.md,7,2
+Admin,CDR & Call Analytics,CDR Detail,/admin/cdr/{cdrId},DETAIL,"P06 — Admin Portal Core — Customers, CDR, Gateways, Operations",04_ADMIN_PAGES/041_cdr-detail.md,16,1
+Admin,CDR & Call Analytics,Failure Analytics,/admin/analytics/failures,ANALYTICS_REPORT,"P06 — Admin Portal Core — Customers, CDR, Gateways, Operations",04_ADMIN_PAGES/042_failure-analytics.md,7,1
+Admin,CDR & Call Analytics,Connect Analysis,/admin/analytics/connect,DETAIL,"P06 — Admin Portal Core — Customers, CDR, Gateways, Operations",04_ADMIN_PAGES/043_connect-analysis.md,5,1
+Admin,CDR & Call Analytics,Interrupt Analysis,/admin/analytics/interrupt,DETAIL,"P06 — Admin Portal Core — Customers, CDR, Gateways, Operations",04_ADMIN_PAGES/044_interrupt-analysis.md,4,1
+Admin,CDR & Call Analytics,Call Distribution,/admin/analytics/distribution,ANALYTICS_REPORT,"P06 — Admin Portal Core — Customers, CDR, Gateways, Operations",04_ADMIN_PAGES/045_call-distribution.md,7,1
+Admin,CDR & Call Analytics,Historical Performance,/admin/analytics/historical-performance,ANALYTICS_REPORT,"P06 — Admin Portal Core — Customers, CDR, Gateways, Operations",04_ADMIN_PAGES/046_historical-performance.md,4,1
+Admin,CDR & Call Analytics,Gateway Performance,/admin/analytics/gateway-performance,ANALYTICS_REPORT,"P06 — Admin Portal Core — Customers, CDR, Gateways, Operations",04_ADMIN_PAGES/047_gateway-performance.md,8,1
+Admin,"Rates, Packages & Commercial Routing",Rate Groups,/admin/rates/groups,LIST_TABLE,"P10 — Gateway, Rate, Package & Routing Configuration Workflows",04_ADMIN_PAGES/048_rate-groups.md,8,2
+Admin,"Rates, Packages & Commercial Routing",Rate Editor,/admin/rates/groups/{groupId},DETAIL,"P10 — Gateway, Rate, Package & Routing Configuration Workflows",04_ADMIN_PAGES/049_rate-editor.md,13,2
+Admin,"Rates, Packages & Commercial Routing",Rate Import Jobs,/admin/rates/imports,EDITOR_FORM,"P10 — Gateway, Rate, Package & Routing Configuration Workflows",04_ADMIN_PAGES/050_rate-import-jobs.md,10,1
+Admin,"Rates, Packages & Commercial Routing",Rate Lookup,/admin/rates/lookup,DETAIL,"P10 — Gateway, Rate, Package & Routing Configuration Workflows",04_ADMIN_PAGES/051_rate-lookup.md,8,1
+Admin,"Rates, Packages & Commercial Routing",Package Groups,/admin/packages,LIST_TABLE,"P10 — Gateway, Rate, Package & Routing Configuration Workflows",04_ADMIN_PAGES/052_package-groups.md,10,2
+Admin,"Rates, Packages & Commercial Routing",Package Period Rates,/admin/packages/{packageId}/period-rates,EDITOR_FORM,"P10 — Gateway, Rate, Package & Routing Configuration Workflows",04_ADMIN_PAGES/053_package-period-rates.md,6,1
+Admin,"Rates, Packages & Commercial Routing",Package Free Duration,/admin/packages/{packageId}/free-duration,EDITOR_FORM,"P10 — Gateway, Rate, Package & Routing Configuration Workflows",04_ADMIN_PAGES/054_package-free-duration.md,6,1
+Admin,"Rates, Packages & Commercial Routing",Margin Monitor,/admin/commercial/margins,ANALYTICS_REPORT,"P06 — Admin Portal Core — Customers, CDR, Gateways, Operations",04_ADMIN_PAGES/055_margin-monitor.md,6,1
+Admin,"Billing, Payments & Settlement",Payment Ledger,/admin/payments,LIST_TABLE,"P08 — Billing, Add-Funds, Immutable Ledger & VOS Reconciliation",04_ADMIN_PAGES/056_payment-ledger.md,8,1
+Admin,"Billing, Payments & Settlement",Manual Payment / Credit,/admin/payments/new,FINANCE_ACTION,"P08 — Billing, Add-Funds, Immutable Ledger & VOS Reconciliation",04_ADMIN_PAGES/057_manual-payment-credit.md,9,1
+Admin,"Billing, Payments & Settlement",Revenue Details,/admin/billing/revenue,DETAIL,"P08 — Billing, Add-Funds, Immutable Ledger & VOS Reconciliation",04_ADMIN_PAGES/058_revenue-details.md,8,1
+Admin,"Billing, Payments & Settlement",Gateway Bills,/admin/billing/gateway,ANALYTICS_REPORT,"P08 — Billing, Add-Funds, Immutable Ledger & VOS Reconciliation",04_ADMIN_PAGES/059_gateway-bills.md,7,1
+Admin,"Billing, Payments & Settlement",Phone Bills,/admin/billing/phone,ANALYTICS_REPORT,"P08 — Billing, Add-Funds, Immutable Ledger & VOS Reconciliation",04_ADMIN_PAGES/060_phone-bills.md,6,1
+Admin,"Billing, Payments & Settlement",Account Balance Report,/admin/billing/account-balance,ANALYTICS_REPORT,"P08 — Billing, Add-Funds, Immutable Ledger & VOS Reconciliation",04_ADMIN_PAGES/061_account-balance-report.md,7,1
+Admin,"Billing, Payments & Settlement",Clearing & Settlement,/admin/settlement,ANALYTICS_REPORT,"P08 — Billing, Add-Funds, Immutable Ledger & VOS Reconciliation",04_ADMIN_PAGES/062_clearing-settlement.md,7,1
+Admin,Reports,Report Center,/admin/reports,LIST_TABLE,"P11 — Customer API, Webhooks, Reports & Large Exports",04_ADMIN_PAGES/063_report-center.md,7,1
+Admin,Reports,Gateway Analysis Reports,/admin/reports/gateways,LIST_TABLE,"P10 — Gateway, Rate, Package & Routing Configuration Workflows",04_ADMIN_PAGES/064_gateway-analysis-reports.md,6,1
+Admin,Reports,Agent Income Report,/admin/reports/agent-income,ANALYTICS_REPORT,"P11 — Customer API, Webhooks, Reports & Large Exports",04_ADMIN_PAGES/065_agent-income-report.md,5,1
+Admin,Reports,Scheduled Reports,/admin/reports/schedules,LIST_TABLE,"P11 — Customer API, Webhooks, Reports & Large Exports",04_ADMIN_PAGES/066_scheduled-reports.md,9,2
+Admin,Number Management,Number Sections,/admin/numbers/sections,DETAIL,"P10 — Gateway, Rate, Package & Routing Configuration Workflows",04_ADMIN_PAGES/067_number-sections.md,4,1
+Admin,Number Management,Area Information,/admin/numbers/areas,DETAIL,"P10 — Gateway, Rate, Package & Routing Configuration Workflows",04_ADMIN_PAGES/068_area-information.md,5,1
+Admin,Number Management,Number Transform,/admin/numbers/transforms,DETAIL,"P10 — Gateway, Rate, Package & Routing Configuration Workflows",04_ADMIN_PAGES/069_number-transform.md,8,1
+Admin,Number Management,Black / White List Groups,/admin/numbers/lists,LIST_TABLE,"P10 — Gateway, Rate, Package & Routing Configuration Workflows",04_ADMIN_PAGES/070_black-white-list-groups.md,6,1
+Admin,Number Management,System White List,/admin/numbers/system-whitelist,LIST_TABLE,"P10 — Gateway, Rate, Package & Routing Configuration Workflows",04_ADMIN_PAGES/071_system-white-list.md,4,1
+Admin,Number Management,Dynamic Black List,/admin/numbers/dynamic-blacklist,LIST_TABLE,"P10 — Gateway, Rate, Package & Routing Configuration Workflows",04_ADMIN_PAGES/072_dynamic-black-list.md,7,1
+Admin,"Admin Users, Roles & Audit",Admin Users,/admin/security/users,LIST_TABLE,"P02 — Identity, RBAC, Tenant Isolation & Audit Foundation",04_ADMIN_PAGES/073_admin-users.md,10,2
+Admin,"Admin Users, Roles & Audit",Roles & Permissions,/admin/security/roles,SETTINGS,"P02 — Identity, RBAC, Tenant Isolation & Audit Foundation",04_ADMIN_PAGES/074_roles-permissions.md,7,2
+Admin,"Admin Users, Roles & Audit",Online Admin Users,/admin/security/online-users,LIST_TABLE,"P06 — Admin Portal Core — Customers, CDR, Gateways, Operations",04_ADMIN_PAGES/075_online-admin-users.md,6,1
+Admin,"Admin Users, Roles & Audit",Portal Audit Log,/admin/audit,LIST_TABLE,"P02 — Identity, RBAC, Tenant Isolation & Audit Foundation",04_ADMIN_PAGES/076_portal-audit-log.md,12,1
+Admin,"Admin Users, Roles & Audit",VOS System Log,/admin/system/vos-log,LIST_TABLE,"P12 — Observability, Security Hardening, Backup & High Availability",04_ADMIN_PAGES/077_vos-system-log.md,7,1
+Admin,System & Maintenance,System Parameters,/admin/system/parameters,SETTINGS,"P12 — Observability, Security Hardening, Backup & High Availability",04_ADMIN_PAGES/078_system-parameters.md,9,2
+Admin,System & Maintenance,System Information,/admin/system/info,DETAIL,"P12 — Observability, Security Hardening, Backup & High Availability",04_ADMIN_PAGES/079_system-information.md,6,1
+Admin,System & Maintenance,Data Maintenance,/admin/system/data-maintenance,DETAIL,"P12 — Observability, Security Hardening, Backup & High Availability",04_ADMIN_PAGES/080_data-maintenance.md,7,1
+Admin,System & Maintenance,Performance Monitor,/admin/system/performance,ANALYTICS_REPORT,"P12 — Observability, Security Hardening, Backup & High Availability",04_ADMIN_PAGES/081_performance-monitor.md,5,1
+Admin,System & Maintenance,Process Monitor,/admin/system/processes,ANALYTICS_REPORT,"P12 — Observability, Security Hardening, Backup & High Availability",04_ADMIN_PAGES/082_process-monitor.md,6,1
+Admin,System & Maintenance,Server Monitor,/admin/system/servers,ANALYTICS_REPORT,"P12 — Observability, Security Hardening, Backup & High Availability",04_ADMIN_PAGES/083_server-monitor.md,6,1
+Admin,System & Maintenance,Disaster Recovery,/admin/system/disaster-recovery,DETAIL,"P12 — Observability, Security Hardening, Backup & High Availability",04_ADMIN_PAGES/084_disaster-recovery.md,7,1
+Admin,System & Maintenance,Work Calendar,/admin/system/work-calendar,SETTINGS,"P12 — Observability, Security Hardening, Backup & High Availability",04_ADMIN_PAGES/085_work-calendar.md,5,1
+Admin,"API, Integrations & Automation",Portal API Clients,/admin/integrations/api-clients,LIST_TABLE,"P11 — Customer API, Webhooks, Reports & Large Exports",04_ADMIN_PAGES/086_portal-api-clients.md,10,2
+Admin,"API, Integrations & Automation",Webhook Endpoints,/admin/integrations/webhooks,LIST_TABLE,"P11 — Customer API, Webhooks, Reports & Large Exports",04_ADMIN_PAGES/087_webhook-endpoints.md,9,2
+Admin,"API, Integrations & Automation",Webhook Delivery Log,/admin/integrations/webhook-deliveries,LIST_TABLE,"P11 — Customer API, Webhooks, Reports & Large Exports",04_ADMIN_PAGES/088_webhook-delivery-log.md,10,1
+Admin,"API, Integrations & Automation",VOS Web Access Control,/admin/integrations/vos-access,DETAIL,"P12 — Observability, Security Hardening, Backup & High Availability",04_ADMIN_PAGES/089_vos-web-access-control.md,6,1
+Admin,"API, Integrations & Automation",VOS Web Service Equipment,/admin/integrations/vos-equipment,DETAIL,"P12 — Observability, Security Hardening, Backup & High Availability",04_ADMIN_PAGES/090_vos-web-service-equipment.md,7,1
+Admin,"API, Integrations & Automation",Integration Health,/admin/integrations/health,LIVE_MONITOR,"P12 — Observability, Security Hardening, Backup & High Availability",04_ADMIN_PAGES/091_integration-health.md,7,1
+Admin,Portal Operations,Support Tickets,/admin/support/tickets,LIST_TABLE,"P06 — Admin Portal Core — Customers, CDR, Gateways, Operations",04_ADMIN_PAGES/092_support-tickets.md,6,1
+Admin,Portal Operations,Notification Policies,/admin/notifications/policies,DETAIL,"P06 — Admin Portal Core — Customers, CDR, Gateways, Operations",04_ADMIN_PAGES/093_notification-policies.md,11,1
+Admin,Portal Operations,Notification Log,/admin/notifications/log,LIST_TABLE,"P06 — Admin Portal Core — Customers, CDR, Gateways, Operations",04_ADMIN_PAGES/094_notification-log.md,8,1
+Admin,Portal Operations,Payment Providers,/admin/settings/payments,DETAIL,"P08 — Billing, Add-Funds, Immutable Ledger & VOS Reconciliation",04_ADMIN_PAGES/095_payment-providers.md,7,2
+Admin,Portal Operations,Portal Branding,/admin/settings/branding,SETTINGS,"P12 — Observability, Security Hardening, Backup & High Availability",04_ADMIN_PAGES/096_portal-branding.md,8,1
+Admin,Portal Operations,Feature Flags,/admin/settings/features,SETTINGS,"P12 — Observability, Security Hardening, Backup & High Availability",04_ADMIN_PAGES/097_feature-flags.md,5,1
+Client,Access & Account Security,Client Login,/app/login,AUTH,"P02 — Identity, RBAC, Tenant Isolation & Audit Foundation",05_CLIENT_PAGES/001_client-login.md,5,1
+Client,Access & Account Security,MFA Setup & Verify,/app/settings/security/mfa,AUTH,"P02 — Identity, RBAC, Tenant Isolation & Audit Foundation",05_CLIENT_PAGES/002_mfa-setup-verify.md,6,1
+Client,Access & Account Security,Sessions & Devices,/app/settings/security/sessions,DETAIL,"P02 — Identity, RBAC, Tenant Isolation & Audit Foundation",05_CLIENT_PAGES/003_sessions-devices.md,5,2
+Client,Access & Account Security,Profile & Organization,/app/settings/profile,DETAIL,"P12 — Observability, Security Hardening, Backup & High Availability",05_CLIENT_PAGES/004_profile-organization.md,7,2
+Client,Home & Overview,Client Dashboard,/app,DASHBOARD,"P07 — Customer Self-Service Core — Dashboard, CDR, Gateways & Rates",05_CLIENT_PAGES/005_client-dashboard.md,15,2
+Client,Home & Overview,Service Status,/app/status,DETAIL,"P09 — Realtime Calls, Gateway Presence & NOC Streaming",05_CLIENT_PAGES/006_service-status.md,9,1
+Client,"Balance, Funds & Payments",Balance & Wallet,/app/billing/balance,DETAIL,"P08 — Billing, Add-Funds, Immutable Ledger & VOS Reconciliation",05_CLIENT_PAGES/007_balance-wallet.md,8,1
+Client,"Balance, Funds & Payments",Add Funds,/app/billing/add-funds,FINANCE_ACTION,"P08 — Billing, Add-Funds, Immutable Ledger & VOS Reconciliation",05_CLIENT_PAGES/008_add-funds.md,9,2
+Client,"Balance, Funds & Payments",Payment History,/app/billing/payments,LIST_TABLE,"P08 — Billing, Add-Funds, Immutable Ledger & VOS Reconciliation",05_CLIENT_PAGES/009_payment-history.md,10,1
+Client,"Balance, Funds & Payments",Payment Detail / Receipt,/app/billing/payments/{paymentId},DETAIL,"P08 — Billing, Add-Funds, Immutable Ledger & VOS Reconciliation",05_CLIENT_PAGES/010_payment-detail-receipt.md,10,1
+Client,"Balance, Funds & Payments",Statements & Billing Summary,/app/billing/statements,ANALYTICS_REPORT,"P08 — Billing, Add-Funds, Immutable Ledger & VOS Reconciliation",05_CLIENT_PAGES/011_statements-billing-summary.md,8,1
+Client,CDR & Call History,CDR Explorer,/app/cdr,LIST_TABLE,"P05 — ClickHouse CDR Store, Rollups, Query APIs & Analytics",05_CLIENT_PAGES/012_cdr-explorer.md,7,2
+Client,CDR & Call History,CDR Detail,/app/cdr/{cdrId},DETAIL,"P05 — ClickHouse CDR Store, Rollups, Query APIs & Analytics",05_CLIENT_PAGES/013_cdr-detail.md,12,1
+Client,CDR & Call History,Recent Calls,/app/cdr/recent,DETAIL,"P05 — ClickHouse CDR Store, Rollups, Query APIs & Analytics",05_CLIENT_PAGES/014_recent-calls.md,8,1
+Client,CDR & Call History,CDR Export Jobs,/app/cdr/exports,LIST_TABLE,"P05 — ClickHouse CDR Store, Rollups, Query APIs & Analytics",05_CLIENT_PAGES/015_cdr-export-jobs.md,7,1
+Client,Live Calls & Traffic,Live Calls,/app/calls/live,LIVE_MONITOR,"P09 — Realtime Calls, Gateway Presence & NOC Streaming",05_CLIENT_PAGES/016_live-calls.md,11,2
+Client,Live Calls & Traffic,Traffic Analytics,/app/analytics/traffic,ANALYTICS_REPORT,"P05 — ClickHouse CDR Store, Rollups, Query APIs & Analytics",05_CLIENT_PAGES/017_traffic-analytics.md,13,1
+Client,Live Calls & Traffic,Failure Analytics,/app/analytics/failures,ANALYTICS_REPORT,"P05 — ClickHouse CDR Store, Rollups, Query APIs & Analytics",05_CLIENT_PAGES/018_failure-analytics.md,7,1
+Client,Live Calls & Traffic,Destination Analytics,/app/analytics/destinations,ANALYTICS_REPORT,"P05 — ClickHouse CDR Store, Rollups, Query APIs & Analytics",05_CLIENT_PAGES/019_destination-analytics.md,9,1
+Client,Gateways & SIP,My Gateways,/app/gateways,LIST_TABLE,"P07 — Customer Self-Service Core — Dashboard, CDR, Gateways & Rates",05_CLIENT_PAGES/020_my-gateways.md,11,1
+Client,Gateways & SIP,Gateway Detail,/app/gateways/{gatewayId},DETAIL,"P07 — Customer Self-Service Core — Dashboard, CDR, Gateways & Rates",05_CLIENT_PAGES/021_gateway-detail.md,15,1
+Client,Gateways & SIP,Gateway IP Management,/app/gateways/{gatewayId}/ips,EDITOR_FORM,"P10 — Gateway, Rate, Package & Routing Configuration Workflows",05_CLIENT_PAGES/022_gateway-ip-management.md,8,2
+Client,Gateways & SIP,SIP Credentials,/app/gateways/{gatewayId}/credentials,EDITOR_FORM,"P10 — Gateway, Rate, Package & Routing Configuration Workflows",05_CLIENT_PAGES/023_sip-credentials.md,8,2
+Client,Gateways & SIP,Gateway Network Quality,/app/gateways/{gatewayId}/network,DETAIL,"P07 — Customer Self-Service Core — Dashboard, CDR, Gateways & Rates",05_CLIENT_PAGES/024_gateway-network-quality.md,7,1
+Client,Gateways & SIP,Gateway Call Statistics,/app/gateways/{gatewayId}/statistics,DETAIL,"P07 — Customer Self-Service Core — Dashboard, CDR, Gateways & Rates",05_CLIENT_PAGES/025_gateway-call-statistics.md,9,1
+Client,Rates & Pricing,My Rate Sheet,/app/rates,DETAIL,"P07 — Customer Self-Service Core — Dashboard, CDR, Gateways & Rates",05_CLIENT_PAGES/026_my-rate-sheet.md,9,1
+Client,Rates & Pricing,Rate Lookup,/app/rates/lookup,DETAIL,"P07 — Customer Self-Service Core — Dashboard, CDR, Gateways & Rates",05_CLIENT_PAGES/027_rate-lookup.md,9,1
+Client,Rates & Pricing,Rate Change History,/app/rates/history,LIST_TABLE,"P10 — Gateway, Rate, Package & Routing Configuration Workflows",05_CLIENT_PAGES/028_rate-change-history.md,7,1
+Client,Reports & Downloads,Reports Home,/app/reports,LIST_TABLE,"P11 — Customer API, Webhooks, Reports & Large Exports",05_CLIENT_PAGES/029_reports-home.md,7,1
+Client,Reports & Downloads,Usage Report,/app/reports/usage,ANALYTICS_REPORT,"P11 — Customer API, Webhooks, Reports & Large Exports",05_CLIENT_PAGES/030_usage-report.md,8,1
+Client,Reports & Downloads,Gateway Report,/app/reports/gateways,ANALYTICS_REPORT,"P07 — Customer Self-Service Core — Dashboard, CDR, Gateways & Rates",05_CLIENT_PAGES/031_gateway-report.md,9,1
+Client,Reports & Downloads,Scheduled Reports,/app/reports/schedules,LIST_TABLE,"P11 — Customer API, Webhooks, Reports & Large Exports",05_CLIENT_PAGES/032_scheduled-reports.md,8,2
+Client,Reports & Downloads,Downloads,/app/downloads,LIST_TABLE,"P11 — Customer API, Webhooks, Reports & Large Exports",05_CLIENT_PAGES/033_downloads.md,7,1
+Client,Notifications,Notification Center,/app/notifications,LIST_TABLE,"P11 — Customer API, Webhooks, Reports & Large Exports",05_CLIENT_PAGES/034_notification-center.md,10,1
+Client,Notifications,Alert Preferences,/app/settings/notifications,SETTINGS,"P11 — Customer API, Webhooks, Reports & Large Exports",05_CLIENT_PAGES/035_alert-preferences.md,7,2
+Client,Developer API & Webhooks,API Overview,/app/developers,DASHBOARD,"P11 — Customer API, Webhooks, Reports & Large Exports",05_CLIENT_PAGES/036_api-overview.md,7,1
+Client,Developer API & Webhooks,API Keys,/app/developers/api-keys,DETAIL,"P11 — Customer API, Webhooks, Reports & Large Exports",05_CLIENT_PAGES/037_api-keys.md,9,2
+Client,Developer API & Webhooks,API Request Logs,/app/developers/logs,LIST_TABLE,"P11 — Customer API, Webhooks, Reports & Large Exports",05_CLIENT_PAGES/038_api-request-logs.md,9,1
+Client,Developer API & Webhooks,Webhook Endpoints,/app/developers/webhooks,LIST_TABLE,"P11 — Customer API, Webhooks, Reports & Large Exports",05_CLIENT_PAGES/039_webhook-endpoints.md,5,2
+Client,Developer API & Webhooks,Webhook Delivery Log,/app/developers/webhook-deliveries,LIST_TABLE,"P11 — Customer API, Webhooks, Reports & Large Exports",05_CLIENT_PAGES/040_webhook-delivery-log.md,8,1
+Client,Team & Permissions,Team Members,/app/team,DETAIL,"P02 — Identity, RBAC, Tenant Isolation & Audit Foundation",05_CLIENT_PAGES/041_team-members.md,8,2
+Client,Team & Permissions,Client Roles,/app/team/roles,DETAIL,"P02 — Identity, RBAC, Tenant Isolation & Audit Foundation",05_CLIENT_PAGES/042_client-roles.md,3,1
+Client,Support,Support Tickets,/app/support,LIST_TABLE,"P11 — Customer API, Webhooks, Reports & Large Exports",05_CLIENT_PAGES/043_support-tickets.md,6,1
+Client,Support,New Support Ticket,/app/support/new,EDITOR_FORM,"P11 — Customer API, Webhooks, Reports & Large Exports",05_CLIENT_PAGES/044_new-support-ticket.md,8,1
+Client,Support,Ticket Detail,/app/support/{ticketId},DETAIL,"P11 — Customer API, Webhooks, Reports & Large Exports",05_CLIENT_PAGES/045_ticket-detail.md,7,2

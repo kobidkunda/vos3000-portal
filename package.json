@@ -1,0 +1,25 @@
+{
+  "name": "vos3000-portal",
+  "private": true,
+  "version": "1.0.0",
+  "workspaces": [
+    "apps/*",
+    "packages/*"
+  ],
+  "scripts": {
+    "dev": "./dev.sh",
+    "dev:raw": "npm run predev && (npm run dev -w @vos/api & npm run dev -w @vos/web)",
+    "dev:all": "./dev.sh",
+    "dev:web": "npm run predev && npm run dev -w @vos/web",
+    "build": "npm run build -w @vos/shared && npm run build -w @vos/adapter && npm run build -w @vos/api && npm run build -w @vos/worker && npm run build -w @vos/web",
+    "start": "npm run start -w @vos/api",
+    "validate": "python3 scripts/validate_application.py",
+    "test": "npm run test -w @vos/api && npm run test -w @vos/shared",
+    "predev": "npm run build -w @vos/shared && npm run build -w @vos/adapter",
+    "migrate:postgres": "node scripts/migrate-postgres.mjs"
+  },
+  "engines": {
+    "node": ">=22.0.0"
+  },
+  "packageManager": "npm@10.9.2"
+}

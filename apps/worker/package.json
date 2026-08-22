@@ -1,0 +1,22 @@
+{
+  "name": "@vos/worker",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "node --watch --import tsx src/index.ts",
+    "build": "tsc -p tsconfig.json",
+    "start": "node dist/index.js"
+  },
+  "dependencies": {
+    "@clickhouse/client": "1.23.1",
+    "kafkajs": "2.2.4",
+    "pg": "8.23.0"
+  },
+  "devDependencies": {
+    "typescript": "7.0.2",
+    "tsx": "^4.20.0",
+    "@types/node": "^24.0.0",
+    "@types/pg": "^8.15.0"
+  }
+}

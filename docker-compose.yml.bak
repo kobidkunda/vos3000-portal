@@ -1,0 +1,89 @@
+services:
+  postgres:
+    image: postgres:18-alpine
+    environment:
+      POSTGRES_USER: vos
+      POSTGRES_PASSWORD: vos
+      POSTGRES_DB: vos_portal
+    ports: ["5432:5432"] # development convenience; do not publish database ports in production
+    volumes:
+      - pgdata:/var/lib/postgresql
+      - ./infra/postgres/init.sql:/docker-entrypoint-initdb.d/001-init.sql:ro
+    healthcheck: {test: ["CMD-SHELL", "pg_isready -U vos -d vos_portal"], interval: 5s, timeout: 3s, retries: 20}
+
+  clickhouse:
+    image: clickhouse/clickhouse-server:26.3.17.110
+    ports: ["8123:8123", "9000:9000"] # development convenience
+    volumes:
+      - chdata:/var/lib/clickhouse
+      - ./infra/clickhouse/init.sql:/docker-entrypoint-initdb.d/001-init.sql:ro
+    healthcheck: {test: ["CMD", "wget", "-qO-", "http://localhost:8123/ping"], interval: 5s, timeout: 3s, retries: 20}
+
+  redis:
+    image: redis:8.10-alpine
+    ports: ["6379:6379"] # development convenience
+    command: ["redis-server","--appendonly","yes"]
+    volumes: ["redisdata:/data"]
+    healthcheck: {test: ["CMD", "redis-cli", "ping"], interval: 5s, timeout: 3s, retries: 20}
+
+  redpanda:
+    image: redpandadata/redpanda:v26.1.7
+    command: ["redpanda","start","--overprovisioned","--smp","1","--memory","1G","--reserve-memory","0M","--node-id","0","--check=false","--kafka-addr","PLAINTEXT://0.0.0.0:9092","--advertise-kafka-addr","PLAINTEXT://redpanda:9092"]
+    ports: ["9092:9092", "9644:9644"] # development convenience
+    volumes: ["redpandadata:/var/lib/redpanda/data"]
+    healthcheck: {test: ["CMD-SHELL", "rpk cluster health >/dev/null 2>&1"], interval: 5s, timeout: 5s, retries: 30}
+
+  init-redpanda:
+    image: redpandadata/redpanda:v26.1.7
+    depends_on: {redpanda: {condition: service_healthy}}
+    entrypoint: ["/bin/bash","/scripts/create-topics.sh"]
+    volumes: ["./infra/redpanda/create-topics.sh:/scripts/create-topics.sh:ro"]
+
+  migrate-postgres:
+    build: {context: ., dockerfile: apps/api/Dockerfile}
+    env_file: .env
+    command: ["node","scripts/migrate-postgres.mjs"]
+    depends_on: {postgres: {condition: service_healthy}}
+
+  api:
+    build: {context: ., dockerfile: apps/api/Dockerfile}
+    env_file: .env
+    environment: {PORT: 4000, TRUST_PROXY: "true"}
+    ports: ["4000:4000"] # development convenience; production should expose only nginx
+    depends_on:
+      migrate-postgres: {condition: service_completed_successfully}
+      clickhouse: {condition: service_healthy}
+      redis: {condition: service_healthy}
+      init-redpanda: {condition: service_completed_successfully}
+    volumes:
+      - ./config:/app/config:ro
+      - exports:/app/exports
+
+  worker:
+    build: {context: ., dockerfile: apps/worker/Dockerfile}
+    env_file: .env
+    depends_on:
+      migrate-postgres: {condition: service_completed_successfully}
+      clickhouse: {condition: service_healthy}
+      redis: {condition: service_healthy}
+      init-redpanda: {condition: service_completed_successfully}
+    volumes:
+      - exports:/app/exports
+
+  web:
+    build: {context: ., dockerfile: apps/web/Dockerfile}
+    ports: ["3000:3000"] # development convenience
+    depends_on: {api: {condition: service_started}}
+
+  gateway:
+    image: nginx:1.29-alpine
+    ports: ["8080:80"]
+    volumes: ["./infra/nginx/nginx.conf:/etc/nginx/nginx.conf:ro"]
+    depends_on: [web, api]
+
+volumes:
+  pgdata: {}
+  chdata: {}
+  redisdata: {}
+  redpandadata: {}
+  exports: {}

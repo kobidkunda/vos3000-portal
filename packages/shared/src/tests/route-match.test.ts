@@ -1,0 +1,12 @@
+import test from "node:test";
+import assert from "node:assert/strict";
+import { findPortalRoute, portalRoutes } from "../index.js";
+test("contains all 140 routes",()=>assert.equal(portalRoutes.length,140));
+test("matches dynamic customer route",()=>assert.equal(findPortalRoute("/admin/customers/cus_123")?.name,"Customer Overview"));
+test("matches client gateway",()=>assert.equal(findPortalRoute("/app/gateways/gw_1")?.name,"Gateway Detail"));
+test("confirms /app/status is removed",()=>assert.equal(findPortalRoute("/app/status"), undefined));
+test("confirms /app/settings/security/sessions is removed",()=>assert.equal(findPortalRoute("/app/settings/security/sessions"), undefined));
+test("exact static route /app/cdr/recent has priority over /app/cdr/{cdrId}",()=>assert.equal(findPortalRoute("/app/cdr/recent")?.name,"Recent Calls"));
+test("exact static route /app/cdr/exports has priority over /app/cdr/{cdrId}",()=>assert.equal(findPortalRoute("/app/cdr/exports")?.name,"CDR Export Jobs"));
+test("parameterized route /app/cdr/CDR-20260820-00100488 resolves to CDR Detail",()=>assert.equal(findPortalRoute("/app/cdr/CDR-20260820-00100488")?.name,"CDR Detail"));
+test("exact static route /admin/customers/new has priority over /admin/customers/{customerId}",()=>assert.equal(findPortalRoute("/admin/customers/new")?.name,"Create Customer Wizard"));

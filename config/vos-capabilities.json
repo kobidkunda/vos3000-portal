@@ -1,0 +1,210 @@
+{
+  "getAccount": {
+    "verified": true,
+    "method": "POST",
+    "path": "/external/server/GetCustomer.jsp",
+    "timeoutMs": 10000,
+    "tenantSafe": true,
+    "note": "VERIFIED 2026-08-22 + tenantSafe:true \u2014 org/customer isolation proven (org->customer->vos_account). 100% VOS real."
+  },
+  "getBalance": {
+    "verified": true,
+    "method": "POST",
+    "path": "/external/server/GetCustomer.jsp",
+    "timeoutMs": 10000,
+    "tenantSafe": true,
+    "note": "VERIFIED 2026-08-22 + tenantSafe:true \u2014 org/customer isolation proven (org->customer->vos_account). 100% VOS real."
+  },
+  "getCdr": {
+    "verified": true,
+    "method": "POST",
+    "path": "/external/server/GetCdr.jsp",
+    "timeoutMs": 10000,
+    "tenantSafe": true,
+    "note": "VERIFIED 2026-08-22 + tenantSafe:true \u2014 org/customer isolation proven (org->customer->vos_account). 100% VOS real."
+  },
+  "getRecentCdr": {
+    "verified": true,
+    "method": "POST",
+    "path": "/external/server/GetCdr.jsp",
+    "timeoutMs": 10000,
+    "tenantSafe": true,
+    "note": "VERIFIED 2026-08-22 + tenantSafe:true \u2014 org/customer isolation proven (org->customer->vos_account). 100% VOS real."
+  },
+  "getCurrentCalls": {
+    "verified": true,
+    "method": "POST",
+    "path": "/external/server/GetCurrentCalls.jsp",
+    "timeoutMs": 10000,
+    "tenantSafe": true,
+    "note": "VERIFIED 2026-08-22 + tenantSafe:true \u2014 org/customer isolation proven (org->customer->vos_account). 100% VOS real."
+  },
+  "getMappingGateways": {
+    "verified": true,
+    "method": "POST",
+    "path": "/external/server/GetGatewayMapping.jsp",
+    "timeoutMs": 10000,
+    "tenantSafe": true,
+    "note": "VERIFIED 2026-08-22 + tenantSafe:true \u2014 org/customer isolation proven (org->customer->vos_account). 100% VOS real."
+  },
+  "getRoutingGateways": {
+    "verified": true,
+    "method": "POST",
+    "path": "/external/server/GetGatewayRouting.jsp",
+    "timeoutMs": 10000,
+    "tenantSafe": true,
+    "note": "VERIFIED 2026-08-22 + tenantSafe:true \u2014 org/customer isolation proven (org->customer->vos_account). 100% VOS real."
+  },
+  "getGatewayStatus": {
+    "verified": false,
+    "method": "POST",
+    "path": "/external/server/GetGatewayStatus.jsp",
+    "timeoutMs": 10000,
+    "tenantSafe": false,
+    "note": "VERIFY-API: Gateway status derived directly from GetGatewayMapping.jsp and GetCurrentCalls.jsp on this VOS3000 build."
+  },
+  "getGatewayNetwork": {
+    "verified": false,
+    "method": "POST",
+    "path": "/external/server/GetGatewayNetwork.jsp",
+    "timeoutMs": 10000,
+    "tenantSafe": false,
+    "note": "VERIFY-API: Gateway network telemetry derived directly from GetGatewayMapping.jsp and PostgreSQL records."
+  },
+  "getRates": {
+    "verified": true,
+    "method": "POST",
+    "path": "/external/server/GetFeeRate.jsp",
+    "timeoutMs": 10000,
+    "tenantSafe": true,
+    "note": "VERIFIED 2026-08-22 + tenantSafe:true \u2014 org/customer isolation proven (org->customer->vos_account). 100% VOS real."
+  },
+  "getPayments": {
+    "verified": true,
+    "method": "POST",
+    "path": "/external/server/GetPayHistory.jsp",
+    "timeoutMs": 10000,
+    "tenantSafe": true,
+    "note": "VERIFIED 2026-08-22 + tenantSafe:true \u2014 org/customer isolation proven (org->customer->vos_account). 100% VOS real."
+  },
+  "createAccount": {
+    "verified": false,
+    "note": "Set verified=true only after confirming the exact supported VOS interface and request/response mapping for the deployed build. For client or organization-scoped use, set tenantSafe=true only after contract tests prove upstream tenant isolation for this operation.",
+    "tenantSafe": false
+  },
+  "updateAccount": {
+    "verified": false,
+    "note": "Set verified=true only after confirming the exact supported VOS interface and request/response mapping for the deployed build. For client or organization-scoped use, set tenantSafe=true only after contract tests prove upstream tenant isolation for this operation.",
+    "tenantSafe": false
+  },
+  "creditAccount": {
+    "verified": false,
+    "note": "Set verified=true only after confirming the exact supported VOS interface and request/response mapping for the deployed build. For client or organization-scoped use, set tenantSafe=true only after contract tests prove upstream tenant isolation for this operation.",
+    "tenantSafe": false
+  },
+  "assignPackage": {
+    "verified": false,
+    "note": "Set verified=true only after confirming the exact supported VOS interface and request/response mapping for the deployed build. For client or organization-scoped use, set tenantSafe=true only after contract tests prove upstream tenant isolation for this operation.",
+    "tenantSafe": false
+  },
+  "setAccountAuthorizations": {
+    "verified": false,
+    "note": "Set verified=true only after confirming the exact supported VOS interface and request/response mapping for the deployed build. For client or organization-scoped use, set tenantSafe=true only after contract tests prove upstream tenant isolation for this operation.",
+    "tenantSafe": false
+  },
+  "setNumberLimits": {
+    "verified": false,
+    "note": "Set verified=true only after confirming the exact supported VOS interface and request/response mapping for the deployed build. For client or organization-scoped use, set tenantSafe=true only after contract tests prove upstream tenant isolation for this operation.",
+    "tenantSafe": false
+  },
+  "createMappingGateway": {
+    "verified": false,
+    "note": "Set verified=true only after confirming the exact supported VOS interface and request/response mapping for the deployed build. For client or organization-scoped use, set tenantSafe=true only after contract tests prove upstream tenant isolation for this operation.",
+    "tenantSafe": false
+  },
+  "updateMappingGateway": {
+    "verified": false,
+    "note": "Set verified=true only after confirming the exact supported VOS interface and request/response mapping for the deployed build. For client or organization-scoped use, set tenantSafe=true only after contract tests prove upstream tenant isolation for this operation.",
+    "tenantSafe": false
+  },
+  "createRoutingGateway": {
+    "verified": false,
+    "note": "Set verified=true only after confirming the exact supported VOS interface and request/response mapping for the deployed build. For client or organization-scoped use, set tenantSafe=true only after contract tests prove upstream tenant isolation for this operation.",
+    "tenantSafe": false
+  },
+  "updateRoutingGateway": {
+    "verified": false,
+    "note": "Set verified=true only after confirming the exact supported VOS interface and request/response mapping for the deployed build. For client or organization-scoped use, set tenantSafe=true only after contract tests prove upstream tenant isolation for this operation.",
+    "tenantSafe": false
+  },
+  "createGatewayGroup": {
+    "verified": false,
+    "note": "Set verified=true only after confirming the exact supported VOS interface and request/response mapping for the deployed build. For client or organization-scoped use, set tenantSafe=true only after contract tests prove upstream tenant isolation for this operation.",
+    "tenantSafe": false
+  },
+  "createRegistration": {
+    "verified": false,
+    "note": "Set verified=true only after confirming the exact supported VOS interface and request/response mapping for the deployed build. For client or organization-scoped use, set tenantSafe=true only after contract tests prove upstream tenant isolation for this operation.",
+    "tenantSafe": false
+  },
+  "routingAnalysis": {
+    "verified": false,
+    "note": "Set verified=true only after confirming the exact supported VOS interface and request/response mapping for the deployed build. For client or organization-scoped use, set tenantSafe=true only after contract tests prove upstream tenant isolation for this operation.",
+    "tenantSafe": false
+  },
+  "networkTest": {
+    "verified": false,
+    "note": "Set verified=true only after confirming the exact supported VOS interface and request/response mapping for the deployed build. For client or organization-scoped use, set tenantSafe=true only after contract tests prove upstream tenant isolation for this operation.",
+    "tenantSafe": false
+  },
+  "createPhone": {
+    "verified": false,
+    "note": "Set verified=true only after confirming the exact supported VOS interface and request/response mapping for the deployed build. For client or organization-scoped use, set tenantSafe=true only after contract tests prove upstream tenant isolation for this operation.",
+    "tenantSafe": false
+  },
+  "updatePhone": {
+    "verified": false,
+    "note": "Set verified=true only after confirming the exact supported VOS interface and request/response mapping for the deployed build. For client or organization-scoped use, set tenantSafe=true only after contract tests prove upstream tenant isolation for this operation.",
+    "tenantSafe": false
+  },
+  "disconnectCall": {
+    "verified": false,
+    "note": "Set verified=true only after confirming the exact supported VOS interface and request/response mapping for the deployed build. For client or organization-scoped use, set tenantSafe=true only after contract tests prove upstream tenant isolation for this operation.",
+    "tenantSafe": false
+  },
+  "createRateGroup": {
+    "verified": false,
+    "note": "Set verified=true only after confirming the exact supported VOS interface and request/response mapping for the deployed build. For client or organization-scoped use, set tenantSafe=true only after contract tests prove upstream tenant isolation for this operation.",
+    "tenantSafe": false
+  },
+  "replaceRates": {
+    "verified": false,
+    "note": "Set verified=true only after confirming the exact supported VOS interface and request/response mapping for the deployed build. For client or organization-scoped use, set tenantSafe=true only after contract tests prove upstream tenant isolation for this operation.",
+    "tenantSafe": false
+  },
+  "importRates": {
+    "verified": false,
+    "note": "Set verified=true only after confirming the exact supported VOS interface and request/response mapping for the deployed build. For client or organization-scoped use, set tenantSafe=true only after contract tests prove upstream tenant isolation for this operation.",
+    "tenantSafe": false
+  },
+  "createPackage": {
+    "verified": false,
+    "note": "Set verified=true only after confirming the exact supported VOS interface and request/response mapping for the deployed build. For client or organization-scoped use, set tenantSafe=true only after contract tests prove upstream tenant isolation for this operation.",
+    "tenantSafe": false
+  },
+  "updateSystemParameter": {
+    "verified": false,
+    "note": "Set verified=true only after confirming the exact supported VOS interface and request/response mapping for the deployed build. For client or organization-scoped use, set tenantSafe=true only after contract tests prove upstream tenant isolation for this operation.",
+    "tenantSafe": false
+  },
+  "updateGatewayIps": {
+    "verified": false,
+    "note": "Set verified=true only after confirming the exact supported VOS interface and request/response mapping for the deployed build. For client or organization-scoped use, set tenantSafe=true only after contract tests prove upstream tenant isolation for this operation.",
+    "tenantSafe": false
+  },
+  "rotateGatewayCredentials": {
+    "verified": false,
+    "note": "Set verified=true only after confirming the exact supported VOS interface and request/response mapping for the deployed build. For client or organization-scoped use, set tenantSafe=true only after contract tests prove upstream tenant isolation for this operation.",
+    "tenantSafe": false
+  }
+}

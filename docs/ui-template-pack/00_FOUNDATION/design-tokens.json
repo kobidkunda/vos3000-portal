@@ -1,0 +1,52 @@
+{
+  "colors": {
+    "primary": "#2563EB",
+    "primaryHover": "#1D4ED8",
+    "primarySoft": "#DBEAFE",
+    "realtime": "#06B6D4",
+    "realtimeDeep": "#0891B2",
+    "background": "#F8FAFC",
+    "surface": "#FFFFFF",
+    "surfaceSubtle": "#F1F5F9",
+    "border": "#E2E8F0",
+    "borderStrong": "#CBD5E1",
+    "textPrimary": "#0F172A",
+    "textSecondary": "#475569",
+    "textMuted": "#64748B",
+    "textDisabled": "#94A3B8",
+    "darkBackground": "#080D17",
+    "darkSidebar": "#0B1220",
+    "darkSurface": "#111827",
+    "darkElevated": "#172033",
+    "success": "#16A34A",
+    "warning": "#D97706",
+    "danger": "#DC2626",
+    "pending": "#7C3AED",
+    "disabled": "#64748B"
+  },
+  "typography": {
+    "ui": "Inter",
+    "technical": "IBM Plex Mono",
+    "body": 14,
+    "table": 13,
+    "label": 13,
+    "helper": 12
+  },
+  "spacing": [
+    4,
+    8,
+    12,
+    16,
+    24,
+    32,
+    48,
+    64
+  ],
+  "radius": {
+    "input": 6,
+    "card": 8,
+    "modal": 12,
+    "button": 8,
+    "pill": 9999
+  }
+}

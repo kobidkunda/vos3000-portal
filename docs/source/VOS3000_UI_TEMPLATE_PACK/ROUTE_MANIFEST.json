@@ -1,0 +1,3451 @@
+[
+  {
+    "side": "Admin",
+    "group": "Access & Identity",
+    "name": "Admin Login",
+    "route": "/admin/login",
+    "archetype": "AUTH",
+    "data_mode": "query",
+    "phase": "P02 \u2014 Identity, RBAC, Tenant Isolation & Audit Foundation",
+    "template_file": "04_ADMIN_PAGES/001_admin-login.md",
+    "features": [
+      "Email/login name and password",
+      "Optional TOTP/MFA challenge",
+      "Remember-device policy",
+      "Rate-limit and temporary lockout",
+      "Display environment/server label so operators know which VOS instance they are accessing",
+      "Security event logging for successful/failed login"
+    ],
+    "apis": [
+      "POST /api/v1/admin/auth/login",
+      "POST /api/v1/admin/auth/mfa/verify"
+    ],
+    "basis": "VOS documents Administrator/Operator/Agent user types, lock state, invalid time, dynamic password and operation authorization. Portal authentication remains independent. [HYBRID]"
+  },
+  {
+    "side": "Admin",
+    "group": "Access & Identity",
+    "name": "MFA Challenge",
+    "route": "/admin/mfa",
+    "archetype": "AUTH",
+    "data_mode": "query",
+    "phase": "P02 \u2014 Identity, RBAC, Tenant Isolation & Audit Foundation",
+    "template_file": "04_ADMIN_PAGES/002_mfa-challenge.md",
+    "features": [
+      "TOTP code entry",
+      "Recovery code",
+      "Trusted-device option subject to policy",
+      "Re-authentication for dangerous actions",
+      "Clear failure/expiry states"
+    ],
+    "apis": [
+      "POST /api/v1/admin/auth/mfa/verify"
+    ],
+    "basis": "[PORTAL]"
+  },
+  {
+    "side": "Admin",
+    "group": "Access & Identity",
+    "name": "Forgot / Reset Password",
+    "route": "/admin/forgot-password",
+    "archetype": "AUTH",
+    "data_mode": "query",
+    "phase": "P02 \u2014 Identity, RBAC, Tenant Isolation & Audit Foundation",
+    "template_file": "04_ADMIN_PAGES/003_forgot-reset-password.md",
+    "features": [
+      "Email-based reset",
+      "Single-use expiring token",
+      "Password policy",
+      "Invalidate active sessions after reset",
+      "Audit event"
+    ],
+    "apis": [
+      "POST /api/v1/admin/auth/password/request",
+      "POST /api/v1/admin/auth/password/reset"
+    ],
+    "basis": "[PORTAL]"
+  },
+  {
+    "side": "Admin",
+    "group": "Access & Identity",
+    "name": "Admin Sessions & Devices",
+    "route": "/admin/settings/sessions",
+    "archetype": "DETAIL",
+    "data_mode": "query",
+    "phase": "P12 \u2014 Observability, Security Hardening, Backup & High Availability",
+    "template_file": "04_ADMIN_PAGES/004_admin-sessions-devices.md",
+    "features": [
+      "Current session highlight",
+      "IP, browser, approximate location, created/last-active time",
+      "Revoke one session",
+      "Revoke all other sessions",
+      "Suspicious-session marker"
+    ],
+    "apis": [
+      "GET /api/v1/admin/me/sessions",
+      "DELETE /api/v1/admin/me/sessions/{id}"
+    ],
+    "basis": "[PORTAL]"
+  },
+  {
+    "side": "Admin",
+    "group": "Command Center",
+    "name": "Executive Dashboard",
+    "route": "/admin",
+    "archetype": "DASHBOARD",
+    "data_mode": "query",
+    "phase": "P06 \u2014 Admin Portal Core \u2014 Customers, CDR, Gateways, Operations",
+    "template_file": "04_ADMIN_PAGES/005_executive-dashboard.md",
+    "features": [
+      "KPI cards: active customers, active calls, available/used channels, current CPS, today minutes, revenue, cost, gross margin, ASR, ACD, PDD",
+      "Trend charts for calls/minutes/revenue/ASR/ACD",
+      "Top customers by traffic and spend",
+      "Top routes by traffic and margin",
+      "Low-balance customers",
+      "Offline/degraded gateways",
+      "Current alarms",
+      "Recent payments",
+      "Time-range selector: today/24h/7d/30d/custom",
+      "Drill-down from every KPI"
+    ],
+    "apis": [
+      "GET /api/v1/admin/dashboard/summary",
+      "GET /api/v1/admin/dashboard/timeseries"
+    ],
+    "basis": "VOS documents account balances, current calls, gateway metrics, billing, reports and alarms. Aggregation and visualization are [HYBRID]."
+  },
+  {
+    "side": "Admin",
+    "group": "Command Center",
+    "name": "NOC Live Operations",
+    "route": "/admin/noc",
+    "archetype": "LIVE_MONITOR",
+    "data_mode": "realtime",
+    "phase": "P06 \u2014 Admin Portal Core \u2014 Customers, CDR, Gateways, Operations",
+    "template_file": "04_ADMIN_PAGES/006_noc-live-operations.md",
+    "features": [
+      "Live concurrency",
+      "Current CPS",
+      "Answered/failed call ratio",
+      "ASR/ACD/PDD",
+      "Gateway online/offline/degraded tiles",
+      "Packet loss and network delay",
+      "Top SIP/termination failures",
+      "Alarm stream",
+      "Auto-refresh/WebSocket connection status",
+      "Fullscreen NOC mode"
+    ],
+    "apis": [
+      "GET /api/v1/admin/noc/summary",
+      "GET /api/v1/admin/noc/stream"
+    ],
+    "basis": "Online gateway, gateway-network and Current Call data are documented by VOS. [HYBRID]"
+  },
+  {
+    "side": "Admin",
+    "group": "Command Center",
+    "name": "System Health",
+    "route": "/admin/system/health",
+    "archetype": "LIVE_MONITOR",
+    "data_mode": "realtime",
+    "phase": "P12 \u2014 Observability, Security Hardening, Backup & High Availability",
+    "template_file": "04_ADMIN_PAGES/007_system-health.md",
+    "features": [
+      "Portal API health",
+      "VOS adapter connectivity",
+      "CDR ingestion lag",
+      "Webhook queue depth",
+      "Payment webhook health",
+      "Background job health",
+      "Database/storage health",
+      "Last successful sync per resource",
+      "Incident banner"
+    ],
+    "apis": [
+      "GET /api/v1/admin/system/health"
+    ],
+    "basis": "[PORTAL]"
+  },
+  {
+    "side": "Admin",
+    "group": "Command Center",
+    "name": "Alarm Center",
+    "route": "/admin/alarms",
+    "archetype": "LIST_TABLE",
+    "data_mode": "query",
+    "phase": "P12 \u2014 Observability, Security Hardening, Backup & High Availability",
+    "template_file": "04_ADMIN_PAGES/008_alarm-center.md",
+    "features": [
+      "Filters: severity, type, source, gateway, account, time",
+      "Current vs historical tabs",
+      "Acknowledge/assign/resolve workflow in portal",
+      "Link alarm to gateway/customer/system page",
+      "Notification policy preview",
+      "Bulk acknowledge",
+      "Export"
+    ],
+    "apis": [
+      "GET /api/v1/admin/alarms",
+      "POST /api/v1/admin/alarms/{id}/ack"
+    ],
+    "basis": "VOS documents system, network, disk, process, mapping, routing, balance and external-device alarms plus current/history alarms. Portal workflow is [HYBRID]."
+  },
+  {
+    "side": "Admin",
+    "group": "Customers & Accounts",
+    "name": "Customer Directory",
+    "route": "/admin/customers",
+    "archetype": "LIST_TABLE",
+    "data_mode": "query",
+    "phase": "P06 \u2014 Admin Portal Core \u2014 Customers, CDR, Gateways, Operations",
+    "template_file": "04_ADMIN_PAGES/009_customer-directory.md",
+    "features": [
+      "Search by customer name, portal ID, VOS account ID, email, phone, gateway, IP",
+      "Filters: active/suspended, low balance, agent/general, rate group, created date",
+      "Columns: customer, VOS account, balance, overdraft/credit, today usage, gateways, channels, status, last activity",
+      "Bulk export",
+      "Bulk notification",
+      "Create customer",
+      "Suspend/enable selected where authorized"
+    ],
+    "apis": [
+      "GET /api/v1/admin/customers",
+      "POST /api/v1/admin/customers"
+    ],
+    "basis": "VOS General Account contains account ID/name, balance, overdraft, billing rate, today consumption, gateway/phone counts and status. [HYBRID]"
+  },
+  {
+    "side": "Admin",
+    "group": "Customers & Accounts",
+    "name": "Create Customer Wizard",
+    "route": "/admin/customers/new",
+    "archetype": "WIZARD",
+    "data_mode": "transactional/configuration",
+    "phase": "P06 \u2014 Admin Portal Core \u2014 Customers, CDR, Gateways, Operations",
+    "template_file": "04_ADMIN_PAGES/010_create-customer-wizard.md",
+    "features": [
+      "Step 1 company/profile",
+      "Step 2 portal owner credentials",
+      "Step 3 VOS account mapping or create-new request",
+      "Step 4 billing currency, credit/overdraft, expiry",
+      "Step 5 rate group/private-rate policy",
+      "Step 6 gateway/channel/CPS defaults",
+      "Step 7 permissions/API access",
+      "Review-and-create screen",
+      "Rollback/compensation if one downstream step fails"
+    ],
+    "apis": [
+      "POST /api/v1/admin/customers"
+    ],
+    "basis": "Account creation, billing rate assignment, account status and agent hierarchy are VOS functions; exact create API is [VERIFY-API]."
+  },
+  {
+    "side": "Admin",
+    "group": "Customers & Accounts",
+    "name": "Customer Overview",
+    "route": "/admin/customers/{customerId}",
+    "archetype": "DETAIL",
+    "data_mode": "query",
+    "phase": "P06 \u2014 Admin Portal Core \u2014 Customers, CDR, Gateways, Operations",
+    "template_file": "04_ADMIN_PAGES/011_customer-overview.md",
+    "features": [
+      "Header: status, VOS account ID, balance, credit, today/month spend, active calls",
+      "Tabs: Overview, Billing, Gateways, Phones, Rates, CDR, Live Calls, Reports, API, Users, Tickets, Audit",
+      "Quick actions: add funds, adjust credit, suspend, change rate, add gateway, impersonate portal user",
+      "Risk banners: negative balance, expiring account, offline gateway, payment issue"
+    ],
+    "apis": [
+      "GET /api/v1/admin/customers/{id}"
+    ],
+    "basis": "[HYBRID]"
+  },
+  {
+    "side": "Admin",
+    "group": "Customers & Accounts",
+    "name": "Customer Account Settings",
+    "route": "/admin/customers/{customerId}/account",
+    "archetype": "SETTINGS",
+    "data_mode": "transactional/configuration",
+    "phase": "P06 \u2014 Admin Portal Core \u2014 Customers, CDR, Gateways, Operations",
+    "template_file": "04_ADMIN_PAGES/012_customer-account-settings.md",
+    "features": [
+      "Account name",
+      "VOS account mapping",
+      "Current balance read-only",
+      "Overdraft/credit limit",
+      "Billing rate group",
+      "Private rate indicator",
+      "Expiry date",
+      "Account status normal/locked",
+      "Memo/internal notes",
+      "Agent parent",
+      "Account type/category where applicable",
+      "Danger-zone actions: disable/enable/delete mapping"
+    ],
+    "apis": [
+      "GET /api/v1/admin/customers/{id}/account",
+      "PATCH /api/v1/admin/customers/{id}/account"
+    ],
+    "basis": "These fields are documented in VOS Account Management. Writes are [VERIFY-API]."
+  },
+  {
+    "side": "Admin",
+    "group": "Customers & Accounts",
+    "name": "Customer Balance & Adjustments",
+    "route": "/admin/customers/{customerId}/balance",
+    "archetype": "DETAIL",
+    "data_mode": "query",
+    "phase": "P06 \u2014 Admin Portal Core \u2014 Customers, CDR, Gateways, Operations",
+    "template_file": "04_ADMIN_PAGES/013_customer-balance-adjustments.md",
+    "features": [
+      "Current VOS balance",
+      "Portal wallet balance if separate",
+      "Overdraft/credit",
+      "Add payment",
+      "Add credit",
+      "Make-zero only for authorized roles",
+      "Adjustment memo mandatory",
+      "Before/after balance preview",
+      "Dual-control/approval option above configured threshold",
+      "Complete adjustment history"
+    ],
+    "apis": [
+      "GET /api/v1/admin/customers/{id}/balance",
+      "POST /api/v1/admin/customers/{id}/adjustments"
+    ],
+    "basis": "VOS Payment supports Payment/Credit/Make Zero and historical records. [HYBRID]/[VERIFY-API]"
+  },
+  {
+    "side": "Admin",
+    "group": "Customers & Accounts",
+    "name": "Customer Packages",
+    "route": "/admin/customers/{customerId}/packages",
+    "archetype": "DETAIL",
+    "data_mode": "query",
+    "phase": "P10 \u2014 Gateway, Rate, Package & Routing Configuration Workflows",
+    "template_file": "04_ADMIN_PAGES/014_customer-packages.md",
+    "features": [
+      "Package name",
+      "Effective date",
+      "Invalid time",
+      "Priority",
+      "Failed-processing mode",
+      "Percentage rent",
+      "Package period/rent/minimum consumption/free duration/free amount summary",
+      "Add/remove package",
+      "Future package schedule"
+    ],
+    "apis": [
+      "GET /api/v1/admin/customers/{id}/packages",
+      "POST /api/v1/admin/customers/{id}/packages"
+    ],
+    "basis": "VOS Customer Package Management documents effective/invalid dates, priority and failed processing. [VOS]/[VERIFY-API]"
+  },
+  {
+    "side": "Admin",
+    "group": "Customers & Accounts",
+    "name": "Customer Authorizations",
+    "route": "/admin/customers/{customerId}/authorizations",
+    "archetype": "SETTINGS",
+    "data_mode": "transactional/configuration",
+    "phase": "P06 \u2014 Admin Portal Core \u2014 Customers, CDR, Gateways, Operations",
+    "template_file": "04_ADMIN_PAGES/015_customer-authorizations.md",
+    "features": [
+      "Add/delete/modify account permission",
+      "Add/delete/modify phone permission",
+      "Phone-card permission",
+      "Add/delete gateway permission",
+      "Modify gateway information",
+      "Modify gateway capacity",
+      "Payment for this account",
+      "Payment for subaccounts",
+      "Number-section limitation",
+      "Inherited/explicit permission visualization"
+    ],
+    "apis": [
+      "GET /api/v1/admin/customers/{id}/authorizations",
+      "PUT /api/v1/admin/customers/{id}/authorizations"
+    ],
+    "basis": "VOS explicitly documents these authorization categories and subaccount restrictions. [VOS]/[VERIFY-API]"
+  },
+  {
+    "side": "Admin",
+    "group": "Customers & Accounts",
+    "name": "Agent & Subaccount Tree",
+    "route": "/admin/customers/{customerId}/subaccounts",
+    "archetype": "DETAIL",
+    "data_mode": "query",
+    "phase": "P06 \u2014 Admin Portal Core \u2014 Customers, CDR, Gateways, Operations",
+    "template_file": "04_ADMIN_PAGES/016_agent-subaccount-tree.md",
+    "features": [
+      "Tree and table view",
+      "Direct vs all descendants",
+      "Parent agent",
+      "Balances and status per node",
+      "Create child account",
+      "Move/reparent only if safe and supported",
+      "Permission inheritance preview",
+      "Aggregate spend/traffic"
+    ],
+    "apis": [
+      "GET /api/v1/admin/customers/{id}/subaccounts"
+    ],
+    "basis": "VOS documents Agent Account and direct/all subaccount views. [VOS]/[HYBRID]"
+  },
+  {
+    "side": "Admin",
+    "group": "Customers & Accounts",
+    "name": "Customer Number Section Limits",
+    "route": "/admin/customers/{customerId}/number-limits",
+    "archetype": "SETTINGS",
+    "data_mode": "transactional/configuration",
+    "phase": "P06 \u2014 Admin Portal Core \u2014 Customers, CDR, Gateways, Operations",
+    "template_file": "04_ADMIN_PAGES/017_customer-number-section-limits.md",
+    "features": [
+      "Begin number",
+      "End number",
+      "Validation for overlap",
+      "Agent inheritance display",
+      "Add/remove range",
+      "Audit changes"
+    ],
+    "apis": [
+      "GET /api/v1/admin/customers/{id}/number-limits",
+      "PUT /api/v1/admin/customers/{id}/number-limits"
+    ],
+    "basis": "VOS Number Section Limitation is documented. [VOS]/[VERIFY-API]"
+  },
+  {
+    "side": "Admin",
+    "group": "Gateways & Routing",
+    "name": "Mapping Gateways",
+    "route": "/admin/gateways/mapping",
+    "archetype": "LIST_TABLE",
+    "data_mode": "query",
+    "phase": "P10 \u2014 Gateway, Rate, Package & Routing Configuration Workflows",
+    "template_file": "04_ADMIN_PAGES/018_mapping-gateways.md",
+    "features": [
+      "Search/filter by gateway, customer, IP, status, softswitch",
+      "Columns: name, account, IP, registration mode, line limit, active calls, CPS, ASR, ACD, status",
+      "Create/edit/disable",
+      "Open live calls",
+      "Open network quality",
+      "Bulk export"
+    ],
+    "apis": [
+      "GET /api/v1/admin/gateways/mapping",
+      "POST /api/v1/admin/gateways/mapping"
+    ],
+    "basis": "Mapping Gateway management and online metrics are documented by VOS. Writes [VERIFY-API]."
+  },
+  {
+    "side": "Admin",
+    "group": "Gateways & Routing",
+    "name": "Mapping Gateway Detail",
+    "route": "/admin/gateways/mapping/{gatewayId}",
+    "archetype": "DETAIL",
+    "data_mode": "query",
+    "phase": "P10 \u2014 Gateway, Rate, Package & Routing Configuration Workflows",
+    "template_file": "04_ADMIN_PAGES/019_mapping-gateway-detail.md",
+    "features": [
+      "Overview",
+      "Customer/account mapping",
+      "Gateway type static/dynamic",
+      "IP(s) and signaling port",
+      "Line limit",
+      "Routing gateway group/allow-forbid controls",
+      "Process timeout",
+      "Protect-route enable time",
+      "Conversation limit",
+      "Media proxy and RTP-interrupt settings",
+      "Registered IP/status",
+      "Current calls",
+      "Network quality",
+      "Audit history"
+    ],
+    "apis": [
+      "GET /api/v1/admin/gateways/mapping/{id}",
+      "PATCH /api/v1/admin/gateways/mapping/{id}"
+    ],
+    "basis": "VOS documents these mapping-gateway fields. [VOS]/[VERIFY-API]"
+  },
+  {
+    "side": "Admin",
+    "group": "Gateways & Routing",
+    "name": "Routing Gateways",
+    "route": "/admin/gateways/routing",
+    "archetype": "LIST_TABLE",
+    "data_mode": "query",
+    "phase": "P10 \u2014 Gateway, Rate, Package & Routing Configuration Workflows",
+    "template_file": "04_ADMIN_PAGES/020_routing-gateways.md",
+    "features": [
+      "Carrier/customer association",
+      "Gateway prefix",
+      "IP/registration",
+      "Line limit",
+      "Current calls",
+      "ASR/ACD",
+      "CPS",
+      "rate/cost indicator",
+      "route/protect-route status",
+      "softswitch",
+      "online status",
+      "bulk actions"
+    ],
+    "apis": [
+      "GET /api/v1/admin/gateways/routing",
+      "POST /api/v1/admin/gateways/routing"
+    ],
+    "basis": "Routing Gateway and Online Routing Gateway are documented. [VOS]/[VERIFY-API]"
+  },
+  {
+    "side": "Admin",
+    "group": "Gateways & Routing",
+    "name": "Routing Gateway Detail",
+    "route": "/admin/gateways/routing/{gatewayId}",
+    "archetype": "DETAIL",
+    "data_mode": "query",
+    "phase": "P10 \u2014 Gateway, Rate, Package & Routing Configuration Workflows",
+    "template_file": "04_ADMIN_PAGES/021_routing-gateway-detail.md",
+    "features": [
+      "General configuration",
+      "Registration/security",
+      "Capacity/line limit",
+      "Rate limit/CPS",
+      "Protection/failover",
+      "Caller number pool where supported",
+      "Signaling/register tracing controls",
+      "ASR/ACD and current call count",
+      "Registered/local IP",
+      "Network quality",
+      "Cost/rate references",
+      "Audit"
+    ],
+    "apis": [
+      "GET /api/v1/admin/gateways/routing/{id}",
+      "PATCH /api/v1/admin/gateways/routing/{id}"
+    ],
+    "basis": "VOS documents rate limiting, tracing, protect routes and online routing metrics. [VOS]/[VERIFY-API]"
+  },
+  {
+    "side": "Admin",
+    "group": "Gateways & Routing",
+    "name": "Online Gateways",
+    "route": "/admin/gateways/online",
+    "archetype": "LIVE_MONITOR",
+    "data_mode": "realtime",
+    "phase": "P10 \u2014 Gateway, Rate, Package & Routing Configuration Workflows",
+    "template_file": "04_ADMIN_PAGES/022_online-gateways.md",
+    "features": [
+      "Tabs mapping/routing",
+      "Current sessions vs capacity",
+      "ASR",
+      "ACD",
+      "CPS",
+      "registered IP",
+      "registration time",
+      "last update",
+      "online duration",
+      "encryption",
+      "softswitch",
+      "open current calls"
+    ],
+    "apis": [
+      "GET /api/v1/admin/gateways/online"
+    ],
+    "basis": "Directly maps documented Online Routing/Mapping Gateway fields. [VOS]"
+  },
+  {
+    "side": "Admin",
+    "group": "Gateways & Routing",
+    "name": "Gateway Network Quality",
+    "route": "/admin/gateways/network",
+    "archetype": "DETAIL",
+    "data_mode": "query",
+    "phase": "P10 \u2014 Gateway, Rate, Package & Routing Configuration Workflows",
+    "template_file": "04_ADMIN_PAGES/023_gateway-network-quality.md",
+    "features": [
+      "Gateway",
+      "Remote IP",
+      "Network quality",
+      "Packet loss",
+      "Network delay",
+      "Device ID",
+      "Mapping/routing type",
+      "History chart maintained by portal",
+      "Threshold filters",
+      "Degraded-only toggle"
+    ],
+    "apis": [
+      "GET /api/v1/admin/gateways/network"
+    ],
+    "basis": "VOS documents Mapping Gateway Network and Routing Gateway Network. Historical chart is [HYBRID]."
+  },
+  {
+    "side": "Admin",
+    "group": "Gateways & Routing",
+    "name": "Gateway Status Analytics",
+    "route": "/admin/gateways/status",
+    "archetype": "ANALYTICS_REPORT",
+    "data_mode": "analytical",
+    "phase": "P09 \u2014 Realtime Calls, Gateway Presence & NOC Streaming",
+    "template_file": "04_ADMIN_PAGES/024_gateway-status-analytics.md",
+    "features": [
+      "Gateway",
+      "Total calls",
+      "Success",
+      "Callee rejected",
+      "Trunk error",
+      "Network error",
+      "Caller abandon",
+      "Average talk duration",
+      "Total call time",
+      "IP",
+      "Starting time",
+      "Success/failure percentages"
+    ],
+    "apis": [
+      "GET /api/v1/admin/gateways/status"
+    ],
+    "basis": "VOS Gateway Status fields are documented. [VOS]"
+  },
+  {
+    "side": "Admin",
+    "group": "Gateways & Routing",
+    "name": "Gateway Groups",
+    "route": "/admin/gateway-groups",
+    "archetype": "LIST_TABLE",
+    "data_mode": "query",
+    "phase": "P10 \u2014 Gateway, Rate, Package & Routing Configuration Workflows",
+    "template_file": "04_ADMIN_PAGES/025_gateway-groups.md",
+    "features": [
+      "Group name",
+      "Type",
+      "Member gateways",
+      "Capacity summary",
+      "Active calls",
+      "Policy/notes",
+      "Add/remove members",
+      "Impact preview"
+    ],
+    "apis": [
+      "GET /api/v1/admin/gateway-groups",
+      "POST /api/v1/admin/gateway-groups"
+    ],
+    "basis": "VOS documents Gateway Group. Exact API [VERIFY-API]."
+  },
+  {
+    "side": "Admin",
+    "group": "Gateways & Routing",
+    "name": "Registration Management",
+    "route": "/admin/registrations",
+    "archetype": "LIST_TABLE",
+    "data_mode": "query",
+    "phase": "P10 \u2014 Gateway, Rate, Package & Routing Configuration Workflows",
+    "template_file": "04_ADMIN_PAGES/026_registration-management.md",
+    "features": [
+      "Mark/identifier",
+      "Username",
+      "Masked authentication password",
+      "Server IP",
+      "Line limit",
+      "Signaling port",
+      "Encryption",
+      "Host name",
+      "SIP proxy",
+      "User-Agent",
+      "Local IP/port",
+      "Test/trace link"
+    ],
+    "apis": [
+      "GET /api/v1/admin/registrations",
+      "POST /api/v1/admin/registrations"
+    ],
+    "basis": "Fields are documented in VOS Registration Management. Writes [VERIFY-API]."
+  },
+  {
+    "side": "Admin",
+    "group": "Gateways & Routing",
+    "name": "Routing Analysis",
+    "route": "/admin/tools/routing-analysis",
+    "archetype": "EDITOR_FORM",
+    "data_mode": "transactional/configuration",
+    "phase": "P10 \u2014 Gateway, Rate, Package & Routing Configuration Workflows",
+    "template_file": "04_ADMIN_PAGES/027_routing-analysis.md",
+    "features": [
+      "Authentication method: existing device or static IP",
+      "Device type and ID",
+      "Caller",
+      "Callee",
+      "Softswitch",
+      "Output actual caller device/account",
+      "Routing caller/callee after rewrite",
+      "Customer rate/minute",
+      "Available time",
+      "Candidate routes with egress rate",
+      "Rate deviation/margin",
+      "Route detail and sequence"
+    ],
+    "apis": [
+      "POST /api/v1/admin/tools/routing-analysis"
+    ],
+    "basis": "VOS Routing Analysis documents these inputs/outputs. [VOS]/[VERIFY-API]"
+  },
+  {
+    "side": "Admin",
+    "group": "Gateways & Routing",
+    "name": "Network Test",
+    "route": "/admin/tools/network-test",
+    "archetype": "EDITOR_FORM",
+    "data_mode": "transactional/configuration",
+    "phase": "P10 \u2014 Gateway, Rate, Package & Routing Configuration Workflows",
+    "template_file": "04_ADMIN_PAGES/028_network-test.md",
+    "features": [
+      "Remote IP",
+      "Configuration port",
+      "Authorized local IP",
+      "Packet type",
+      "Run test",
+      "Result history",
+      "Copy diagnostics"
+    ],
+    "apis": [
+      "POST /api/v1/admin/tools/network-test"
+    ],
+    "basis": "VOS Network Test supports special-format and ICMP testing. [VOS]/[VERIFY-API]"
+  },
+  {
+    "side": "Admin",
+    "group": "Gateways & Routing",
+    "name": "Domain Management",
+    "route": "/admin/routing/domains",
+    "archetype": "LIST_TABLE",
+    "data_mode": "query",
+    "phase": "P10 \u2014 Gateway, Rate, Package & Routing Configuration Workflows",
+    "template_file": "04_ADMIN_PAGES/029_domain-management.md",
+    "features": [
+      "Domain list",
+      "Resolution/status",
+      "Associated gateway/service",
+      "Last update",
+      "Add/edit/delete subject to supported interface"
+    ],
+    "apis": [
+      "GET /api/v1/admin/domains"
+    ],
+    "basis": "VOS has Domain Management. Field-level API requires verification. [VERIFY-API]"
+  },
+  {
+    "side": "Admin",
+    "group": "Gateways & Routing",
+    "name": "Prohibited Media IP",
+    "route": "/admin/routing/prohibited-media-ips",
+    "archetype": "DETAIL",
+    "data_mode": "query",
+    "phase": "P10 \u2014 Gateway, Rate, Package & Routing Configuration Workflows",
+    "template_file": "04_ADMIN_PAGES/030_prohibited-media-ip.md",
+    "features": [
+      "IP/CIDR",
+      "Reason",
+      "Created by/time",
+      "Enabled state",
+      "Search/filter",
+      "Add/remove"
+    ],
+    "apis": [
+      "GET /api/v1/admin/prohibited-media-ips"
+    ],
+    "basis": "VOS includes Prohibited Media IP management. [VERIFY-API]"
+  },
+  {
+    "side": "Admin",
+    "group": "Gateways & Routing",
+    "name": "Softswitches",
+    "route": "/admin/softswitches",
+    "archetype": "DETAIL",
+    "data_mode": "query",
+    "phase": "P10 \u2014 Gateway, Rate, Package & Routing Configuration Workflows",
+    "template_file": "04_ADMIN_PAGES/031_softswitches.md",
+    "features": [
+      "Softswitch list/status",
+      "Assigned gateways",
+      "Current load",
+      "IP",
+      "Configuration entry point",
+      "Link to system parameters and monitors"
+    ],
+    "apis": [
+      "GET /api/v1/admin/softswitches"
+    ],
+    "basis": "VOS documents Softswitch Management. [VERIFY-API]"
+  },
+  {
+    "side": "Admin",
+    "group": "Phones & Terminals",
+    "name": "Phone Directory",
+    "route": "/admin/phones",
+    "archetype": "LIST_TABLE",
+    "data_mode": "query",
+    "phase": "P10 \u2014 Gateway, Rate, Package & Routing Configuration Workflows",
+    "template_file": "04_ADMIN_PAGES/032_phone-directory.md",
+    "features": [
+      "Phone number",
+      "Account",
+      "Lock state",
+      "authorization type",
+      "monthly consumption",
+      "billing rate/private rate",
+      "routing group",
+      "DID/DDI",
+      "softswitch",
+      "registration type",
+      "IP/port",
+      "line/in/out limits",
+      "online status"
+    ],
+    "apis": [
+      "GET /api/v1/admin/phones",
+      "POST /api/v1/admin/phones"
+    ],
+    "basis": "VOS Phone Management documents these fields. Writes [VERIFY-API]."
+  },
+  {
+    "side": "Admin",
+    "group": "Phones & Terminals",
+    "name": "Phone Detail",
+    "route": "/admin/phones/{phoneId}",
+    "archetype": "DETAIL",
+    "data_mode": "query",
+    "phase": "P10 \u2014 Gateway, Rate, Package & Routing Configuration Workflows",
+    "template_file": "04_ADMIN_PAGES/033_phone-detail.md",
+    "features": [
+      "Registration credentials with secret masking/reset",
+      "Caller-ID display",
+      "Lock outgoing/incoming/all",
+      "Authorization type",
+      "Monthly min/max/service fee",
+      "Private rate",
+      "Account assignment",
+      "DID/DDI",
+      "Reverse charging",
+      "Self-service password reset",
+      "Call-in/out and line limits",
+      "Caller/callee list groups",
+      "Forwarding/DND/transfer controls",
+      "Protocol/IP/media/DTMF/codec settings",
+      "Routing strategies"
+    ],
+    "apis": [
+      "GET /api/v1/admin/phones/{id}",
+      "PATCH /api/v1/admin/phones/{id}"
+    ],
+    "basis": "VOS documents phone management, supplementary services and advanced configuration. [VOS]/[VERIFY-API]"
+  },
+  {
+    "side": "Admin",
+    "group": "Phones & Terminals",
+    "name": "Online Phones",
+    "route": "/admin/phones/online",
+    "archetype": "LIVE_MONITOR",
+    "data_mode": "realtime",
+    "phase": "P10 \u2014 Gateway, Rate, Package & Routing Configuration Workflows",
+    "template_file": "04_ADMIN_PAGES/034_online-phones.md",
+    "features": [
+      "Phone number",
+      "Current calls",
+      "Line limit",
+      "In/out capacity and limits",
+      "Device model",
+      "Protocol",
+      "Registered IP",
+      "Registration/update time",
+      "Duration",
+      "Encryption",
+      "Tracing state",
+      "Softswitch"
+    ],
+    "apis": [
+      "GET /api/v1/admin/phones/online"
+    ],
+    "basis": "VOS Online Phone fields are documented. [VOS]"
+  },
+  {
+    "side": "Admin",
+    "group": "Live Calls & Diagnostics",
+    "name": "Live Calls",
+    "route": "/admin/calls/live",
+    "archetype": "LIVE_MONITOR",
+    "data_mode": "realtime",
+    "phase": "P09 \u2014 Realtime Calls, Gateway Presence & NOC Streaming",
+    "template_file": "04_ADMIN_PAGES/035_live-calls.md",
+    "features": [
+      "Caller/callee",
+      "Mapping/routing gateway",
+      "Connect time",
+      "Duration",
+      "Connecting duration",
+      "PDD",
+      "Codec",
+      "Packet/traffic indicators",
+      "Caller/callee IP and RTP IP",
+      "DTMF mode",
+      "Media routing",
+      "Device names",
+      "Encryption",
+      "Softswitch",
+      "Filters by customer/gateway/caller/callee/duration",
+      "WebSocket/SSE updates"
+    ],
+    "apis": [
+      "GET /api/v1/admin/calls/live",
+      "GET /api/v1/admin/calls/live/stream"
+    ],
+    "basis": "Current Call fields are explicitly documented by VOS. [VOS]/[HYBRID]"
+  },
+  {
+    "side": "Admin",
+    "group": "Live Calls & Diagnostics",
+    "name": "Live Call Detail",
+    "route": "/admin/calls/live/{callId}",
+    "archetype": "DETAIL",
+    "data_mode": "query",
+    "phase": "P09 \u2014 Realtime Calls, Gateway Presence & NOC Streaming",
+    "template_file": "04_ADMIN_PAGES/036_live-call-detail.md",
+    "features": [
+      "All live-call fields",
+      "Leg-by-leg topology",
+      "Customer and carrier account links",
+      "Media/codec panel",
+      "Call analysis link",
+      "Audio-traffic/voice-sample actions only for highly privileged roles",
+      "Disconnect-call button with confirmation and mandatory reason",
+      "Audit dangerous actions"
+    ],
+    "apis": [
+      "GET /api/v1/admin/calls/live/{id}",
+      "POST /api/v1/admin/calls/live/{id}/disconnect"
+    ],
+    "basis": "VOS Current Call includes disconnect, audio traffic, voice samples and call analysis actions. [VOS]/[VERIFY-API]"
+  },
+  {
+    "side": "Admin",
+    "group": "Live Calls & Diagnostics",
+    "name": "Call Analysis",
+    "route": "/admin/diagnostics/call-analysis",
+    "archetype": "DETAIL",
+    "data_mode": "query",
+    "phase": "P06 \u2014 Admin Portal Core \u2014 Customers, CDR, Gateways, Operations",
+    "template_file": "04_ADMIN_PAGES/037_call-analysis.md",
+    "features": [
+      "Serial number search",
+      "Caller signaling",
+      "Callee signaling",
+      "Softswitch memo",
+      "Timestamp sequence",
+      "Export signaling",
+      "Import signaling file only if needed",
+      "Link from CDR/live call"
+    ],
+    "apis": [
+      "GET /api/v1/admin/diagnostics/call-analysis/{serial}"
+    ],
+    "basis": "VOS Call Analysis is documented. [VOS]/[VERIFY-API]"
+  },
+  {
+    "side": "Admin",
+    "group": "Live Calls & Diagnostics",
+    "name": "Registration Analysis",
+    "route": "/admin/diagnostics/registration-analysis",
+    "archetype": "DETAIL",
+    "data_mode": "query",
+    "phase": "P06 \u2014 Admin Portal Core \u2014 Customers, CDR, Gateways, Operations",
+    "template_file": "04_ADMIN_PAGES/038_registration-analysis.md",
+    "features": [
+      "Serial number",
+      "Registration signaling",
+      "Softswitch memo",
+      "Time",
+      "Filter/export",
+      "Link to phone/gateway"
+    ],
+    "apis": [
+      "GET /api/v1/admin/diagnostics/registration-analysis"
+    ],
+    "basis": "VOS Registration Analysis is documented. [VOS]/[VERIFY-API]"
+  },
+  {
+    "side": "Admin",
+    "group": "CDR & Call Analytics",
+    "name": "Recent CDR",
+    "route": "/admin/cdr/recent",
+    "archetype": "LIST_TABLE",
+    "data_mode": "query",
+    "phase": "P06 \u2014 Admin Portal Core \u2014 Customers, CDR, Gateways, Operations",
+    "template_file": "04_ADMIN_PAGES/039_recent-cdr.md",
+    "features": [
+      "Last 1,000 by default according to VOS behavior",
+      "Caller/callee",
+      "begin/end",
+      "duration/charged duration",
+      "charges/expense",
+      "termination reason",
+      "gateway/account/IP",
+      "quick customer and call detail links"
+    ],
+    "apis": [
+      "GET /api/v1/admin/cdr/recent"
+    ],
+    "basis": "VOS Recent CDR explicitly returns recent records and references CDR fields. [VOS]"
+  },
+  {
+    "side": "Admin",
+    "group": "CDR & Call Analytics",
+    "name": "CDR Explorer",
+    "route": "/admin/cdr",
+    "archetype": "LIST_TABLE",
+    "data_mode": "query",
+    "phase": "P06 \u2014 Admin Portal Core \u2014 Customers, CDR, Gateways, Operations",
+    "template_file": "04_ADMIN_PAGES/040_cdr-explorer.md",
+    "features": [
+      "Filters: start/end time mode, caller, callee, account, agent, mapping/routing gateway, caller/callee IP, call type, area/prefix, duration, charge, expense, termination reason, hangup side, Call-ID, serial number",
+      "Columns selectable/persisted",
+      "Server-side pagination",
+      "Saved views",
+      "CSV/XLSX export job for large ranges",
+      "Aggregate footer totals",
+      "No unrestricted wildcard export for non-privileged roles"
+    ],
+    "apis": [
+      "GET /api/v1/admin/cdr",
+      "POST /api/v1/admin/cdr/exports"
+    ],
+    "basis": "VOS CDR documents caller/callee, times, actual/charged duration, charge/expense, gateways, IPs, account/agent, call type, rewrite numbers, Call-IDs, reason and serial. [VOS]/[HYBRID]"
+  },
+  {
+    "side": "Admin",
+    "group": "CDR & Call Analytics",
+    "name": "CDR Detail",
+    "route": "/admin/cdr/{cdrId}",
+    "archetype": "DETAIL",
+    "data_mode": "query",
+    "phase": "P06 \u2014 Admin Portal Core \u2014 Customers, CDR, Gateways, Operations",
+    "template_file": "04_ADMIN_PAGES/041_cdr-detail.md",
+    "features": [
+      "Timeline: begin \u2192 routing \u2192 connect \u2192 end",
+      "Caller/callee original and outbound rewritten values",
+      "Actual vs charged duration",
+      "Customer charge/tax",
+      "Carrier expense/tax",
+      "Gross margin",
+      "Account/agent",
+      "Mapping/routing gateway",
+      "Caller/callee IP",
+      "Call type/area",
+      "Termination reason/hangup side",
+      "Billing method/mode",
+      "PDD/continue/connect delay",
+      "Calling/called Call-ID",
+      "Serial",
+      "Open call analysis"
+    ],
+    "apis": [
+      "GET /api/v1/admin/cdr/{id}"
+    ],
+    "basis": "Fields map directly to VOS CDR. Margin display is [HYBRID]."
+  },
+  {
+    "side": "Admin",
+    "group": "CDR & Call Analytics",
+    "name": "Failure Analytics",
+    "route": "/admin/analytics/failures",
+    "archetype": "ANALYTICS_REPORT",
+    "data_mode": "analytical",
+    "phase": "P06 \u2014 Admin Portal Core \u2014 Customers, CDR, Gateways, Operations",
+    "template_file": "04_ADMIN_PAGES/042_failure-analytics.md",
+    "features": [
+      "Failure distribution",
+      "Trend by hour/day",
+      "Breakdown by customer/carrier/gateway/destination",
+      "Top termination reasons",
+      "Network vs trunk vs callee-reject vs caller-abandon groupings",
+      "Drill-through to CDR",
+      "Threshold alerts"
+    ],
+    "apis": [
+      "GET /api/v1/admin/analytics/failures"
+    ],
+    "basis": "VOS records termination reason and gateway status outcome categories; analytics are [HYBRID]."
+  },
+  {
+    "side": "Admin",
+    "group": "CDR & Call Analytics",
+    "name": "Connect Analysis",
+    "route": "/admin/analytics/connect",
+    "archetype": "DETAIL",
+    "data_mode": "query",
+    "phase": "P06 \u2014 Admin Portal Core \u2014 Customers, CDR, Gateways, Operations",
+    "template_file": "04_ADMIN_PAGES/043_connect-analysis.md",
+    "features": [
+      "Time filter",
+      "Customer/gateway/destination filter",
+      "ASR/connection KPIs",
+      "Trend/chart",
+      "Drill to source CDR"
+    ],
+    "apis": [
+      "GET /api/v1/admin/analytics/connect"
+    ],
+    "basis": "VOS has CDR Analysis > Connect Analysis. [VOS]/[VERIFY-API]"
+  },
+  {
+    "side": "Admin",
+    "group": "CDR & Call Analytics",
+    "name": "Interrupt Analysis",
+    "route": "/admin/analytics/interrupt",
+    "archetype": "DETAIL",
+    "data_mode": "query",
+    "phase": "P06 \u2014 Admin Portal Core \u2014 Customers, CDR, Gateways, Operations",
+    "template_file": "04_ADMIN_PAGES/044_interrupt-analysis.md",
+    "features": [
+      "Time/destination/customer/gateway filters",
+      "Interrupt distribution",
+      "Reason and duration buckets",
+      "Drill to CDR"
+    ],
+    "apis": [
+      "GET /api/v1/admin/analytics/interrupt"
+    ],
+    "basis": "VOS has Interrupt Analysis. [VOS]/[VERIFY-API]"
+  },
+  {
+    "side": "Admin",
+    "group": "CDR & Call Analytics",
+    "name": "Call Distribution",
+    "route": "/admin/analytics/distribution",
+    "archetype": "ANALYTICS_REPORT",
+    "data_mode": "analytical",
+    "phase": "P06 \u2014 Admin Portal Core \u2014 Customers, CDR, Gateways, Operations",
+    "template_file": "04_ADMIN_PAGES/045_call-distribution.md",
+    "features": [
+      "By hour",
+      "destination",
+      "account",
+      "gateway",
+      "duration band",
+      "call type",
+      "heatmaps and tables"
+    ],
+    "apis": [
+      "GET /api/v1/admin/analytics/distribution"
+    ],
+    "basis": "VOS has Call Distribution analysis. [VOS]/[HYBRID]"
+  },
+  {
+    "side": "Admin",
+    "group": "CDR & Call Analytics",
+    "name": "Historical Performance",
+    "route": "/admin/analytics/historical-performance",
+    "archetype": "ANALYTICS_REPORT",
+    "data_mode": "analytical",
+    "phase": "P06 \u2014 Admin Portal Core \u2014 Customers, CDR, Gateways, Operations",
+    "template_file": "04_ADMIN_PAGES/046_historical-performance.md",
+    "features": [
+      "ASR/ACD/minutes/calls over time",
+      "Compare periods",
+      "Customer/gateway filter",
+      "Export"
+    ],
+    "apis": [
+      "GET /api/v1/admin/analytics/historical-performance"
+    ],
+    "basis": "VOS has Historical Performance. [VOS]/[HYBRID]"
+  },
+  {
+    "side": "Admin",
+    "group": "CDR & Call Analytics",
+    "name": "Gateway Performance",
+    "route": "/admin/analytics/gateway-performance",
+    "archetype": "ANALYTICS_REPORT",
+    "data_mode": "analytical",
+    "phase": "P06 \u2014 Admin Portal Core \u2014 Customers, CDR, Gateways, Operations",
+    "template_file": "04_ADMIN_PAGES/047_gateway-performance.md",
+    "features": [
+      "ASR",
+      "ACD",
+      "calls",
+      "minutes",
+      "failure rate",
+      "cost/margin overlay",
+      "capacity utilization",
+      "ranking"
+    ],
+    "apis": [
+      "GET /api/v1/admin/analytics/gateway-performance"
+    ],
+    "basis": "VOS has Gateway Performance; business overlays are [HYBRID]."
+  },
+  {
+    "side": "Admin",
+    "group": "Rates, Packages & Commercial Routing",
+    "name": "Rate Groups",
+    "route": "/admin/rates/groups",
+    "archetype": "LIST_TABLE",
+    "data_mode": "query",
+    "phase": "P10 \u2014 Gateway, Rate, Package & Routing Configuration Workflows",
+    "template_file": "04_ADMIN_PAGES/048_rate-groups.md",
+    "features": [
+      "Group name",
+      "Number of rates",
+      "Number of using accounts",
+      "memo",
+      "creator",
+      "authorization visibility",
+      "create/duplicate/archive",
+      "open rates"
+    ],
+    "apis": [
+      "GET /api/v1/admin/rates/groups",
+      "POST /api/v1/admin/rates/groups"
+    ],
+    "basis": "VOS Rate Group Management documents these concepts. [VOS]/[VERIFY-API]"
+  },
+  {
+    "side": "Admin",
+    "group": "Rates, Packages & Commercial Routing",
+    "name": "Rate Editor",
+    "route": "/admin/rates/groups/{groupId}",
+    "archetype": "DETAIL",
+    "data_mode": "query",
+    "phase": "P10 \u2014 Gateway, Rate, Package & Routing Configuration Workflows",
+    "template_file": "04_ADMIN_PAGES/049_rate-editor.md",
+    "features": [
+      "Rate prefix",
+      "area prefix/name",
+      "rate type",
+      "billing rate",
+      "billing cycle",
+      "rate/minute",
+      "lock",
+      "section rates",
+      "tax",
+      "bulk import/export",
+      "prefix collision validation",
+      "effective/future-change wrapper in portal",
+      "impact count of attached accounts"
+    ],
+    "apis": [
+      "GET /api/v1/admin/rates/groups/{id}/rates",
+      "PUT /api/v1/admin/rates/groups/{id}/rates"
+    ],
+    "basis": "VOS documents longest-prefix matching, rate type, billing rate/cycle and import/export. Future workflow is [HYBRID]."
+  },
+  {
+    "side": "Admin",
+    "group": "Rates, Packages & Commercial Routing",
+    "name": "Rate Import Jobs",
+    "route": "/admin/rates/imports",
+    "archetype": "EDITOR_FORM",
+    "data_mode": "transactional/configuration",
+    "phase": "P10 \u2014 Gateway, Rate, Package & Routing Configuration Workflows",
+    "template_file": "04_ADMIN_PAGES/050_rate-import-jobs.md",
+    "features": [
+      "Upload CSV/XLSX",
+      "Map columns",
+      "Normalize prefixes",
+      "Preview add/change/delete counts",
+      "Validation errors",
+      "Duplicate/overlap warnings",
+      "Dry run",
+      "Approval workflow",
+      "Apply job",
+      "Rollback snapshot maintained by portal"
+    ],
+    "apis": [
+      "POST /api/v1/admin/rates/imports"
+    ],
+    "basis": "Built around VOS import/export capability. [HYBRID]/[VERIFY-API]"
+  },
+  {
+    "side": "Admin",
+    "group": "Rates, Packages & Commercial Routing",
+    "name": "Rate Lookup",
+    "route": "/admin/rates/lookup",
+    "archetype": "DETAIL",
+    "data_mode": "query",
+    "phase": "P10 \u2014 Gateway, Rate, Package & Routing Configuration Workflows",
+    "template_file": "04_ADMIN_PAGES/051_rate-lookup.md",
+    "features": [
+      "Input number and optional customer",
+      "Matched prefix",
+      "area",
+      "rate type",
+      "customer rate",
+      "candidate carrier cost",
+      "margin",
+      "routing analysis shortcut"
+    ],
+    "apis": [
+      "GET /api/v1/admin/rates/lookup"
+    ],
+    "basis": "[HYBRID]"
+  },
+  {
+    "side": "Admin",
+    "group": "Rates, Packages & Commercial Routing",
+    "name": "Package Groups",
+    "route": "/admin/packages",
+    "archetype": "LIST_TABLE",
+    "data_mode": "query",
+    "phase": "P10 \u2014 Gateway, Rate, Package & Routing Configuration Workflows",
+    "template_file": "04_ADMIN_PAGES/052_package-groups.md",
+    "features": [
+      "Package name",
+      "rent period/unit",
+      "rent fee",
+      "minimum consumption",
+      "effective-spending limit",
+      "period rates",
+      "free duration",
+      "free money",
+      "using accounts",
+      "authorization"
+    ],
+    "apis": [
+      "GET /api/v1/admin/packages",
+      "POST /api/v1/admin/packages"
+    ],
+    "basis": "VOS Package Management documents these fields. [VOS]/[VERIFY-API]"
+  },
+  {
+    "side": "Admin",
+    "group": "Rates, Packages & Commercial Routing",
+    "name": "Package Period Rates",
+    "route": "/admin/packages/{packageId}/period-rates",
+    "archetype": "EDITOR_FORM",
+    "data_mode": "transactional/configuration",
+    "phase": "P10 \u2014 Gateway, Rate, Package & Routing Configuration Workflows",
+    "template_file": "04_ADMIN_PAGES/053_package-period-rates.md",
+    "features": [
+      "Period type",
+      "begin/end date",
+      "begin/end time",
+      "period rate",
+      "overlap validation",
+      "calendar preview"
+    ],
+    "apis": [
+      "GET /api/v1/admin/packages/{id}/period-rates"
+    ],
+    "basis": "VOS Package Period Rate Management is documented. [VOS]/[VERIFY-API]"
+  },
+  {
+    "side": "Admin",
+    "group": "Rates, Packages & Commercial Routing",
+    "name": "Package Free Duration",
+    "route": "/admin/packages/{packageId}/free-duration",
+    "archetype": "EDITOR_FORM",
+    "data_mode": "transactional/configuration",
+    "phase": "P10 \u2014 Gateway, Rate, Package & Routing Configuration Workflows",
+    "template_file": "04_ADMIN_PAGES/054_package-free-duration.md",
+    "features": [
+      "Begin/end time",
+      "area prefix",
+      "free duration",
+      "billing cycle",
+      "memo",
+      "usage preview"
+    ],
+    "apis": [
+      "GET /api/v1/admin/packages/{id}/free-duration"
+    ],
+    "basis": "VOS Package Free Duration Management is documented. [VOS]/[VERIFY-API]"
+  },
+  {
+    "side": "Admin",
+    "group": "Rates, Packages & Commercial Routing",
+    "name": "Margin Monitor",
+    "route": "/admin/commercial/margins",
+    "archetype": "ANALYTICS_REPORT",
+    "data_mode": "analytical",
+    "phase": "P06 \u2014 Admin Portal Core \u2014 Customers, CDR, Gateways, Operations",
+    "template_file": "04_ADMIN_PAGES/055_margin-monitor.md",
+    "features": [
+      "Customer rate vs carrier cost",
+      "Margin/minute",
+      "Estimated daily margin",
+      "Negative-margin destinations",
+      "Gateway/customer drilldowns",
+      "Threshold alarm"
+    ],
+    "apis": [
+      "GET /api/v1/admin/commercial/margins"
+    ],
+    "basis": "VOS Routing Analysis exposes customer rate, egress rate and rate deviation; consolidated monitoring is [HYBRID]."
+  },
+  {
+    "side": "Admin",
+    "group": "Billing, Payments & Settlement",
+    "name": "Payment Ledger",
+    "route": "/admin/payments",
+    "archetype": "LIST_TABLE",
+    "data_mode": "query",
+    "phase": "P08 \u2014 Billing, Add-Funds, Immutable Ledger & VOS Reconciliation",
+    "template_file": "04_ADMIN_PAGES/056_payment-ledger.md",
+    "features": [
+      "Filters account/customer/type/mode/status/date/amount",
+      "VOS payment amount and resulting balance",
+      "Portal processor transaction ID",
+      "Payment/Credit/Create Account categorization where available",
+      "Manual adjustment distinction",
+      "Reconciliation state",
+      "Receipt link",
+      "Export"
+    ],
+    "apis": [
+      "GET /api/v1/admin/payments"
+    ],
+    "basis": "VOS Payment Record documents account, amount, balance after payment, type, time, mode, payment user, memo, agent and serial. Portal reconciliation is [HYBRID]."
+  },
+  {
+    "side": "Admin",
+    "group": "Billing, Payments & Settlement",
+    "name": "Manual Payment / Credit",
+    "route": "/admin/payments/new",
+    "archetype": "FINANCE_ACTION",
+    "data_mode": "transactional",
+    "phase": "P08 \u2014 Billing, Add-Funds, Immutable Ledger & VOS Reconciliation",
+    "template_file": "04_ADMIN_PAGES/057_manual-payment-credit.md",
+    "features": [
+      "Customer/account lookup",
+      "Action: payment/credit/make-zero subject to role",
+      "Amount",
+      "Currency",
+      "memo required",
+      "Before/after balance",
+      "Approval if threshold exceeded",
+      "Idempotency key",
+      "Result and serial/reference"
+    ],
+    "apis": [
+      "POST /api/v1/admin/payments"
+    ],
+    "basis": "VOS supports Payment/Credit/Make Zero. [VOS]/[VERIFY-API]"
+  },
+  {
+    "side": "Admin",
+    "group": "Billing, Payments & Settlement",
+    "name": "Revenue Details",
+    "route": "/admin/billing/revenue",
+    "archetype": "DETAIL",
+    "data_mode": "query",
+    "phase": "P08 \u2014 Billing, Add-Funds, Immutable Ledger & VOS Reconciliation",
+    "template_file": "04_ADMIN_PAGES/058_revenue-details.md",
+    "features": [
+      "Time period",
+      "account/customer",
+      "call types",
+      "call charges",
+      "package amounts",
+      "minutes",
+      "CDR counts",
+      "export"
+    ],
+    "apis": [
+      "GET /api/v1/admin/billing/revenue"
+    ],
+    "basis": "VOS Bill Query includes Revenue Details. [VOS]/[VERIFY-API]"
+  },
+  {
+    "side": "Admin",
+    "group": "Billing, Payments & Settlement",
+    "name": "Gateway Bills",
+    "route": "/admin/billing/gateway",
+    "archetype": "ANALYTICS_REPORT",
+    "data_mode": "analytical",
+    "phase": "P08 \u2014 Billing, Add-Funds, Immutable Ledger & VOS Reconciliation",
+    "template_file": "04_ADMIN_PAGES/059_gateway-bills.md",
+    "features": [
+      "Gateway",
+      "IP",
+      "account",
+      "period",
+      "calls/minutes/charges",
+      "export",
+      "drill to CDR"
+    ],
+    "apis": [
+      "GET /api/v1/admin/billing/gateway"
+    ],
+    "basis": "VOS Gateway Bill is documented. [VOS]/[VERIFY-API]"
+  },
+  {
+    "side": "Admin",
+    "group": "Billing, Payments & Settlement",
+    "name": "Phone Bills",
+    "route": "/admin/billing/phone",
+    "archetype": "ANALYTICS_REPORT",
+    "data_mode": "analytical",
+    "phase": "P08 \u2014 Billing, Add-Funds, Immutable Ledger & VOS Reconciliation",
+    "template_file": "04_ADMIN_PAGES/060_phone-bills.md",
+    "features": [
+      "Phone",
+      "account",
+      "period",
+      "usage/charges",
+      "export",
+      "drill to CDR"
+    ],
+    "apis": [
+      "GET /api/v1/admin/billing/phone"
+    ],
+    "basis": "VOS Phone Bill exists. [VOS]/[VERIFY-API]"
+  },
+  {
+    "side": "Admin",
+    "group": "Billing, Payments & Settlement",
+    "name": "Account Balance Report",
+    "route": "/admin/billing/account-balance",
+    "archetype": "ANALYTICS_REPORT",
+    "data_mode": "analytical",
+    "phase": "P08 \u2014 Billing, Add-Funds, Immutable Ledger & VOS Reconciliation",
+    "template_file": "04_ADMIN_PAGES/061_account-balance-report.md",
+    "features": [
+      "Customer/account",
+      "current balance",
+      "credit/overdraft",
+      "status",
+      "low-balance threshold",
+      "agent hierarchy",
+      "export"
+    ],
+    "apis": [
+      "GET /api/v1/admin/billing/account-balance"
+    ],
+    "basis": "VOS Account Balance query/report exists. [VOS]/[HYBRID]"
+  },
+  {
+    "side": "Admin",
+    "group": "Billing, Payments & Settlement",
+    "name": "Clearing & Settlement",
+    "route": "/admin/settlement",
+    "archetype": "ANALYTICS_REPORT",
+    "data_mode": "analytical",
+    "phase": "P08 \u2014 Billing, Add-Funds, Immutable Ledger & VOS Reconciliation",
+    "template_file": "04_ADMIN_PAGES/062_clearing-settlement.md",
+    "features": [
+      "Clearing account detail",
+      "gateway details",
+      "clearing balance",
+      "settlement period",
+      "reconciliation flags",
+      "export",
+      "summary"
+    ],
+    "apis": [
+      "GET /api/v1/admin/settlement"
+    ],
+    "basis": "VOS documents clearing queries/reports and summary of financial settlement. [VOS]/[HYBRID]"
+  },
+  {
+    "side": "Admin",
+    "group": "Reports",
+    "name": "Report Center",
+    "route": "/admin/reports",
+    "archetype": "LIST_TABLE",
+    "data_mode": "query",
+    "phase": "P11 \u2014 Customer API, Webhooks, Reports & Large Exports",
+    "template_file": "04_ADMIN_PAGES/063_report-center.md",
+    "features": [
+      "Categories: billing, cards, clearing, analysis, finance, quality, customer",
+      "Saved report presets",
+      "Run now",
+      "Async export",
+      "Schedule report",
+      "Share to approved recipient",
+      "Report history"
+    ],
+    "apis": [
+      "GET /api/v1/admin/reports"
+    ],
+    "basis": "VOS includes Data Report and Report Management; scheduling UX is [HYBRID]."
+  },
+  {
+    "side": "Admin",
+    "group": "Reports",
+    "name": "Gateway Analysis Reports",
+    "route": "/admin/reports/gateways",
+    "archetype": "LIST_TABLE",
+    "data_mode": "query",
+    "phase": "P10 \u2014 Gateway, Rate, Package & Routing Configuration Workflows",
+    "template_file": "04_ADMIN_PAGES/064_gateway-analysis-reports.md",
+    "features": [
+      "Mapping gateway analysis",
+      "Routing gateway analysis",
+      "Mapping/routing area analysis",
+      "Cross-area analysis",
+      "time and gateway filters",
+      "export"
+    ],
+    "apis": [
+      "GET /api/v1/admin/reports/gateways"
+    ],
+    "basis": "VOS documents these Analysis Reports. [VOS]/[VERIFY-API]"
+  },
+  {
+    "side": "Admin",
+    "group": "Reports",
+    "name": "Agent Income Report",
+    "route": "/admin/reports/agent-income",
+    "archetype": "ANALYTICS_REPORT",
+    "data_mode": "analytical",
+    "phase": "P11 \u2014 Customer API, Webhooks, Reports & Large Exports",
+    "template_file": "04_ADMIN_PAGES/065_agent-income-report.md",
+    "features": [
+      "Agent",
+      "period",
+      "subaccounts",
+      "income/usage",
+      "export"
+    ],
+    "apis": [
+      "GET /api/v1/admin/reports/agent-income"
+    ],
+    "basis": "VOS Agent Income Report exists. [VOS]/[VERIFY-API]"
+  },
+  {
+    "side": "Admin",
+    "group": "Reports",
+    "name": "Scheduled Reports",
+    "route": "/admin/reports/schedules",
+    "archetype": "LIST_TABLE",
+    "data_mode": "query",
+    "phase": "P11 \u2014 Customer API, Webhooks, Reports & Large Exports",
+    "template_file": "04_ADMIN_PAGES/066_scheduled-reports.md",
+    "features": [
+      "Report template",
+      "filters",
+      "frequency",
+      "timezone",
+      "recipients",
+      "format",
+      "last/next run",
+      "failure status",
+      "pause/resume"
+    ],
+    "apis": [
+      "GET /api/v1/admin/report-schedules",
+      "POST /api/v1/admin/report-schedules"
+    ],
+    "basis": "[PORTAL]"
+  },
+  {
+    "side": "Admin",
+    "group": "Number Management",
+    "name": "Number Sections",
+    "route": "/admin/numbers/sections",
+    "archetype": "DETAIL",
+    "data_mode": "query",
+    "phase": "P10 \u2014 Gateway, Rate, Package & Routing Configuration Workflows",
+    "template_file": "04_ADMIN_PAGES/067_number-sections.md",
+    "features": [
+      "Search prefix/range",
+      "customer/agent ownership context",
+      "export",
+      "link to account limits"
+    ],
+    "apis": [
+      "GET /api/v1/admin/numbers/sections"
+    ],
+    "basis": "VOS Number Section Query exists. [VOS]/[VERIFY-API]"
+  },
+  {
+    "side": "Admin",
+    "group": "Number Management",
+    "name": "Area Information",
+    "route": "/admin/numbers/areas",
+    "archetype": "DETAIL",
+    "data_mode": "query",
+    "phase": "P10 \u2014 Gateway, Rate, Package & Routing Configuration Workflows",
+    "template_file": "04_ADMIN_PAGES/068_area-information.md",
+    "features": [
+      "Area prefix",
+      "area name",
+      "memo",
+      "longest-match behavior note",
+      "import/export wrapper"
+    ],
+    "apis": [
+      "GET /api/v1/admin/numbers/areas"
+    ],
+    "basis": "VOS Area Information is used for rate display/matching. [VOS]/[VERIFY-API]"
+  },
+  {
+    "side": "Admin",
+    "group": "Number Management",
+    "name": "Number Transform",
+    "route": "/admin/numbers/transforms",
+    "archetype": "DETAIL",
+    "data_mode": "query",
+    "phase": "P10 \u2014 Gateway, Rate, Package & Routing Configuration Workflows",
+    "template_file": "04_ADMIN_PAGES/069_number-transform.md",
+    "features": [
+      "Rule list",
+      "source pattern",
+      "target",
+      "scope",
+      "priority/order where supported",
+      "test input/output",
+      "impact preview",
+      "audit"
+    ],
+    "apis": [
+      "GET /api/v1/admin/numbers/transforms"
+    ],
+    "basis": "VOS Number Transform and rewrite rules are documented. Exact fields/API [VERIFY-API]."
+  },
+  {
+    "side": "Admin",
+    "group": "Number Management",
+    "name": "Black / White List Groups",
+    "route": "/admin/numbers/lists",
+    "archetype": "LIST_TABLE",
+    "data_mode": "query",
+    "phase": "P10 \u2014 Gateway, Rate, Package & Routing Configuration Workflows",
+    "template_file": "04_ADMIN_PAGES/070_black-white-list-groups.md",
+    "features": [
+      "Group name",
+      "memo",
+      "member numbers",
+      "search/import/export",
+      "usage references to gateways/phones",
+      "bulk add/remove"
+    ],
+    "apis": [
+      "GET /api/v1/admin/numbers/lists"
+    ],
+    "basis": "VOS Black/White List Group is documented as full-match and usable by gateways/phones. [VOS]/[VERIFY-API]"
+  },
+  {
+    "side": "Admin",
+    "group": "Number Management",
+    "name": "System White List",
+    "route": "/admin/numbers/system-whitelist",
+    "archetype": "LIST_TABLE",
+    "data_mode": "query",
+    "phase": "P10 \u2014 Gateway, Rate, Package & Routing Configuration Workflows",
+    "template_file": "04_ADMIN_PAGES/071_system-white-list.md",
+    "features": [
+      "Phone number",
+      "memo",
+      "add/remove",
+      "search/export"
+    ],
+    "apis": [
+      "GET /api/v1/admin/numbers/system-whitelist"
+    ],
+    "basis": "VOS System White List is documented. [VOS]/[VERIFY-API]"
+  },
+  {
+    "side": "Admin",
+    "group": "Number Management",
+    "name": "Dynamic Black List",
+    "route": "/admin/numbers/dynamic-blacklist",
+    "archetype": "LIST_TABLE",
+    "data_mode": "query",
+    "phase": "P10 \u2014 Gateway, Rate, Package & Routing Configuration Workflows",
+    "template_file": "04_ADMIN_PAGES/072_dynamic-black-list.md",
+    "features": [
+      "Phone number",
+      "type malicious/no-answer",
+      "effective date",
+      "expiration",
+      "last call time",
+      "softswitch",
+      "manual add/remove/expire subject to VOS support"
+    ],
+    "apis": [
+      "GET /api/v1/admin/numbers/dynamic-blacklist"
+    ],
+    "basis": "VOS Dynamic Black List fields are documented. [VOS]/[VERIFY-API]"
+  },
+  {
+    "side": "Admin",
+    "group": "Admin Users, Roles & Audit",
+    "name": "Admin Users",
+    "route": "/admin/security/users",
+    "archetype": "LIST_TABLE",
+    "data_mode": "query",
+    "phase": "P02 \u2014 Identity, RBAC, Tenant Isolation & Audit Foundation",
+    "template_file": "04_ADMIN_PAGES/073_admin-users.md",
+    "features": [
+      "Login name",
+      "display name",
+      "portal role",
+      "mapped VOS user where required",
+      "status",
+      "expiry",
+      "last login",
+      "last password change",
+      "MFA state",
+      "create/lock/disable/reset"
+    ],
+    "apis": [
+      "GET /api/v1/admin/security/users",
+      "POST /api/v1/admin/security/users"
+    ],
+    "basis": "VOS user management documents login/name/type/lock/invalid time/dynamic password. Portal identity is [HYBRID]."
+  },
+  {
+    "side": "Admin",
+    "group": "Admin Users, Roles & Audit",
+    "name": "Roles & Permissions",
+    "route": "/admin/security/roles",
+    "archetype": "SETTINGS",
+    "data_mode": "transactional/configuration",
+    "phase": "P02 \u2014 Identity, RBAC, Tenant Isolation & Audit Foundation",
+    "template_file": "04_ADMIN_PAGES/074_roles-permissions.md",
+    "features": [
+      "Role templates: Super Admin, NOC, Billing, Support, Sales, Read Only",
+      "Resource/action matrix",
+      "View/edit distinction",
+      "Dangerous actions separated: disconnect call, payment adjustment, rate apply, gateway delete, system parameter write",
+      "Customer-scope constraints",
+      "Permission diff/preview",
+      "Clone role"
+    ],
+    "apis": [
+      "GET /api/v1/admin/security/roles",
+      "PUT /api/v1/admin/security/roles/{id}"
+    ],
+    "basis": "VOS documents navigation preview, detailed view/edit privilege and operation authorization. Portal RBAC mirrors the principle. [HYBRID]"
+  },
+  {
+    "side": "Admin",
+    "group": "Admin Users, Roles & Audit",
+    "name": "Online Admin Users",
+    "route": "/admin/security/online-users",
+    "archetype": "LIST_TABLE",
+    "data_mode": "query",
+    "phase": "P06 \u2014 Admin Portal Core \u2014 Customers, CDR, Gateways, Operations",
+    "template_file": "04_ADMIN_PAGES/075_online-admin-users.md",
+    "features": [
+      "User",
+      "session source",
+      "login time",
+      "last activity",
+      "IP",
+      "portal vs VOS indicator"
+    ],
+    "apis": [
+      "GET /api/v1/admin/security/online-users"
+    ],
+    "basis": "VOS includes Online User query. Portal session data is [HYBRID]."
+  },
+  {
+    "side": "Admin",
+    "group": "Admin Users, Roles & Audit",
+    "name": "Portal Audit Log",
+    "route": "/admin/audit",
+    "archetype": "LIST_TABLE",
+    "data_mode": "query",
+    "phase": "P02 \u2014 Identity, RBAC, Tenant Isolation & Audit Foundation",
+    "template_file": "04_ADMIN_PAGES/076_portal-audit-log.md",
+    "features": [
+      "Actor",
+      "role",
+      "customer scope",
+      "IP/session",
+      "action",
+      "resource",
+      "before/after values",
+      "request ID",
+      "result",
+      "timestamp",
+      "filter/export",
+      "retention policy"
+    ],
+    "apis": [
+      "GET /api/v1/admin/audit"
+    ],
+    "basis": "[PORTAL]"
+  },
+  {
+    "side": "Admin",
+    "group": "Admin Users, Roles & Audit",
+    "name": "VOS System Log",
+    "route": "/admin/system/vos-log",
+    "archetype": "LIST_TABLE",
+    "data_mode": "query",
+    "phase": "P12 \u2014 Observability, Security Hardening, Backup & High Availability",
+    "template_file": "04_ADMIN_PAGES/077_vos-system-log.md",
+    "features": [
+      "Type Information/General/Error",
+      "record time",
+      "operating user",
+      "event",
+      "detail",
+      "serial number",
+      "link to related resource when identifiable"
+    ],
+    "apis": [
+      "GET /api/v1/admin/system/vos-log"
+    ],
+    "basis": "VOS System Log fields are documented. [VOS]/[VERIFY-API]"
+  },
+  {
+    "side": "Admin",
+    "group": "System & Maintenance",
+    "name": "System Parameters",
+    "route": "/admin/system/parameters",
+    "archetype": "SETTINGS",
+    "data_mode": "transactional/configuration",
+    "phase": "P12 \u2014 Observability, Security Hardening, Backup & High Availability",
+    "template_file": "04_ADMIN_PAGES/078_system-parameters.md",
+    "features": [
+      "Parameter name/value/description",
+      "Search by key",
+      "Read-only by default",
+      "Allowlisted editable parameters",
+      "Validation by datatype/range",
+      "Before/after diff",
+      "Change ticket/reason",
+      "Two-person approval for high-risk settings",
+      "Rollback note"
+    ],
+    "apis": [
+      "GET /api/v1/admin/system/parameters",
+      "PATCH /api/v1/admin/system/parameters/{name}"
+    ],
+    "basis": "VOS System Parameter exposes name/value/description. Writes are sensitive and [VERIFY-API]."
+  },
+  {
+    "side": "Admin",
+    "group": "System & Maintenance",
+    "name": "System Information",
+    "route": "/admin/system/info",
+    "archetype": "DETAIL",
+    "data_mode": "query",
+    "phase": "P12 \u2014 Observability, Security Hardening, Backup & High Availability",
+    "template_file": "04_ADMIN_PAGES/079_system-information.md",
+    "features": [
+      "Server/version/environment",
+      "connected adapter",
+      "time/timezone",
+      "softswitch summary",
+      "license/expiry only if available",
+      "copy diagnostic bundle"
+    ],
+    "apis": [
+      "GET /api/v1/admin/system/info"
+    ],
+    "basis": "VOS System Information exists. Exact fields [VERIFY-API]."
+  },
+  {
+    "side": "Admin",
+    "group": "System & Maintenance",
+    "name": "Data Maintenance",
+    "route": "/admin/system/data-maintenance",
+    "archetype": "DETAIL",
+    "data_mode": "query",
+    "phase": "P12 \u2014 Observability, Security Hardening, Backup & High Availability",
+    "template_file": "04_ADMIN_PAGES/080_data-maintenance.md",
+    "features": [
+      "Tabs: system logs, history alarms, payment records, CDR, reports",
+      "Table name/date suffix",
+      "data volume",
+      "memo",
+      "retention policy",
+      "cleanup status",
+      "no destructive action without explicit confirmation"
+    ],
+    "apis": [
+      "GET /api/v1/admin/system/data-maintenance"
+    ],
+    "basis": "VOS documents system-log/history-alarm/payment/CDR/report tables and automatic cleanup. [VOS]/[VERIFY-API]"
+  },
+  {
+    "side": "Admin",
+    "group": "System & Maintenance",
+    "name": "Performance Monitor",
+    "route": "/admin/system/performance",
+    "archetype": "ANALYTICS_REPORT",
+    "data_mode": "analytical",
+    "phase": "P12 \u2014 Observability, Security Hardening, Backup & High Availability",
+    "template_file": "04_ADMIN_PAGES/081_performance-monitor.md",
+    "features": [
+      "CPU/memory/process/load metrics only where available",
+      "VOS operation performance data",
+      "portal adapter latency",
+      "CDR ingest lag",
+      "historical charts"
+    ],
+    "apis": [
+      "GET /api/v1/admin/system/performance"
+    ],
+    "basis": "VOS includes Operation Performance, Process Monitor and Server Monitor. Exact metrics [VERIFY-API]."
+  },
+  {
+    "side": "Admin",
+    "group": "System & Maintenance",
+    "name": "Process Monitor",
+    "route": "/admin/system/processes",
+    "archetype": "ANALYTICS_REPORT",
+    "data_mode": "analytical",
+    "phase": "P12 \u2014 Observability, Security Hardening, Backup & High Availability",
+    "template_file": "04_ADMIN_PAGES/082_process-monitor.md",
+    "features": [
+      "Process name/status",
+      "uptime",
+      "resource usage if available",
+      "last restart",
+      "alert state",
+      "no restart button until vendor-safe API verified"
+    ],
+    "apis": [
+      "GET /api/v1/admin/system/processes"
+    ],
+    "basis": "VOS Process Monitor exists. [VERIFY-API]"
+  },
+  {
+    "side": "Admin",
+    "group": "System & Maintenance",
+    "name": "Server Monitor",
+    "route": "/admin/system/servers",
+    "archetype": "ANALYTICS_REPORT",
+    "data_mode": "analytical",
+    "phase": "P12 \u2014 Observability, Security Hardening, Backup & High Availability",
+    "template_file": "04_ADMIN_PAGES/083_server-monitor.md",
+    "features": [
+      "Server list",
+      "role",
+      "status",
+      "health indicators",
+      "last update",
+      "drill to alarms/performance"
+    ],
+    "apis": [
+      "GET /api/v1/admin/system/servers"
+    ],
+    "basis": "VOS Server Monitor exists. [VERIFY-API]"
+  },
+  {
+    "side": "Admin",
+    "group": "System & Maintenance",
+    "name": "Disaster Recovery",
+    "route": "/admin/system/disaster-recovery",
+    "archetype": "DETAIL",
+    "data_mode": "query",
+    "phase": "P12 \u2014 Observability, Security Hardening, Backup & High Availability",
+    "template_file": "04_ADMIN_PAGES/084_disaster-recovery.md",
+    "features": [
+      "Status",
+      "data state",
+      "equipment",
+      "replication/sync indicators if exposed",
+      "last successful state",
+      "alert integration",
+      "read-only initial release"
+    ],
+    "apis": [
+      "GET /api/v1/admin/system/disaster-recovery"
+    ],
+    "basis": "VOS documents Disaster Tolerance Status/Data/Equipment. [VOS]/[VERIFY-API]"
+  },
+  {
+    "side": "Admin",
+    "group": "System & Maintenance",
+    "name": "Work Calendar",
+    "route": "/admin/system/work-calendar",
+    "archetype": "SETTINGS",
+    "data_mode": "transactional/configuration",
+    "phase": "P12 \u2014 Observability, Security Hardening, Backup & High Availability",
+    "template_file": "04_ADMIN_PAGES/085_work-calendar.md",
+    "features": [
+      "Calendar name",
+      "memo",
+      "working/non-working periods",
+      "usage references",
+      "safe edit workflow"
+    ],
+    "apis": [
+      "GET /api/v1/admin/system/work-calendar"
+    ],
+    "basis": "VOS Work Calendar is documented. [VOS]/[VERIFY-API]"
+  },
+  {
+    "side": "Admin",
+    "group": "API, Integrations & Automation",
+    "name": "Portal API Clients",
+    "route": "/admin/integrations/api-clients",
+    "archetype": "LIST_TABLE",
+    "data_mode": "query",
+    "phase": "P11 \u2014 Customer API, Webhooks, Reports & Large Exports",
+    "template_file": "04_ADMIN_PAGES/086_portal-api-clients.md",
+    "features": [
+      "Client/customer",
+      "key ID",
+      "secret shown once",
+      "scopes",
+      "IP allowlist",
+      "rate limit",
+      "created/last-used",
+      "expiry",
+      "rotate/revoke",
+      "request statistics"
+    ],
+    "apis": [
+      "GET /api/v1/admin/integrations/api-clients",
+      "POST /api/v1/admin/integrations/api-clients"
+    ],
+    "basis": "[PORTAL]"
+  },
+  {
+    "side": "Admin",
+    "group": "API, Integrations & Automation",
+    "name": "Webhook Endpoints",
+    "route": "/admin/integrations/webhooks",
+    "archetype": "LIST_TABLE",
+    "data_mode": "query",
+    "phase": "P11 \u2014 Customer API, Webhooks, Reports & Large Exports",
+    "template_file": "04_ADMIN_PAGES/087_webhook-endpoints.md",
+    "features": [
+      "Customer/integration",
+      "URL",
+      "events",
+      "signing secret",
+      "enabled state",
+      "created/last success",
+      "failure count",
+      "test event",
+      "rotate secret"
+    ],
+    "apis": [
+      "GET /api/v1/admin/integrations/webhooks",
+      "POST /api/v1/admin/integrations/webhooks"
+    ],
+    "basis": "[PORTAL]"
+  },
+  {
+    "side": "Admin",
+    "group": "API, Integrations & Automation",
+    "name": "Webhook Delivery Log",
+    "route": "/admin/integrations/webhook-deliveries",
+    "archetype": "LIST_TABLE",
+    "data_mode": "query",
+    "phase": "P11 \u2014 Customer API, Webhooks, Reports & Large Exports",
+    "template_file": "04_ADMIN_PAGES/088_webhook-delivery-log.md",
+    "features": [
+      "Event ID/type",
+      "customer",
+      "endpoint",
+      "attempt",
+      "HTTP status",
+      "latency",
+      "response excerpt",
+      "next retry",
+      "manual retry",
+      "payload viewer with secrets redacted"
+    ],
+    "apis": [
+      "GET /api/v1/admin/integrations/webhook-deliveries"
+    ],
+    "basis": "[PORTAL]"
+  },
+  {
+    "side": "Admin",
+    "group": "API, Integrations & Automation",
+    "name": "VOS Web Access Control",
+    "route": "/admin/integrations/vos-access",
+    "archetype": "DETAIL",
+    "data_mode": "query",
+    "phase": "P12 \u2014 Observability, Security Hardening, Backup & High Availability",
+    "template_file": "04_ADMIN_PAGES/089_vos-web-access-control.md",
+    "features": [
+      "Web service equipment",
+      "directory name",
+      "allowed IP",
+      "memo",
+      "change audit",
+      "very restricted permission"
+    ],
+    "apis": [
+      "GET /api/v1/admin/integrations/vos-access"
+    ],
+    "basis": "VOS Interface Management > Web Access Control documents these fields. [VOS]/[VERIFY-API]"
+  },
+  {
+    "side": "Admin",
+    "group": "API, Integrations & Automation",
+    "name": "VOS Web Service Equipment",
+    "route": "/admin/integrations/vos-equipment",
+    "archetype": "DETAIL",
+    "data_mode": "query",
+    "phase": "P12 \u2014 Observability, Security Hardening, Backup & High Availability",
+    "template_file": "04_ADMIN_PAGES/090_vos-web-service-equipment.md",
+    "features": [
+      "Access name",
+      "mark",
+      "additional setting",
+      "creation time",
+      "access time",
+      "access IP",
+      "memo"
+    ],
+    "apis": [
+      "GET /api/v1/admin/integrations/vos-equipment"
+    ],
+    "basis": "VOS Interface Management > Web Service Equipment documents these fields. [VOS]/[VERIFY-API]"
+  },
+  {
+    "side": "Admin",
+    "group": "API, Integrations & Automation",
+    "name": "Integration Health",
+    "route": "/admin/integrations/health",
+    "archetype": "LIVE_MONITOR",
+    "data_mode": "realtime",
+    "phase": "P12 \u2014 Observability, Security Hardening, Backup & High Availability",
+    "template_file": "04_ADMIN_PAGES/091_integration-health.md",
+    "features": [
+      "VOS connectivity",
+      "CDR event feed",
+      "phone online/offline feed if configured",
+      "payment providers",
+      "email/SMS notification providers",
+      "webhook queue",
+      "last event and error"
+    ],
+    "apis": [
+      "GET /api/v1/admin/integrations/health"
+    ],
+    "basis": "VOS parameters include external CDR send and phone online/offline transfer; complete setup requires verification. [HYBRID]"
+  },
+  {
+    "side": "Admin",
+    "group": "Portal Operations",
+    "name": "Support Tickets",
+    "route": "/admin/support/tickets",
+    "archetype": "LIST_TABLE",
+    "data_mode": "query",
+    "phase": "P06 \u2014 Admin Portal Core \u2014 Customers, CDR, Gateways, Operations",
+    "template_file": "04_ADMIN_PAGES/092_support-tickets.md",
+    "features": [
+      "Statuses, priority, category, assignee, SLA",
+      "Link customer/gateway/CDR/call",
+      "Internal notes vs customer replies",
+      "attachments",
+      "merge/close/reopen",
+      "saved queues"
+    ],
+    "apis": [
+      "GET /api/v1/admin/support/tickets"
+    ],
+    "basis": "[PORTAL]"
+  },
+  {
+    "side": "Admin",
+    "group": "Portal Operations",
+    "name": "Notification Policies",
+    "route": "/admin/notifications/policies",
+    "archetype": "DETAIL",
+    "data_mode": "query",
+    "phase": "P06 \u2014 Admin Portal Core \u2014 Customers, CDR, Gateways, Operations",
+    "template_file": "04_ADMIN_PAGES/093_notification-policies.md",
+    "features": [
+      "Low balance",
+      "gateway offline/online",
+      "ASR drop",
+      "high failure",
+      "packet loss/latency",
+      "payment result",
+      "rate change",
+      "account expiry",
+      "threshold, duration and cool-down",
+      "channels email/webhook/others",
+      "customer opt-in rules"
+    ],
+    "apis": [
+      "GET /api/v1/admin/notification-policies"
+    ],
+    "basis": "[PORTAL]"
+  },
+  {
+    "side": "Admin",
+    "group": "Portal Operations",
+    "name": "Notification Log",
+    "route": "/admin/notifications/log",
+    "archetype": "LIST_TABLE",
+    "data_mode": "query",
+    "phase": "P06 \u2014 Admin Portal Core \u2014 Customers, CDR, Gateways, Operations",
+    "template_file": "04_ADMIN_PAGES/094_notification-log.md",
+    "features": [
+      "Recipient",
+      "event",
+      "channel",
+      "status",
+      "attempts",
+      "provider ID",
+      "timestamp",
+      "retry"
+    ],
+    "apis": [
+      "GET /api/v1/admin/notifications/log"
+    ],
+    "basis": "[PORTAL]"
+  },
+  {
+    "side": "Admin",
+    "group": "Portal Operations",
+    "name": "Payment Providers",
+    "route": "/admin/settings/payments",
+    "archetype": "DETAIL",
+    "data_mode": "query",
+    "phase": "P08 \u2014 Billing, Add-Funds, Immutable Ledger & VOS Reconciliation",
+    "template_file": "04_ADMIN_PAGES/095_payment-providers.md",
+    "features": [
+      "Provider enabled state",
+      "currency support",
+      "minimum/maximum deposit",
+      "fee handling",
+      "webhook secret health",
+      "test mode indicator",
+      "never display raw secrets after save"
+    ],
+    "apis": [
+      "GET /api/v1/admin/settings/payments",
+      "PUT /api/v1/admin/settings/payments/{provider}"
+    ],
+    "basis": "[PORTAL]"
+  },
+  {
+    "side": "Admin",
+    "group": "Portal Operations",
+    "name": "Portal Branding",
+    "route": "/admin/settings/branding",
+    "archetype": "SETTINGS",
+    "data_mode": "transactional/configuration",
+    "phase": "P12 \u2014 Observability, Security Hardening, Backup & High Availability",
+    "template_file": "04_ADMIN_PAGES/096_portal-branding.md",
+    "features": [
+      "Logo",
+      "favicon",
+      "product name",
+      "support contact",
+      "legal links",
+      "timezone/currency defaults",
+      "email sender identity",
+      "preview"
+    ],
+    "apis": [
+      "GET /api/v1/admin/settings/branding"
+    ],
+    "basis": "[PORTAL]"
+  },
+  {
+    "side": "Admin",
+    "group": "Portal Operations",
+    "name": "Feature Flags",
+    "route": "/admin/settings/features",
+    "archetype": "SETTINGS",
+    "data_mode": "transactional/configuration",
+    "phase": "P12 \u2014 Observability, Security Hardening, Backup & High Availability",
+    "template_file": "04_ADMIN_PAGES/097_feature-flags.md",
+    "features": [
+      "Feature name",
+      "global state",
+      "customer overrides",
+      "dependency checks",
+      "audit every change"
+    ],
+    "apis": [
+      "GET /api/v1/admin/settings/features"
+    ],
+    "basis": "[PORTAL]"
+  },
+  {
+    "side": "Client",
+    "group": "Access & Account Security",
+    "name": "Client Login",
+    "route": "/app/login",
+    "archetype": "AUTH",
+    "data_mode": "query",
+    "phase": "P02 \u2014 Identity, RBAC, Tenant Isolation & Audit Foundation",
+    "template_file": "05_CLIENT_PAGES/001_client-login.md",
+    "features": [
+      "Email/username and password",
+      "MFA challenge when enabled",
+      "Remember device subject to policy",
+      "Forgot password",
+      "Clear account-suspended/expired states without exposing sensitive backend details"
+    ],
+    "apis": [
+      "POST /api/v1/auth/login"
+    ],
+    "basis": "[PORTAL]"
+  },
+  {
+    "side": "Client",
+    "group": "Access & Account Security",
+    "name": "MFA Setup & Verify",
+    "route": "/app/settings/security/mfa",
+    "archetype": "AUTH",
+    "data_mode": "query",
+    "phase": "P02 \u2014 Identity, RBAC, Tenant Isolation & Audit Foundation",
+    "template_file": "05_CLIENT_PAGES/002_mfa-setup-verify.md",
+    "features": [
+      "Enable/disable MFA after re-authentication",
+      "TOTP QR/setup key",
+      "Recovery codes",
+      "Verify before activation",
+      "Regenerate recovery codes",
+      "Recent security events"
+    ],
+    "apis": [
+      "POST /api/v1/me/mfa"
+    ],
+    "basis": "[PORTAL]"
+  },
+  {
+    "side": "Client",
+    "group": "Access & Account Security",
+    "name": "Profile & Organization",
+    "route": "/app/settings/profile",
+    "archetype": "DETAIL",
+    "data_mode": "query",
+    "phase": "P12 \u2014 Observability, Security Hardening, Backup & High Availability",
+    "template_file": "05_CLIENT_PAGES/004_profile-organization.md",
+    "features": [
+      "Organization name",
+      "billing/contact emails",
+      "phone",
+      "timezone",
+      "default report timezone",
+      "notification preferences",
+      "VOS account ID read-only where appropriate"
+    ],
+    "apis": [
+      "GET /api/v1/me/profile",
+      "PATCH /api/v1/me/profile"
+    ],
+    "basis": "[HYBRID]"
+  },
+  {
+    "side": "Client",
+    "group": "Home & Overview",
+    "name": "Client Dashboard",
+    "route": "/app",
+    "archetype": "DASHBOARD",
+    "data_mode": "query",
+    "phase": "P07 \u2014 Customer Self-Service Core \u2014 Dashboard, CDR, Gateways & Rates",
+    "template_file": "05_CLIENT_PAGES/005_client-dashboard.md",
+    "features": [
+      "Balance",
+      "credit/overdraft if customer is allowed to see it",
+      "today spend",
+      "month-to-date spend",
+      "active calls",
+      "channel usage",
+      "current CPS vs limit",
+      "ASR",
+      "ACD",
+      "PDD",
+      "gateway online/offline count",
+      "recent payment",
+      "24h calls/minutes/spend charts",
+      "low balance/expiry/gateway issue banners",
+      "quick links: Add Funds, Live Calls, CDR, Gateways, Rate Lookup"
+    ],
+    "apis": [
+      "GET /api/v1/dashboard/summary",
+      "GET /api/v1/dashboard/timeseries"
+    ],
+    "basis": "VOS documents account balance/today consumption, current calls and online gateway metrics. Dashboard composition is [HYBRID]."
+  },
+  {
+    "side": "Client",
+    "group": "Home & Overview",
+    "name": "Service Status",
+    "route": "/app/status",
+    "archetype": "DETAIL",
+    "data_mode": "query",
+    "phase": "P09 \u2014 Realtime Calls, Gateway Presence & NOC Streaming",
+    "template_file": "05_CLIENT_PAGES/006_service-status.md",
+    "features": [
+      "My gateways",
+      "online/offline/degraded",
+      "registered IP",
+      "last update",
+      "network quality",
+      "packet loss",
+      "latency",
+      "active incidents affecting this customer",
+      "refresh timestamp"
+    ],
+    "apis": [
+      "GET /api/v1/status"
+    ],
+    "basis": "Uses documented VOS gateway online/network data plus portal incident context. [HYBRID]"
+  },
+  {
+    "side": "Client",
+    "group": "Balance, Funds & Payments",
+    "name": "Balance & Wallet",
+    "route": "/app/billing/balance",
+    "archetype": "DETAIL",
+    "data_mode": "query",
+    "phase": "P08 \u2014 Billing, Add-Funds, Immutable Ledger & VOS Reconciliation",
+    "template_file": "05_CLIENT_PAGES/007_balance-wallet.md",
+    "features": [
+      "Current VOS balance",
+      "Available credit if applicable",
+      "today consumption",
+      "month spend",
+      "low-balance threshold",
+      "last payments",
+      "Add Funds button",
+      "balance trend from portal snapshots"
+    ],
+    "apis": [
+      "GET /api/v1/balance"
+    ],
+    "basis": "VOS account balance/today consumption are documented. Trend is [HYBRID]."
+  },
+  {
+    "side": "Client",
+    "group": "Balance, Funds & Payments",
+    "name": "Add Funds",
+    "route": "/app/billing/add-funds",
+    "archetype": "FINANCE_ACTION",
+    "data_mode": "transactional",
+    "phase": "P08 \u2014 Billing, Add-Funds, Immutable Ledger & VOS Reconciliation",
+    "template_file": "05_CLIENT_PAGES/008_add-funds.md",
+    "features": [
+      "Preset and custom amount",
+      "Currency",
+      "Payment method selection",
+      "Minimum/maximum validation",
+      "Fees/expected credit disclosure",
+      "Redirect/embedded provider flow",
+      "Pending/success/failed states",
+      "Idempotent payment creation",
+      "Never credit VOS until payment is independently verified by backend webhook"
+    ],
+    "apis": [
+      "POST /api/v1/deposits",
+      "GET /api/v1/deposits/{id}"
+    ],
+    "basis": "Online payment provider is [PORTAL]; confirmed funds can be translated into VOS Payment/Credit via adapter [VERIFY-API]."
+  },
+  {
+    "side": "Client",
+    "group": "Balance, Funds & Payments",
+    "name": "Payment History",
+    "route": "/app/billing/payments",
+    "archetype": "LIST_TABLE",
+    "data_mode": "query",
+    "phase": "P08 \u2014 Billing, Add-Funds, Immutable Ledger & VOS Reconciliation",
+    "template_file": "05_CLIENT_PAGES/009_payment-history.md",
+    "features": [
+      "Date",
+      "amount",
+      "type",
+      "method",
+      "status",
+      "balance after payment when available",
+      "reference/serial",
+      "receipt",
+      "filters and export",
+      "exclude internal-only operator notes"
+    ],
+    "apis": [
+      "GET /api/v1/payments"
+    ],
+    "basis": "VOS Payment Record documents account, payment amount, balance after payment, type, time, mode and serial. [HYBRID]"
+  },
+  {
+    "side": "Client",
+    "group": "Balance, Funds & Payments",
+    "name": "Payment Detail / Receipt",
+    "route": "/app/billing/payments/{paymentId}",
+    "archetype": "DETAIL",
+    "data_mode": "query",
+    "phase": "P08 \u2014 Billing, Add-Funds, Immutable Ledger & VOS Reconciliation",
+    "template_file": "05_CLIENT_PAGES/010_payment-detail-receipt.md",
+    "features": [
+      "Processor reference",
+      "VOS/portal transaction reference",
+      "amount/currency",
+      "fees",
+      "credited amount",
+      "created/completed time",
+      "status timeline",
+      "balance after credit",
+      "download receipt",
+      "support link"
+    ],
+    "apis": [
+      "GET /api/v1/payments/{id}"
+    ],
+    "basis": "[HYBRID]"
+  },
+  {
+    "side": "Client",
+    "group": "Balance, Funds & Payments",
+    "name": "Statements & Billing Summary",
+    "route": "/app/billing/statements",
+    "archetype": "ANALYTICS_REPORT",
+    "data_mode": "analytical",
+    "phase": "P08 \u2014 Billing, Add-Funds, Immutable Ledger & VOS Reconciliation",
+    "template_file": "05_CLIENT_PAGES/011_statements-billing-summary.md",
+    "features": [
+      "Opening balance",
+      "payments/credits",
+      "call charges",
+      "package/rent items if applicable",
+      "closing balance",
+      "minutes/calls",
+      "date range",
+      "download CSV/PDF where implemented"
+    ],
+    "apis": [
+      "GET /api/v1/billing/statements"
+    ],
+    "basis": "VOS provides account balance/revenue/bill queries. Formal statement presentation is [HYBRID]."
+  },
+  {
+    "side": "Client",
+    "group": "CDR & Call History",
+    "name": "CDR Explorer",
+    "route": "/app/cdr",
+    "archetype": "LIST_TABLE",
+    "data_mode": "query",
+    "phase": "P05 \u2014 ClickHouse CDR Store, Rollups, Query APIs & Analytics",
+    "template_file": "05_CLIENT_PAGES/012_cdr-explorer.md",
+    "features": [
+      "Default recent date range",
+      "Filters: begin/end date, caller, callee, gateway, call status/termination reason, duration, destination/area, Call-ID",
+      "Columns: begin/end, caller/callee, duration, charged duration, customer charge, mapping gateway, destination, termination reason",
+      "Customer cannot access other accounts even by manipulating query parameters",
+      "Saved filters",
+      "CSV/XLSX export",
+      "Server-side pagination"
+    ],
+    "apis": [
+      "GET /api/v1/cdr",
+      "POST /api/v1/cdr/exports"
+    ],
+    "basis": "VOS CDR documents the underlying fields. Tenant scoping and export UX are [HYBRID]."
+  },
+  {
+    "side": "Client",
+    "group": "CDR & Call History",
+    "name": "CDR Detail",
+    "route": "/app/cdr/{cdrId}",
+    "archetype": "DETAIL",
+    "data_mode": "query",
+    "phase": "P05 \u2014 ClickHouse CDR Store, Rollups, Query APIs & Analytics",
+    "template_file": "05_CLIENT_PAGES/013_cdr-detail.md",
+    "features": [
+      "Begin/end time",
+      "caller/callee",
+      "actual and charged duration",
+      "customer call charge",
+      "call type/destination/area",
+      "customer mapping gateway",
+      "caller IP if customer is authorized to see it",
+      "termination reason/hangup side",
+      "PDD/connection delay",
+      "customer-side Call-ID/serial as appropriate",
+      "Report Problem button",
+      "Do not reveal carrier cost, routing gateway, other-customer data, private softswitch internals unless explicitly allowed"
+    ],
+    "apis": [
+      "GET /api/v1/cdr/{id}"
+    ],
+    "basis": "VOS CDR contains richer carrier-side information; client response must be projection/redaction. [HYBRID]"
+  },
+  {
+    "side": "Client",
+    "group": "CDR & Call History",
+    "name": "Recent Calls",
+    "route": "/app/cdr/recent",
+    "archetype": "DETAIL",
+    "data_mode": "query",
+    "phase": "P05 \u2014 ClickHouse CDR Store, Rollups, Query APIs & Analytics",
+    "template_file": "05_CLIENT_PAGES/014_recent-calls.md",
+    "features": [
+      "Most recent calls",
+      "answer/failure badge",
+      "caller/callee",
+      "duration",
+      "charge",
+      "gateway",
+      "termination reason",
+      "open detail"
+    ],
+    "apis": [
+      "GET /api/v1/cdr/recent"
+    ],
+    "basis": "VOS Recent CDR is documented. [VOS]/[HYBRID]"
+  },
+  {
+    "side": "Client",
+    "group": "CDR & Call History",
+    "name": "CDR Export Jobs",
+    "route": "/app/cdr/exports",
+    "archetype": "LIST_TABLE",
+    "data_mode": "query",
+    "phase": "P05 \u2014 ClickHouse CDR Store, Rollups, Query APIs & Analytics",
+    "template_file": "05_CLIENT_PAGES/015_cdr-export-jobs.md",
+    "features": [
+      "Requested range/filter",
+      "status queued/running/ready/expired/failed",
+      "row count",
+      "created/expiry time",
+      "download when ready",
+      "cancel queued job",
+      "rate limit export creation"
+    ],
+    "apis": [
+      "GET /api/v1/cdr/exports"
+    ],
+    "basis": "[PORTAL]"
+  },
+  {
+    "side": "Client",
+    "group": "Live Calls & Traffic",
+    "name": "Live Calls",
+    "route": "/app/calls/live",
+    "archetype": "LIVE_MONITOR",
+    "data_mode": "realtime",
+    "phase": "P09 \u2014 Realtime Calls, Gateway Presence & NOC Streaming",
+    "template_file": "05_CLIENT_PAGES/016_live-calls.md",
+    "features": [
+      "Caller/callee",
+      "customer gateway",
+      "connect time",
+      "duration",
+      "PDD",
+      "codec where allowed",
+      "active call count vs channels",
+      "search/filter",
+      "auto-refresh/WebSocket status",
+      "no disconnect button by default",
+      "carrier routing gateway and sensitive media details redacted"
+    ],
+    "apis": [
+      "GET /api/v1/calls/live",
+      "GET /api/v1/calls/live/stream"
+    ],
+    "basis": "VOS Current Call provides the underlying live-call fields. Customer projection is [HYBRID]."
+  },
+  {
+    "side": "Client",
+    "group": "Live Calls & Traffic",
+    "name": "Traffic Analytics",
+    "route": "/app/analytics/traffic",
+    "archetype": "ANALYTICS_REPORT",
+    "data_mode": "analytical",
+    "phase": "P05 \u2014 ClickHouse CDR Store, Rollups, Query APIs & Analytics",
+    "template_file": "05_CLIENT_PAGES/017_traffic-analytics.md",
+    "features": [
+      "Calls",
+      "answered",
+      "failed",
+      "minutes",
+      "spend",
+      "ASR",
+      "ACD",
+      "PDD",
+      "hour/day granularity",
+      "destination breakdown",
+      "gateway breakdown",
+      "compare previous period",
+      "export"
+    ],
+    "apis": [
+      "GET /api/v1/analytics/traffic"
+    ],
+    "basis": "VOS has CDR Analysis and gateway performance; customer analytics are [HYBRID]."
+  },
+  {
+    "side": "Client",
+    "group": "Live Calls & Traffic",
+    "name": "Failure Analytics",
+    "route": "/app/analytics/failures",
+    "archetype": "ANALYTICS_REPORT",
+    "data_mode": "analytical",
+    "phase": "P05 \u2014 ClickHouse CDR Store, Rollups, Query APIs & Analytics",
+    "template_file": "05_CLIENT_PAGES/018_failure-analytics.md",
+    "features": [
+      "Top termination reasons",
+      "failure-rate trend",
+      "failure by destination",
+      "failure by customer gateway",
+      "human-readable explanation",
+      "drill to affected CDRs",
+      "do not expose other carrier/customer details"
+    ],
+    "apis": [
+      "GET /api/v1/analytics/failures"
+    ],
+    "basis": "VOS CDR termination reason and gateway outcome data support this. [HYBRID]"
+  },
+  {
+    "side": "Client",
+    "group": "Live Calls & Traffic",
+    "name": "Destination Analytics",
+    "route": "/app/analytics/destinations",
+    "archetype": "ANALYTICS_REPORT",
+    "data_mode": "analytical",
+    "phase": "P05 \u2014 ClickHouse CDR Store, Rollups, Query APIs & Analytics",
+    "template_file": "05_CLIENT_PAGES/019_destination-analytics.md",
+    "features": [
+      "Country/area/prefix",
+      "calls",
+      "minutes",
+      "spend",
+      "ASR",
+      "ACD",
+      "PDD",
+      "trend",
+      "rate lookup shortcut"
+    ],
+    "apis": [
+      "GET /api/v1/analytics/destinations"
+    ],
+    "basis": "Area prefix/name and CDR data are documented in VOS; aggregation is [HYBRID]."
+  },
+  {
+    "side": "Client",
+    "group": "Gateways & SIP",
+    "name": "My Gateways",
+    "route": "/app/gateways",
+    "archetype": "LIST_TABLE",
+    "data_mode": "query",
+    "phase": "P07 \u2014 Customer Self-Service Core \u2014 Dashboard, CDR, Gateways & Rates",
+    "template_file": "05_CLIENT_PAGES/020_my-gateways.md",
+    "features": [
+      "Gateway name",
+      "configured/registered IP",
+      "online status",
+      "active calls vs line limit",
+      "CPS",
+      "ASR",
+      "ACD",
+      "last registration/update",
+      "network quality badge",
+      "open details",
+      "Add Gateway request/action if enabled"
+    ],
+    "apis": [
+      "GET /api/v1/gateways"
+    ],
+    "basis": "VOS mapping/online mapping gateway metrics are documented. [VOS]/[HYBRID]"
+  },
+  {
+    "side": "Client",
+    "group": "Gateways & SIP",
+    "name": "Gateway Detail",
+    "route": "/app/gateways/{gatewayId}",
+    "archetype": "DETAIL",
+    "data_mode": "query",
+    "phase": "P07 \u2014 Customer Self-Service Core \u2014 Dashboard, CDR, Gateways & Rates",
+    "template_file": "05_CLIENT_PAGES/021_gateway-detail.md",
+    "features": [
+      "Gateway identity",
+      "account",
+      "static/dynamic mode",
+      "configured IP(s)",
+      "registered IP",
+      "signaling port if exposed",
+      "line limit",
+      "current calls",
+      "CPS",
+      "ASR/ACD",
+      "registration/update time",
+      "network latency/loss",
+      "softswitch host details only if safe to expose",
+      "CDR and live-call shortcuts",
+      "configuration actions governed by customer permission"
+    ],
+    "apis": [
+      "GET /api/v1/gateways/{id}"
+    ],
+    "basis": "Based on VOS Mapping Gateway and Online Mapping Gateway. [HYBRID]"
+  },
+  {
+    "side": "Client",
+    "group": "Gateways & SIP",
+    "name": "Gateway IP Management",
+    "route": "/app/gateways/{gatewayId}/ips",
+    "archetype": "EDITOR_FORM",
+    "data_mode": "transactional/configuration",
+    "phase": "P10 \u2014 Gateway, Rate, Package & Routing Configuration Workflows",
+    "template_file": "05_CLIENT_PAGES/022_gateway-ip-management.md",
+    "features": [
+      "Current primary/backup IPs",
+      "Add/replace/remove subject to plan",
+      "IPv4/IPv6/CIDR validation based on VOS capability",
+      "Require MFA/re-authentication",
+      "Optional email approval/admin review",
+      "Show impact warning before changing active gateway",
+      "Audit old/new IP",
+      "Connectivity status after change"
+    ],
+    "apis": [
+      "GET /api/v1/gateways/{id}/ips",
+      "PUT /api/v1/gateways/{id}/ips"
+    ],
+    "basis": "VOS mapping gateways are IP-address based and can expose registered IP; self-service workflow is [HYBRID]/[VERIFY-API]."
+  },
+  {
+    "side": "Client",
+    "group": "Gateways & SIP",
+    "name": "SIP Credentials",
+    "route": "/app/gateways/{gatewayId}/credentials",
+    "archetype": "EDITOR_FORM",
+    "data_mode": "transactional/configuration",
+    "phase": "P10 \u2014 Gateway, Rate, Package & Routing Configuration Workflows",
+    "template_file": "05_CLIENT_PAGES/023_sip-credentials.md",
+    "features": [
+      "SIP host/address",
+      "port",
+      "protocol",
+      "gateway/auth username if applicable",
+      "password never re-displayed after creation",
+      "Reset/rotate password action",
+      "copy non-secret fields",
+      "rotation confirmation and audit"
+    ],
+    "apis": [
+      "GET /api/v1/gateways/{id}/credentials",
+      "POST /api/v1/gateways/{id}/credentials/rotate"
+    ],
+    "basis": "VOS documents configuration/authentication credentials for gateway/phone objects; secure portal handling is [HYBRID]/[VERIFY-API]."
+  },
+  {
+    "side": "Client",
+    "group": "Gateways & SIP",
+    "name": "Gateway Network Quality",
+    "route": "/app/gateways/{gatewayId}/network",
+    "archetype": "DETAIL",
+    "data_mode": "query",
+    "phase": "P07 \u2014 Customer Self-Service Core \u2014 Dashboard, CDR, Gateways & Rates",
+    "template_file": "05_CLIENT_PAGES/024_gateway-network-quality.md",
+    "features": [
+      "Remote IP",
+      "current network quality",
+      "packet loss",
+      "network delay",
+      "24h/7d historical portal chart",
+      "degraded thresholds",
+      "support ticket shortcut"
+    ],
+    "apis": [
+      "GET /api/v1/gateways/{id}/network"
+    ],
+    "basis": "VOS Mapping Gateway Network documents remote IP, network quality, packet loss and delay. History is [HYBRID]."
+  },
+  {
+    "side": "Client",
+    "group": "Gateways & SIP",
+    "name": "Gateway Call Statistics",
+    "route": "/app/gateways/{gatewayId}/statistics",
+    "archetype": "DETAIL",
+    "data_mode": "query",
+    "phase": "P07 \u2014 Customer Self-Service Core \u2014 Dashboard, CDR, Gateways & Rates",
+    "template_file": "05_CLIENT_PAGES/025_gateway-call-statistics.md",
+    "features": [
+      "Total calls",
+      "success",
+      "callee rejected",
+      "trunk/network errors where appropriate",
+      "caller abandon",
+      "average talk duration",
+      "total call time",
+      "time range",
+      "drill to CDR"
+    ],
+    "apis": [
+      "GET /api/v1/gateways/{id}/statistics"
+    ],
+    "basis": "VOS Gateway Status documents these outcome fields. Customer-safe projection is [HYBRID]."
+  },
+  {
+    "side": "Client",
+    "group": "Rates & Pricing",
+    "name": "My Rate Sheet",
+    "route": "/app/rates",
+    "archetype": "DETAIL",
+    "data_mode": "query",
+    "phase": "P07 \u2014 Customer Self-Service Core \u2014 Dashboard, CDR, Gateways & Rates",
+    "template_file": "05_CLIENT_PAGES/026_my-rate-sheet.md",
+    "features": [
+      "Search by country/destination/prefix",
+      "Prefix",
+      "area/destination",
+      "rate type",
+      "rate/minute",
+      "billing cycle where customer-facing",
+      "effective date supplied by portal rate-versioning",
+      "download CSV/XLSX",
+      "never expose carrier cost/private admin margins"
+    ],
+    "apis": [
+      "GET /api/v1/rates"
+    ],
+    "basis": "VOS Rate Management provides prefix, area, type, billing rate/cycle and rate/minute. Presentation/versioning is [HYBRID]."
+  },
+  {
+    "side": "Client",
+    "group": "Rates & Pricing",
+    "name": "Rate Lookup",
+    "route": "/app/rates/lookup",
+    "archetype": "DETAIL",
+    "data_mode": "query",
+    "phase": "P07 \u2014 Customer Self-Service Core \u2014 Dashboard, CDR, Gateways & Rates",
+    "template_file": "05_CLIENT_PAGES/027_rate-lookup.md",
+    "features": [
+      "Number input",
+      "normalized number",
+      "matched prefix",
+      "destination",
+      "rate type",
+      "customer rate/minute",
+      "billing increment/cycle",
+      "clear no-rate result",
+      "copy result"
+    ],
+    "apis": [
+      "GET /api/v1/rates/lookup?number=..."
+    ],
+    "basis": "VOS uses longest-prefix matching; customer lookup is [HYBRID]."
+  },
+  {
+    "side": "Client",
+    "group": "Rates & Pricing",
+    "name": "Rate Change History",
+    "route": "/app/rates/history",
+    "archetype": "LIST_TABLE",
+    "data_mode": "query",
+    "phase": "P10 \u2014 Gateway, Rate, Package & Routing Configuration Workflows",
+    "template_file": "05_CLIENT_PAGES/028_rate-change-history.md",
+    "features": [
+      "Destination/prefix",
+      "old rate",
+      "new rate",
+      "effective date",
+      "published date",
+      "filter upcoming/past",
+      "download change file"
+    ],
+    "apis": [
+      "GET /api/v1/rates/history"
+    ],
+    "basis": "Rate history/effective publishing workflow is a [PORTAL] extension unless a supported VOS mechanism is verified."
+  },
+  {
+    "side": "Client",
+    "group": "Reports & Downloads",
+    "name": "Reports Home",
+    "route": "/app/reports",
+    "archetype": "LIST_TABLE",
+    "data_mode": "query",
+    "phase": "P11 \u2014 Customer API, Webhooks, Reports & Large Exports",
+    "template_file": "05_CLIENT_PAGES/029_reports-home.md",
+    "features": [
+      "Traffic summary",
+      "billing/usage",
+      "destination",
+      "gateway quality",
+      "failure summary",
+      "saved reports",
+      "recent exports"
+    ],
+    "apis": [
+      "GET /api/v1/reports"
+    ],
+    "basis": "[HYBRID]"
+  },
+  {
+    "side": "Client",
+    "group": "Reports & Downloads",
+    "name": "Usage Report",
+    "route": "/app/reports/usage",
+    "archetype": "ANALYTICS_REPORT",
+    "data_mode": "analytical",
+    "phase": "P11 \u2014 Customer API, Webhooks, Reports & Large Exports",
+    "template_file": "05_CLIENT_PAGES/030_usage-report.md",
+    "features": [
+      "Date range",
+      "group by day/hour/destination/gateway",
+      "calls",
+      "answered",
+      "minutes",
+      "charges",
+      "ASR/ACD where applicable",
+      "export"
+    ],
+    "apis": [
+      "GET /api/v1/reports/usage"
+    ],
+    "basis": "[HYBRID]"
+  },
+  {
+    "side": "Client",
+    "group": "Reports & Downloads",
+    "name": "Gateway Report",
+    "route": "/app/reports/gateways",
+    "archetype": "ANALYTICS_REPORT",
+    "data_mode": "analytical",
+    "phase": "P07 \u2014 Customer Self-Service Core \u2014 Dashboard, CDR, Gateways & Rates",
+    "template_file": "05_CLIENT_PAGES/031_gateway-report.md",
+    "features": [
+      "Gateway",
+      "calls",
+      "minutes",
+      "ASR",
+      "ACD",
+      "PDD",
+      "failure rate",
+      "network delay/loss if available",
+      "export"
+    ],
+    "apis": [
+      "GET /api/v1/reports/gateways"
+    ],
+    "basis": "VOS has gateway reports/performance; customer projection is [HYBRID]."
+  },
+  {
+    "side": "Client",
+    "group": "Reports & Downloads",
+    "name": "Scheduled Reports",
+    "route": "/app/reports/schedules",
+    "archetype": "LIST_TABLE",
+    "data_mode": "query",
+    "phase": "P11 \u2014 Customer API, Webhooks, Reports & Large Exports",
+    "template_file": "05_CLIENT_PAGES/032_scheduled-reports.md",
+    "features": [
+      "Choose report",
+      "saved filters",
+      "daily/weekly/monthly",
+      "timezone",
+      "recipient emails restricted to organization policy",
+      "CSV/XLSX/PDF where supported",
+      "pause/resume",
+      "last/next run"
+    ],
+    "apis": [
+      "GET /api/v1/report-schedules",
+      "POST /api/v1/report-schedules"
+    ],
+    "basis": "[PORTAL]"
+  },
+  {
+    "side": "Client",
+    "group": "Reports & Downloads",
+    "name": "Downloads",
+    "route": "/app/downloads",
+    "archetype": "LIST_TABLE",
+    "data_mode": "query",
+    "phase": "P11 \u2014 Customer API, Webhooks, Reports & Large Exports",
+    "template_file": "05_CLIENT_PAGES/033_downloads.md",
+    "features": [
+      "CDR exports",
+      "rate sheets",
+      "statements",
+      "reports",
+      "status ready/expired",
+      "size/row count",
+      "expiry and delete"
+    ],
+    "apis": [
+      "GET /api/v1/downloads"
+    ],
+    "basis": "[PORTAL]"
+  },
+  {
+    "side": "Client",
+    "group": "Notifications",
+    "name": "Notification Center",
+    "route": "/app/notifications",
+    "archetype": "LIST_TABLE",
+    "data_mode": "query",
+    "phase": "P11 \u2014 Customer API, Webhooks, Reports & Large Exports",
+    "template_file": "05_CLIENT_PAGES/034_notification-center.md",
+    "features": [
+      "Low balance",
+      "payment result",
+      "gateway online/offline",
+      "ASR/failure degradation",
+      "rate change",
+      "account expiry",
+      "security events",
+      "read/unread",
+      "filter by type",
+      "deep links"
+    ],
+    "apis": [
+      "GET /api/v1/notifications"
+    ],
+    "basis": "[PORTAL]"
+  },
+  {
+    "side": "Client",
+    "group": "Notifications",
+    "name": "Alert Preferences",
+    "route": "/app/settings/notifications",
+    "archetype": "SETTINGS",
+    "data_mode": "transactional/configuration",
+    "phase": "P11 \u2014 Customer API, Webhooks, Reports & Large Exports",
+    "template_file": "05_CLIENT_PAGES/035_alert-preferences.md",
+    "features": [
+      "Low-balance amount",
+      "gateway state alerts",
+      "rate changes",
+      "payment alerts",
+      "security alerts always-on where required",
+      "email/webhook/other channel toggles",
+      "quiet-hours policy only for noncritical alerts"
+    ],
+    "apis": [
+      "GET /api/v1/me/notification-preferences",
+      "PUT /api/v1/me/notification-preferences"
+    ],
+    "basis": "[PORTAL]"
+  },
+  {
+    "side": "Client",
+    "group": "Developer API & Webhooks",
+    "name": "API Overview",
+    "route": "/app/developers",
+    "archetype": "DASHBOARD",
+    "data_mode": "query",
+    "phase": "P11 \u2014 Customer API, Webhooks, Reports & Large Exports",
+    "template_file": "05_CLIENT_PAGES/036_api-overview.md",
+    "features": [
+      "Base URL",
+      "authentication model",
+      "scopes summary",
+      "rate limits",
+      "quick-start snippets",
+      "links to CDR/balance/gateway/rates endpoints",
+      "sandbox/test notes if provided"
+    ],
+    "apis": [
+      "GET /api/v1/developer/overview"
+    ],
+    "basis": "[PORTAL]"
+  },
+  {
+    "side": "Client",
+    "group": "Developer API & Webhooks",
+    "name": "API Keys",
+    "route": "/app/developers/api-keys",
+    "archetype": "DETAIL",
+    "data_mode": "query",
+    "phase": "P11 \u2014 Customer API, Webhooks, Reports & Large Exports",
+    "template_file": "05_CLIENT_PAGES/037_api-keys.md",
+    "features": [
+      "Key name",
+      "key ID",
+      "secret shown once",
+      "scopes",
+      "IP allowlist",
+      "expiry",
+      "last used",
+      "rotate/revoke",
+      "max active keys per account"
+    ],
+    "apis": [
+      "GET /api/v1/api-keys",
+      "POST /api/v1/api-keys"
+    ],
+    "basis": "[PORTAL]"
+  },
+  {
+    "side": "Client",
+    "group": "Developer API & Webhooks",
+    "name": "API Request Logs",
+    "route": "/app/developers/logs",
+    "archetype": "LIST_TABLE",
+    "data_mode": "query",
+    "phase": "P11 \u2014 Customer API, Webhooks, Reports & Large Exports",
+    "template_file": "05_CLIENT_PAGES/038_api-request-logs.md",
+    "features": [
+      "Timestamp",
+      "method/path",
+      "status",
+      "latency",
+      "request ID",
+      "key name",
+      "IP",
+      "filter/export",
+      "redact secrets and sensitive payload data"
+    ],
+    "apis": [
+      "GET /api/v1/developer/request-logs"
+    ],
+    "basis": "[PORTAL]"
+  },
+  {
+    "side": "Client",
+    "group": "Developer API & Webhooks",
+    "name": "Webhook Endpoints",
+    "route": "/app/developers/webhooks",
+    "archetype": "LIST_TABLE",
+    "data_mode": "query",
+    "phase": "P11 \u2014 Customer API, Webhooks, Reports & Large Exports",
+    "template_file": "05_CLIENT_PAGES/039_webhook-endpoints.md",
+    "features": [
+      "Endpoint URL",
+      "events such as call.completed, gateway.online/offline, balance.low, payment.completed, rate.changed",
+      "signing secret shown once/rotatable",
+      "enable/disable",
+      "test delivery"
+    ],
+    "apis": [
+      "GET /api/v1/webhooks",
+      "POST /api/v1/webhooks"
+    ],
+    "basis": "[PORTAL]"
+  },
+  {
+    "side": "Client",
+    "group": "Developer API & Webhooks",
+    "name": "Webhook Delivery Log",
+    "route": "/app/developers/webhook-deliveries",
+    "archetype": "LIST_TABLE",
+    "data_mode": "query",
+    "phase": "P11 \u2014 Customer API, Webhooks, Reports & Large Exports",
+    "template_file": "05_CLIENT_PAGES/040_webhook-delivery-log.md",
+    "features": [
+      "Event",
+      "endpoint",
+      "attempt",
+      "HTTP status",
+      "latency",
+      "next retry",
+      "payload preview with redaction",
+      "manual retry if allowed"
+    ],
+    "apis": [
+      "GET /api/v1/webhook-deliveries"
+    ],
+    "basis": "[PORTAL]"
+  },
+  {
+    "side": "Client",
+    "group": "Team & Permissions",
+    "name": "Team Members",
+    "route": "/app/team",
+    "archetype": "DETAIL",
+    "data_mode": "query",
+    "phase": "P02 \u2014 Identity, RBAC, Tenant Isolation & Audit Foundation",
+    "template_file": "05_CLIENT_PAGES/041_team-members.md",
+    "features": [
+      "Name/email",
+      "role",
+      "status",
+      "last login",
+      "MFA state",
+      "invite member",
+      "resend/revoke invite",
+      "disable/remove member"
+    ],
+    "apis": [
+      "GET /api/v1/team",
+      "POST /api/v1/team/invitations"
+    ],
+    "basis": "[PORTAL]"
+  },
+  {
+    "side": "Client",
+    "group": "Team & Permissions",
+    "name": "Client Roles",
+    "route": "/app/team/roles",
+    "archetype": "DETAIL",
+    "data_mode": "query",
+    "phase": "P02 \u2014 Identity, RBAC, Tenant Isolation & Audit Foundation",
+    "template_file": "05_CLIENT_PAGES/042_client-roles.md",
+    "features": [
+      "Owner, Billing, Technical/NOC, Read Only, API Manager",
+      "Permissions: view CDR, view rates, view balance, add funds, manage gateway IP, view live calls, manage API, download reports, manage team",
+      "Custom roles optionally later"
+    ],
+    "apis": [
+      "GET /api/v1/team/roles"
+    ],
+    "basis": "[PORTAL]"
+  },
+  {
+    "side": "Client",
+    "group": "Support",
+    "name": "Support Tickets",
+    "route": "/app/support",
+    "archetype": "LIST_TABLE",
+    "data_mode": "query",
+    "phase": "P11 \u2014 Customer API, Webhooks, Reports & Large Exports",
+    "template_file": "05_CLIENT_PAGES/043_support-tickets.md",
+    "features": [
+      "Open/pending/resolved statuses",
+      "category Billing/Routing/Quality/Technical/Rate/Payment/Other",
+      "priority",
+      "last update",
+      "search/filter",
+      "new ticket"
+    ],
+    "apis": [
+      "GET /api/v1/support/tickets"
+    ],
+    "basis": "[PORTAL]"
+  },
+  {
+    "side": "Client",
+    "group": "Support",
+    "name": "New Support Ticket",
+    "route": "/app/support/new",
+    "archetype": "EDITOR_FORM",
+    "data_mode": "transactional/configuration",
+    "phase": "P11 \u2014 Customer API, Webhooks, Reports & Large Exports",
+    "template_file": "05_CLIENT_PAGES/044_new-support-ticket.md",
+    "features": [
+      "Subject",
+      "category",
+      "description",
+      "optional gateway",
+      "optional CDR/call ID",
+      "attachment",
+      "auto-attach safe diagnostics after user consent",
+      "confirmation/reference"
+    ],
+    "apis": [
+      "POST /api/v1/support/tickets"
+    ],
+    "basis": "[PORTAL]"
+  },
+  {
+    "side": "Client",
+    "group": "Support",
+    "name": "Ticket Detail",
+    "route": "/app/support/{ticketId}",
+    "archetype": "DETAIL",
+    "data_mode": "query",
+    "phase": "P11 \u2014 Customer API, Webhooks, Reports & Large Exports",
+    "template_file": "05_CLIENT_PAGES/045_ticket-detail.md",
+    "features": [
+      "Message thread",
+      "status/priority",
+      "assigned team if exposed",
+      "attachments",
+      "linked CDR/gateway",
+      "reply",
+      "close/reopen where policy allows"
+    ],
+    "apis": [
+      "GET /api/v1/support/tickets/{id}",
+      "POST /api/v1/support/tickets/{id}/messages"
+    ],
+    "basis": "[PORTAL]"
+  }
+]

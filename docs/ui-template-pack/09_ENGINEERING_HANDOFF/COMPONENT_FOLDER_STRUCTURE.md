@@ -1,0 +1,29 @@
+# Frontend Folder Structure
+```text
+app/
+  (admin)/
+  (client)/
+components/
+  ui/
+  tables/
+  charts/
+  forms/
+  telecom/
+  billing/
+  realtime/
+features/
+  auth/
+  customers/
+  gateways/
+  cdr/
+  rates/
+  billing/
+  reports/
+lib/
+  api/
+  auth/
+  permissions/
+  formatting/
+  realtime/
+```
+Shared primitives stay generic; domain behavior belongs in feature modules.

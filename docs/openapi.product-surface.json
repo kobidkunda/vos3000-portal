@@ -1,0 +1,3928 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "VOS3000 Portal Product API Surface",
+    "version": "1.0.0",
+    "description": "Generated from the supplied Admin and Client product specifications. VOS-specific writes remain capability-gated until verified."
+  },
+  "servers": [
+    {
+      "url": "http://localhost:4000"
+    }
+  ],
+  "paths": {
+    "/api/v1/admin/auth/login": {
+      "post": {
+        "summary": "POST /api/v1/admin/auth/login",
+        "responses": {
+          "200": {
+            "description": "Successful portal response"
+          },
+          "401": {
+            "description": "Authentication required"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        },
+        "requestBody": {
+          "required": false,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "additionalProperties": true
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/admin/auth/mfa/verify": {
+      "post": {
+        "summary": "POST /api/v1/admin/auth/mfa/verify",
+        "responses": {
+          "200": {
+            "description": "Successful portal response"
+          },
+          "401": {
+            "description": "Authentication required"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        },
+        "requestBody": {
+          "required": false,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "additionalProperties": true
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/admin/auth/password/request": {
+      "post": {
+        "summary": "POST /api/v1/admin/auth/password/request",
+        "responses": {
+          "200": {
+            "description": "Successful portal response"
+          },
+          "401": {
+            "description": "Authentication required"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        },
+        "requestBody": {
+          "required": false,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "additionalProperties": true
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/admin/auth/password/reset": {
+      "post": {
+        "summary": "POST /api/v1/admin/auth/password/reset",
+        "responses": {
+          "200": {
+            "description": "Successful portal response"
+          },
+          "401": {
+            "description": "Authentication required"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        },
+        "requestBody": {
+          "required": false,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "additionalProperties": true
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/admin/me/sessions": {
+      "get": {
+        "summary": "GET /api/v1/admin/me/sessions",
+        "responses": {
+          "200": {
+            "description": "Successful portal response"
+          },
+          "401": {
+            "description": "Authentication required"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/api/v1/admin/me/sessions/{id}": {
+      "delete": {
+        "summary": "DELETE /api/v1/admin/me/sessions/{id}",
+        "responses": {
+          "200": {
+            "description": "Successful portal response"
+          },
+          "401": {
+            "description": "Authentication required"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ]
+      }
+    },
+    "/api/v1/admin/dashboard/summary": {
+      "get": {
+        "summary": "GET /api/v1/admin/dashboard/summary",
+        "responses": {
+          "200": {
+            "description": "Successful portal response"
+          },
+          "401": {
+            "description": "Authentication required"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/api/v1/admin/dashboard/timeseries": {
+      "get": {
+        "summary": "GET /api/v1/admin/dashboard/timeseries",
+        "responses": {
+          "200": {
+            "description": "Successful portal response"
+          },
+          "401": {
+            "description": "Authentication required"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/api/v1/admin/noc/summary": {
+      "get": {
+        "summary": "GET /api/v1/admin/noc/summary",
+        "responses": {
+          "200": {
+            "description": "Successful portal response"
+          },
+          "401": {
+            "description": "Authentication required"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/api/v1/admin/noc/stream": {
+      "get": {
+        "summary": "GET /api/v1/admin/noc/stream",
+        "responses": {
+          "200": {
+            "description": "Successful portal response"
+          },
+          "401": {
+            "description": "Authentication required"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/api/v1/admin/system/health": {
+      "get": {
+        "summary": "GET /api/v1/admin/system/health",
+        "responses": {
+          "200": {
+            "description": "Successful portal response"
+          },
+          "401": {
+            "description": "Authentication required"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/api/v1/admin/alarms": {
+      "get": {
+        "summary": "GET /api/v1/admin/alarms",
+        "responses": {
+          "200": {
+            "description": "Successful portal response"
+          },
+          "401": {
+            "description": "Authentication required"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/api/v1/admin/alarms/{id}/ack": {
+      "post": {
+        "summary": "POST /api/v1/admin/alarms/{id}/ack",
+        "responses": {
+          "200": {
+            "description": "Successful portal response"
+          },
+          "401": {
+            "description": "Authentication required"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": false,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "additionalProperties": true
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/admin/customers": {
+      "get": {
+        "summary": "GET /api/v1/admin/customers",
+        "responses": {
+          "200": {
+            "description": "Successful portal response"
+          },
+          "401": {
+            "description": "Authentication required"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      },
+      "post": {
+        "summary": "POST /api/v1/admin/customers",
+        "responses": {
+          "200": {
+            "description": "Successful portal response"
+          },
+          "401": {
+            "description": "Authentication required"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        },
+        "requestBody": {
+          "required": false,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "additionalProperties": true
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/admin/customers/{id}": {
+      "get": {
+        "summary": "GET /api/v1/admin/customers/{id}",
+        "responses": {
+          "200": {
+            "description": "Successful portal response"
+          },
+          "401": {
+            "description": "Authentication required"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ]
+      }
+    },
+    "/api/v1/admin/customers/{id}/account": {
+      "get": {
+        "summary": "GET /api/v1/admin/customers/{id}/account",
+        "responses": {
+          "200": {
+            "description": "Successful portal response"
+          },
+          "401": {
+            "description": "Authentication required"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ]
+      },
+      "patch": {
+        "summary": "PATCH /api/v1/admin/customers/{id}/account",
+        "responses": {
+          "200": {
+            "description": "Successful portal response"
+          },
+          "401": {
+            "description": "Authentication required"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": false,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "additionalProperties": true
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/admin/customers/{id}/balance": {
+      "get": {
+        "summary": "GET /api/v1/admin/customers/{id}/balance",
+        "responses": {
+          "200": {
+            "description": "Successful portal response"
+          },
+          "401": {
+            "description": "Authentication required"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ]
+      }
+    },
+    "/api/v1/admin/customers/{id}/adjustments": {
+      "post": {
+        "summary": "POST /api/v1/admin/customers/{id}/adjustments",
+        "responses": {
+          "200": {
+            "description": "Successful portal response"
+          },
+          "401": {
+            "description": "Authentication required"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": false,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "additionalProperties": true
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/admin/customers/{id}/packages": {
+      "get": {
+        "summary": "GET /api/v1/admin/customers/{id}/packages",
+        "responses": {
+          "200": {
+            "description": "Successful portal response"
+          },
+          "401": {
+            "description": "Authentication required"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ]
+      },
+      "post": {
+        "summary": "POST /api/v1/admin/customers/{id}/packages",
+        "responses": {
+          "200": {
+            "description": "Successful portal response"
+          },
+          "401": {
+            "description": "Authentication required"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": false,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "additionalProperties": true
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/admin/customers/{id}/authorizations": {
+      "get": {
+        "summary": "GET /api/v1/admin/customers/{id}/authorizations",
+        "responses": {
+          "200": {
+            "description": "Successful portal response"
+          },
+          "401": {
+            "description": "Authentication required"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ]
+      },
+      "put": {
+        "summary": "PUT /api/v1/admin/customers/{id}/authorizations",
+        "responses": {
+          "200": {
+            "description": "Successful portal response"
+          },
+          "401": {
+            "description": "Authentication required"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": false,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "additionalProperties": true
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/admin/customers/{id}/subaccounts": {
+      "get": {
+        "summary": "GET /api/v1/admin/customers/{id}/subaccounts",
+        "responses": {
+          "200": {
+            "description": "Successful portal response"
+          },
+          "401": {
+            "description": "Authentication required"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ]
+      }
+    },
+    "/api/v1/admin/customers/{id}/number-limits": {
+      "get": {
+        "summary": "GET /api/v1/admin/customers/{id}/number-limits",
+        "responses": {
+          "200": {
+            "description": "Successful portal response"
+          },
+          "401": {
+            "description": "Authentication required"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ]
+      },
+      "put": {
+        "summary": "PUT /api/v1/admin/customers/{id}/number-limits",
+        "responses": {
+          "200": {
+            "description": "Successful portal response"
+          },
+          "401": {
+            "description": "Authentication required"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": false,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "additionalProperties": true
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/admin/gateways/mapping": {
+      "get": {
+        "summary": "GET /api/v1/admin/gateways/mapping",
+        "responses": {
+          "200": {
+            "description": "Successful portal response"
+          },
+          "401": {
+            "description": "Authentication required"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      },
+      "post": {
+        "summary": "POST /api/v1/admin/gateways/mapping",
+        "responses": {
+          "200": {
+            "description": "Successful portal response"
+          },
+          "401": {
+            "description": "Authentication required"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        },
+        "requestBody": {
+          "required": false,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "additionalProperties": true
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/admin/gateways/mapping/{id}": {
+      "get": {
+        "summary": "GET /api/v1/admin/gateways/mapping/{id}",
+        "responses": {
+          "200": {
+            "description": "Successful portal response"
+          },
+          "401": {
+            "description": "Authentication required"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ]
+      },
+      "patch": {
+        "summary": "PATCH /api/v1/admin/gateways/mapping/{id}",
+        "responses": {
+          "200": {
+            "description": "Successful portal response"
+          },
+          "401": {
+            "description": "Authentication required"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": false,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "additionalProperties": true
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/admin/gateways/routing": {
+      "get": {
+        "summary": "GET /api/v1/admin/gateways/routing",
+        "responses": {
+          "200": {
+            "description": "Successful portal response"
+          },
+          "401": {
+            "description": "Authentication required"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      },
+      "post": {
+        "summary": "POST /api/v1/admin/gateways/routing",
+        "responses": {
+          "200": {
+            "description": "Successful portal response"
+          },
+          "401": {
+            "description": "Authentication required"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        },
+        "requestBody": {
+          "required": false,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "additionalProperties": true
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/admin/gateways/routing/{id}": {
+      "get": {
+        "summary": "GET /api/v1/admin/gateways/routing/{id}",
+        "responses": {
+          "200": {
+            "description": "Successful portal response"
+          },
+          "401": {
+            "description": "Authentication required"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ]
+      },
+      "patch": {
+        "summary": "PATCH /api/v1/admin/gateways/routing/{id}",
+        "responses": {
+          "200": {
+            "description": "Successful portal response"
+          },
+          "401": {
+            "description": "Authentication required"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": false,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "additionalProperties": true
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/admin/gateways/online": {
+      "get": {
+        "summary": "GET /api/v1/admin/gateways/online",
+        "responses": {
+          "200": {
+            "description": "Successful portal response"
+          },
+          "401": {
+            "description": "Authentication required"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/api/v1/admin/gateways/network": {
+      "get": {
+        "summary": "GET /api/v1/admin/gateways/network",
+        "responses": {
+          "200": {
+            "description": "Successful portal response"
+          },
+          "401": {
+            "description": "Authentication required"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/api/v1/admin/gateways/status": {
+      "get": {
+        "summary": "GET /api/v1/admin/gateways/status",
+        "responses": {
+          "200": {
+            "description": "Successful portal response"
+          },
+          "401": {
+            "description": "Authentication required"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/api/v1/admin/gateway-groups": {
+      "get": {
+        "summary": "GET /api/v1/admin/gateway-groups",
+        "responses": {
+          "200": {
+            "description": "Successful portal response"
+          },
+          "401": {
+            "description": "Authentication required"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      },
+      "post": {
+        "summary": "POST /api/v1/admin/gateway-groups",
+        "responses": {
+          "200": {
+            "description": "Successful portal response"
+          },
+          "401": {
+            "description": "Authentication required"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        },
+        "requestBody": {
+          "required": false,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "additionalProperties": true
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/admin/registrations": {
+      "get": {
+        "summary": "GET /api/v1/admin/registrations",
+        "responses": {
+          "200": {
+            "description": "Successful portal response"
+          },
+          "401": {
+            "description": "Authentication required"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      },
+      "post": {
+        "summary": "POST /api/v1/admin/registrations",
+        "responses": {
+          "200": {
+            "description": "Successful portal response"
+          },
+          "401": {
+            "description": "Authentication required"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        },
+        "requestBody": {
+          "required": false,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "additionalProperties": true
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/admin/tools/routing-analysis": {
+      "post": {
+        "summary": "POST /api/v1/admin/tools/routing-analysis",
+        "responses": {
+          "200": {
+            "description": "Successful portal response"
+          },
+          "401": {
+            "description": "Authentication required"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        },
+        "requestBody": {
+          "required": false,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "additionalProperties": true
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/admin/tools/network-test": {
+      "post": {
+        "summary": "POST /api/v1/admin/tools/network-test",
+        "responses": {
+          "200": {
+            "description": "Successful portal response"
+          },
+          "401": {
+            "description": "Authentication required"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        },
+        "requestBody": {
+          "required": false,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "additionalProperties": true
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/admin/domains": {
+      "get": {
+        "summary": "GET /api/v1/admin/domains",
+        "responses": {
+          "200": {
+            "description": "Successful portal response"
+          },
+          "401": {
+            "description": "Authentication required"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/api/v1/admin/prohibited-media-ips": {
+      "get": {
+        "summary": "GET /api/v1/admin/prohibited-media-ips",
+        "responses": {
+          "200": {
+            "description": "Successful portal response"
+          },
+          "401": {
+            "description": "Authentication required"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/api/v1/admin/softswitches": {
+      "get": {
+        "summary": "GET /api/v1/admin/softswitches",
+        "responses": {
+          "200": {
+            "description": "Successful portal response"
+          },
+          "401": {
+            "description": "Authentication required"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/api/v1/admin/phones": {
+      "get": {
+        "summary": "GET /api/v1/admin/phones",
+        "responses": {
+          "200": {
+            "description": "Successful portal response"
+          },
+          "401": {
+            "description": "Authentication required"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      },
+      "post": {
+        "summary": "POST /api/v1/admin/phones",
+        "responses": {
+          "200": {
+            "description": "Successful portal response"
+          },
+          "401": {
+            "description": "Authentication required"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        },
+        "requestBody": {
+          "required": false,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "additionalProperties": true
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/admin/phones/{id}": {
+      "get": {
+        "summary": "GET /api/v1/admin/phones/{id}",
+        "responses": {
+          "200": {
+            "description": "Successful portal response"
+          },
+          "401": {
+            "description": "Authentication required"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ]
+      },
+      "patch": {
+        "summary": "PATCH /api/v1/admin/phones/{id}",
+        "responses": {
+          "200": {
+            "description": "Successful portal response"
+          },
+          "401": {
+            "description": "Authentication required"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": false,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "additionalProperties": true
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/admin/phones/online": {
+      "get": {
+        "summary": "GET /api/v1/admin/phones/online",
+        "responses": {
+          "200": {
+            "description": "Successful portal response"
+          },
+          "401": {
+            "description": "Authentication required"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/api/v1/admin/calls/live": {
+      "get": {
+        "summary": "GET /api/v1/admin/calls/live",
+        "responses": {
+          "200": {
+            "description": "Successful portal response"
+          },
+          "401": {
+            "description": "Authentication required"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/api/v1/admin/calls/live/stream": {
+      "get": {
+        "summary": "GET /api/v1/admin/calls/live/stream",
+        "responses": {
+          "200": {
+            "description": "Successful portal response"
+          },
+          "401": {
+            "description": "Authentication required"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/api/v1/admin/calls/live/{id}": {
+      "get": {
+        "summary": "GET /api/v1/admin/calls/live/{id}",
+        "responses": {
+          "200": {
+            "description": "Successful portal response"
+          },
+          "401": {
+            "description": "Authentication required"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ]
+      }
+    },
+    "/api/v1/admin/calls/live/{id}/disconnect": {
+      "post": {
+        "summary": "POST /api/v1/admin/calls/live/{id}/disconnect",
+        "responses": {
+          "200": {
+            "description": "Successful portal response"
+          },
+          "401": {
+            "description": "Authentication required"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": false,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "additionalProperties": true
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/admin/diagnostics/call-analysis/{serial}": {
+      "get": {
+        "summary": "GET /api/v1/admin/diagnostics/call-analysis/{serial}",
+        "responses": {
+          "200": {
+            "description": "Successful portal response"
+          },
+          "401": {
+            "description": "Authentication required"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        },
+        "parameters": [
+          {
+            "name": "serial",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ]
+      }
+    },
+    "/api/v1/admin/diagnostics/registration-analysis": {
+      "get": {
+        "summary": "GET /api/v1/admin/diagnostics/registration-analysis",
+        "responses": {
+          "200": {
+            "description": "Successful portal response"
+          },
+          "401": {
+            "description": "Authentication required"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/api/v1/admin/cdr/recent": {
+      "get": {
+        "summary": "GET /api/v1/admin/cdr/recent",
+        "responses": {
+          "200": {
+            "description": "Successful portal response"
+          },
+          "401": {
+            "description": "Authentication required"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/api/v1/admin/cdr": {
+      "get": {
+        "summary": "GET /api/v1/admin/cdr",
+        "responses": {
+          "200": {
+            "description": "Successful portal response"
+          },
+          "401": {
+            "description": "Authentication required"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/api/v1/admin/cdr/exports": {
+      "post": {
+        "summary": "POST /api/v1/admin/cdr/exports",
+        "responses": {
+          "200": {
+            "description": "Successful portal response"
+          },
+          "401": {
+            "description": "Authentication required"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        },
+        "requestBody": {
+          "required": false,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "additionalProperties": true
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/admin/cdr/{id}": {
+      "get": {
+        "summary": "GET /api/v1/admin/cdr/{id}",
+        "responses": {
+          "200": {
+            "description": "Successful portal response"
+          },
+          "401": {
+            "description": "Authentication required"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ]
+      }
+    },
+    "/api/v1/admin/analytics/failures": {
+      "get": {
+        "summary": "GET /api/v1/admin/analytics/failures",
+        "responses": {
+          "200": {
+            "description": "Successful portal response"
+          },
+          "401": {
+            "description": "Authentication required"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/api/v1/admin/analytics/connect": {
+      "get": {
+        "summary": "GET /api/v1/admin/analytics/connect",
+        "responses": {
+          "200": {
+            "description": "Successful portal response"
+          },
+          "401": {
+            "description": "Authentication required"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/api/v1/admin/analytics/interrupt": {
+      "get": {
+        "summary": "GET /api/v1/admin/analytics/interrupt",
+        "responses": {
+          "200": {
+            "description": "Successful portal response"
+          },
+          "401": {
+            "description": "Authentication required"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/api/v1/admin/analytics/distribution": {
+      "get": {
+        "summary": "GET /api/v1/admin/analytics/distribution",
+        "responses": {
+          "200": {
+            "description": "Successful portal response"
+          },
+          "401": {
+            "description": "Authentication required"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/api/v1/admin/analytics/historical-performance": {
+      "get": {
+        "summary": "GET /api/v1/admin/analytics/historical-performance",
+        "responses": {
+          "200": {
+            "description": "Successful portal response"
+          },
+          "401": {
+            "description": "Authentication required"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/api/v1/admin/analytics/gateway-performance": {
+      "get": {
+        "summary": "GET /api/v1/admin/analytics/gateway-performance",
+        "responses": {
+          "200": {
+            "description": "Successful portal response"
+          },
+          "401": {
+            "description": "Authentication required"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/api/v1/admin/rates/groups": {
+      "get": {
+        "summary": "GET /api/v1/admin/rates/groups",
+        "responses": {
+          "200": {
+            "description": "Successful portal response"
+          },
+          "401": {
+            "description": "Authentication required"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      },
+      "post": {
+        "summary": "POST /api/v1/admin/rates/groups",
+        "responses": {
+          "200": {
+            "description": "Successful portal response"
+          },
+          "401": {
+            "description": "Authentication required"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        },
+        "requestBody": {
+          "required": false,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "additionalProperties": true
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/admin/rates/groups/{id}/rates": {
+      "get": {
+        "summary": "GET /api/v1/admin/rates/groups/{id}/rates",
+        "responses": {
+          "200": {
+            "description": "Successful portal response"
+          },
+          "401": {
+            "description": "Authentication required"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ]
+      },
+      "put": {
+        "summary": "PUT /api/v1/admin/rates/groups/{id}/rates",
+        "responses": {
+          "200": {
+            "description": "Successful portal response"
+          },
+          "401": {
+            "description": "Authentication required"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": false,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "additionalProperties": true
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/admin/rates/imports": {
+      "post": {
+        "summary": "POST /api/v1/admin/rates/imports",
+        "responses": {
+          "200": {
+            "description": "Successful portal response"
+          },
+          "401": {
+            "description": "Authentication required"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        },
+        "requestBody": {
+          "required": false,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "additionalProperties": true
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/admin/rates/lookup": {
+      "get": {
+        "summary": "GET /api/v1/admin/rates/lookup",
+        "responses": {
+          "200": {
+            "description": "Successful portal response"
+          },
+          "401": {
+            "description": "Authentication required"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/api/v1/admin/packages": {
+      "get": {
+        "summary": "GET /api/v1/admin/packages",
+        "responses": {
+          "200": {
+            "description": "Successful portal response"
+          },
+          "401": {
+            "description": "Authentication required"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      },
+      "post": {
+        "summary": "POST /api/v1/admin/packages",
+        "responses": {
+          "200": {
+            "description": "Successful portal response"
+          },
+          "401": {
+            "description": "Authentication required"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        },
+        "requestBody": {
+          "required": false,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "additionalProperties": true
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/admin/packages/{id}/period-rates": {
+      "get": {
+        "summary": "GET /api/v1/admin/packages/{id}/period-rates",
+        "responses": {
+          "200": {
+            "description": "Successful portal response"
+          },
+          "401": {
+            "description": "Authentication required"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ]
+      }
+    },
+    "/api/v1/admin/packages/{id}/free-duration": {
+      "get": {
+        "summary": "GET /api/v1/admin/packages/{id}/free-duration",
+        "responses": {
+          "200": {
+            "description": "Successful portal response"
+          },
+          "401": {
+            "description": "Authentication required"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ]
+      }
+    },
+    "/api/v1/admin/commercial/margins": {
+      "get": {
+        "summary": "GET /api/v1/admin/commercial/margins",
+        "responses": {
+          "200": {
+            "description": "Successful portal response"
+          },
+          "401": {
+            "description": "Authentication required"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/api/v1/admin/payments": {
+      "get": {
+        "summary": "GET /api/v1/admin/payments",
+        "responses": {
+          "200": {
+            "description": "Successful portal response"
+          },
+          "401": {
+            "description": "Authentication required"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      },
+      "post": {
+        "summary": "POST /api/v1/admin/payments",
+        "responses": {
+          "200": {
+            "description": "Successful portal response"
+          },
+          "401": {
+            "description": "Authentication required"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        },
+        "requestBody": {
+          "required": false,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "additionalProperties": true
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/admin/billing/revenue": {
+      "get": {
+        "summary": "GET /api/v1/admin/billing/revenue",
+        "responses": {
+          "200": {
+            "description": "Successful portal response"
+          },
+          "401": {
+            "description": "Authentication required"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/api/v1/admin/billing/gateway": {
+      "get": {
+        "summary": "GET /api/v1/admin/billing/gateway",
+        "responses": {
+          "200": {
+            "description": "Successful portal response"
+          },
+          "401": {
+            "description": "Authentication required"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/api/v1/admin/billing/phone": {
+      "get": {
+        "summary": "GET /api/v1/admin/billing/phone",
+        "responses": {
+          "200": {
+            "description": "Successful portal response"
+          },
+          "401": {
+            "description": "Authentication required"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/api/v1/admin/billing/account-balance": {
+      "get": {
+        "summary": "GET /api/v1/admin/billing/account-balance",
+        "responses": {
+          "200": {
+            "description": "Successful portal response"
+          },
+          "401": {
+            "description": "Authentication required"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/api/v1/admin/settlement": {
+      "get": {
+        "summary": "GET /api/v1/admin/settlement",
+        "responses": {
+          "200": {
+            "description": "Successful portal response"
+          },
+          "401": {
+            "description": "Authentication required"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/api/v1/admin/reports": {
+      "get": {
+        "summary": "GET /api/v1/admin/reports",
+        "responses": {
+          "200": {
+            "description": "Successful portal response"
+          },
+          "401": {
+            "description": "Authentication required"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/api/v1/admin/reports/gateways": {
+      "get": {
+        "summary": "GET /api/v1/admin/reports/gateways",
+        "responses": {
+          "200": {
+            "description": "Successful portal response"
+          },
+          "401": {
+            "description": "Authentication required"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/api/v1/admin/reports/agent-income": {
+      "get": {
+        "summary": "GET /api/v1/admin/reports/agent-income",
+        "responses": {
+          "200": {
+            "description": "Successful portal response"
+          },
+          "401": {
+            "description": "Authentication required"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/api/v1/admin/report-schedules": {
+      "get": {
+        "summary": "GET /api/v1/admin/report-schedules",
+        "responses": {
+          "200": {
+            "description": "Successful portal response"
+          },
+          "401": {
+            "description": "Authentication required"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      },
+      "post": {
+        "summary": "POST /api/v1/admin/report-schedules",
+        "responses": {
+          "200": {
+            "description": "Successful portal response"
+          },
+          "401": {
+            "description": "Authentication required"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        },
+        "requestBody": {
+          "required": false,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "additionalProperties": true
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/admin/numbers/sections": {
+      "get": {
+        "summary": "GET /api/v1/admin/numbers/sections",
+        "responses": {
+          "200": {
+            "description": "Successful portal response"
+          },
+          "401": {
+            "description": "Authentication required"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/api/v1/admin/numbers/areas": {
+      "get": {
+        "summary": "GET /api/v1/admin/numbers/areas",
+        "responses": {
+          "200": {
+            "description": "Successful portal response"
+          },
+          "401": {
+            "description": "Authentication required"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/api/v1/admin/numbers/transforms": {
+      "get": {
+        "summary": "GET /api/v1/admin/numbers/transforms",
+        "responses": {
+          "200": {
+            "description": "Successful portal response"
+          },
+          "401": {
+            "description": "Authentication required"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/api/v1/admin/numbers/lists": {
+      "get": {
+        "summary": "GET /api/v1/admin/numbers/lists",
+        "responses": {
+          "200": {
+            "description": "Successful portal response"
+          },
+          "401": {
+            "description": "Authentication required"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/api/v1/admin/numbers/system-whitelist": {
+      "get": {
+        "summary": "GET /api/v1/admin/numbers/system-whitelist",
+        "responses": {
+          "200": {
+            "description": "Successful portal response"
+          },
+          "401": {
+            "description": "Authentication required"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/api/v1/admin/numbers/dynamic-blacklist": {
+      "get": {
+        "summary": "GET /api/v1/admin/numbers/dynamic-blacklist",
+        "responses": {
+          "200": {
+            "description": "Successful portal response"
+          },
+          "401": {
+            "description": "Authentication required"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/api/v1/admin/security/users": {
+      "get": {
+        "summary": "GET /api/v1/admin/security/users",
+        "responses": {
+          "200": {
+            "description": "Successful portal response"
+          },
+          "401": {
+            "description": "Authentication required"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      },
+      "post": {
+        "summary": "POST /api/v1/admin/security/users",
+        "responses": {
+          "200": {
+            "description": "Successful portal response"
+          },
+          "401": {
+            "description": "Authentication required"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        },
+        "requestBody": {
+          "required": false,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "additionalProperties": true
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/admin/security/roles": {
+      "get": {
+        "summary": "GET /api/v1/admin/security/roles",
+        "responses": {
+          "200": {
+            "description": "Successful portal response"
+          },
+          "401": {
+            "description": "Authentication required"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/api/v1/admin/security/roles/{id}": {
+      "put": {
+        "summary": "PUT /api/v1/admin/security/roles/{id}",
+        "responses": {
+          "200": {
+            "description": "Successful portal response"
+          },
+          "401": {
+            "description": "Authentication required"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": false,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "additionalProperties": true
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/admin/security/online-users": {
+      "get": {
+        "summary": "GET /api/v1/admin/security/online-users",
+        "responses": {
+          "200": {
+            "description": "Successful portal response"
+          },
+          "401": {
+            "description": "Authentication required"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/api/v1/admin/audit": {
+      "get": {
+        "summary": "GET /api/v1/admin/audit",
+        "responses": {
+          "200": {
+            "description": "Successful portal response"
+          },
+          "401": {
+            "description": "Authentication required"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/api/v1/admin/system/vos-log": {
+      "get": {
+        "summary": "GET /api/v1/admin/system/vos-log",
+        "responses": {
+          "200": {
+            "description": "Successful portal response"
+          },
+          "401": {
+            "description": "Authentication required"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/api/v1/admin/system/parameters": {
+      "get": {
+        "summary": "GET /api/v1/admin/system/parameters",
+        "responses": {
+          "200": {
+            "description": "Successful portal response"
+          },
+          "401": {
+            "description": "Authentication required"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/api/v1/admin/system/parameters/{name}": {
+      "patch": {
+        "summary": "PATCH /api/v1/admin/system/parameters/{name}",
+        "responses": {
+          "200": {
+            "description": "Successful portal response"
+          },
+          "401": {
+            "description": "Authentication required"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        },
+        "parameters": [
+          {
+            "name": "name",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": false,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "additionalProperties": true
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/admin/system/info": {
+      "get": {
+        "summary": "GET /api/v1/admin/system/info",
+        "responses": {
+          "200": {
+            "description": "Successful portal response"
+          },
+          "401": {
+            "description": "Authentication required"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/api/v1/admin/system/data-maintenance": {
+      "get": {
+        "summary": "GET /api/v1/admin/system/data-maintenance",
+        "responses": {
+          "200": {
+            "description": "Successful portal response"
+          },
+          "401": {
+            "description": "Authentication required"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/api/v1/admin/system/performance": {
+      "get": {
+        "summary": "GET /api/v1/admin/system/performance",
+        "responses": {
+          "200": {
+            "description": "Successful portal response"
+          },
+          "401": {
+            "description": "Authentication required"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/api/v1/admin/system/processes": {
+      "get": {
+        "summary": "GET /api/v1/admin/system/processes",
+        "responses": {
+          "200": {
+            "description": "Successful portal response"
+          },
+          "401": {
+            "description": "Authentication required"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/api/v1/admin/system/servers": {
+      "get": {
+        "summary": "GET /api/v1/admin/system/servers",
+        "responses": {
+          "200": {
+            "description": "Successful portal response"
+          },
+          "401": {
+            "description": "Authentication required"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/api/v1/admin/system/disaster-recovery": {
+      "get": {
+        "summary": "GET /api/v1/admin/system/disaster-recovery",
+        "responses": {
+          "200": {
+            "description": "Successful portal response"
+          },
+          "401": {
+            "description": "Authentication required"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/api/v1/admin/system/work-calendar": {
+      "get": {
+        "summary": "GET /api/v1/admin/system/work-calendar",
+        "responses": {
+          "200": {
+            "description": "Successful portal response"
+          },
+          "401": {
+            "description": "Authentication required"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/api/v1/admin/integrations/api-clients": {
+      "get": {
+        "summary": "GET /api/v1/admin/integrations/api-clients",
+        "responses": {
+          "200": {
+            "description": "Successful portal response"
+          },
+          "401": {
+            "description": "Authentication required"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      },
+      "post": {
+        "summary": "POST /api/v1/admin/integrations/api-clients",
+        "responses": {
+          "200": {
+            "description": "Successful portal response"
+          },
+          "401": {
+            "description": "Authentication required"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        },
+        "requestBody": {
+          "required": false,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "additionalProperties": true
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/admin/integrations/webhooks": {
+      "get": {
+        "summary": "GET /api/v1/admin/integrations/webhooks",
+        "responses": {
+          "200": {
+            "description": "Successful portal response"
+          },
+          "401": {
+            "description": "Authentication required"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      },
+      "post": {
+        "summary": "POST /api/v1/admin/integrations/webhooks",
+        "responses": {
+          "200": {
+            "description": "Successful portal response"
+          },
+          "401": {
+            "description": "Authentication required"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        },
+        "requestBody": {
+          "required": false,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "additionalProperties": true
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/admin/integrations/webhook-deliveries": {
+      "get": {
+        "summary": "GET /api/v1/admin/integrations/webhook-deliveries",
+        "responses": {
+          "200": {
+            "description": "Successful portal response"
+          },
+          "401": {
+            "description": "Authentication required"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/api/v1/admin/integrations/vos-access": {
+      "get": {
+        "summary": "GET /api/v1/admin/integrations/vos-access",
+        "responses": {
+          "200": {
+            "description": "Successful portal response"
+          },
+          "401": {
+            "description": "Authentication required"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/api/v1/admin/integrations/vos-equipment": {
+      "get": {
+        "summary": "GET /api/v1/admin/integrations/vos-equipment",
+        "responses": {
+          "200": {
+            "description": "Successful portal response"
+          },
+          "401": {
+            "description": "Authentication required"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/api/v1/admin/integrations/health": {
+      "get": {
+        "summary": "GET /api/v1/admin/integrations/health",
+        "responses": {
+          "200": {
+            "description": "Successful portal response"
+          },
+          "401": {
+            "description": "Authentication required"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/api/v1/admin/support/tickets": {
+      "get": {
+        "summary": "GET /api/v1/admin/support/tickets",
+        "responses": {
+          "200": {
+            "description": "Successful portal response"
+          },
+          "401": {
+            "description": "Authentication required"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/api/v1/admin/notification-policies": {
+      "get": {
+        "summary": "GET /api/v1/admin/notification-policies",
+        "responses": {
+          "200": {
+            "description": "Successful portal response"
+          },
+          "401": {
+            "description": "Authentication required"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/api/v1/admin/notifications/log": {
+      "get": {
+        "summary": "GET /api/v1/admin/notifications/log",
+        "responses": {
+          "200": {
+            "description": "Successful portal response"
+          },
+          "401": {
+            "description": "Authentication required"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/api/v1/admin/settings/payments": {
+      "get": {
+        "summary": "GET /api/v1/admin/settings/payments",
+        "responses": {
+          "200": {
+            "description": "Successful portal response"
+          },
+          "401": {
+            "description": "Authentication required"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/api/v1/admin/settings/payments/{provider}": {
+      "put": {
+        "summary": "PUT /api/v1/admin/settings/payments/{provider}",
+        "responses": {
+          "200": {
+            "description": "Successful portal response"
+          },
+          "401": {
+            "description": "Authentication required"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        },
+        "parameters": [
+          {
+            "name": "provider",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": false,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "additionalProperties": true
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/admin/settings/branding": {
+      "get": {
+        "summary": "GET /api/v1/admin/settings/branding",
+        "responses": {
+          "200": {
+            "description": "Successful portal response"
+          },
+          "401": {
+            "description": "Authentication required"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/api/v1/admin/settings/features": {
+      "get": {
+        "summary": "GET /api/v1/admin/settings/features",
+        "responses": {
+          "200": {
+            "description": "Successful portal response"
+          },
+          "401": {
+            "description": "Authentication required"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/api/v1/auth/login": {
+      "post": {
+        "summary": "POST /api/v1/auth/login",
+        "responses": {
+          "200": {
+            "description": "Successful portal response"
+          },
+          "401": {
+            "description": "Authentication required"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        },
+        "requestBody": {
+          "required": false,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "additionalProperties": true
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/me/mfa": {
+      "post": {
+        "summary": "POST /api/v1/me/mfa",
+        "responses": {
+          "200": {
+            "description": "Successful portal response"
+          },
+          "401": {
+            "description": "Authentication required"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        },
+        "requestBody": {
+          "required": false,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "additionalProperties": true
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/me/sessions": {
+      "get": {
+        "summary": "GET /api/v1/me/sessions",
+        "responses": {
+          "200": {
+            "description": "Successful portal response"
+          },
+          "401": {
+            "description": "Authentication required"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/api/v1/me/sessions/{id}": {
+      "delete": {
+        "summary": "DELETE /api/v1/me/sessions/{id}",
+        "responses": {
+          "200": {
+            "description": "Successful portal response"
+          },
+          "401": {
+            "description": "Authentication required"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ]
+      }
+    },
+    "/api/v1/me/profile": {
+      "get": {
+        "summary": "GET /api/v1/me/profile",
+        "responses": {
+          "200": {
+            "description": "Successful portal response"
+          },
+          "401": {
+            "description": "Authentication required"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      },
+      "patch": {
+        "summary": "PATCH /api/v1/me/profile",
+        "responses": {
+          "200": {
+            "description": "Successful portal response"
+          },
+          "401": {
+            "description": "Authentication required"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        },
+        "requestBody": {
+          "required": false,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "additionalProperties": true
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/dashboard/summary": {
+      "get": {
+        "summary": "GET /api/v1/dashboard/summary",
+        "responses": {
+          "200": {
+            "description": "Successful portal response"
+          },
+          "401": {
+            "description": "Authentication required"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/api/v1/dashboard/timeseries": {
+      "get": {
+        "summary": "GET /api/v1/dashboard/timeseries",
+        "responses": {
+          "200": {
+            "description": "Successful portal response"
+          },
+          "401": {
+            "description": "Authentication required"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/api/v1/status": {
+      "get": {
+        "summary": "GET /api/v1/status",
+        "responses": {
+          "200": {
+            "description": "Successful portal response"
+          },
+          "401": {
+            "description": "Authentication required"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/api/v1/balance": {
+      "get": {
+        "summary": "GET /api/v1/balance",
+        "responses": {
+          "200": {
+            "description": "Successful portal response"
+          },
+          "401": {
+            "description": "Authentication required"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/api/v1/deposits": {
+      "post": {
+        "summary": "POST /api/v1/deposits",
+        "responses": {
+          "200": {
+            "description": "Successful portal response"
+          },
+          "401": {
+            "description": "Authentication required"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        },
+        "requestBody": {
+          "required": false,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "additionalProperties": true
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/deposits/{id}": {
+      "get": {
+        "summary": "GET /api/v1/deposits/{id}",
+        "responses": {
+          "200": {
+            "description": "Successful portal response"
+          },
+          "401": {
+            "description": "Authentication required"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ]
+      }
+    },
+    "/api/v1/payments": {
+      "get": {
+        "summary": "GET /api/v1/payments",
+        "responses": {
+          "200": {
+            "description": "Successful portal response"
+          },
+          "401": {
+            "description": "Authentication required"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/api/v1/payments/{id}": {
+      "get": {
+        "summary": "GET /api/v1/payments/{id}",
+        "responses": {
+          "200": {
+            "description": "Successful portal response"
+          },
+          "401": {
+            "description": "Authentication required"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ]
+      }
+    },
+    "/api/v1/billing/statements": {
+      "get": {
+        "summary": "GET /api/v1/billing/statements",
+        "responses": {
+          "200": {
+            "description": "Successful portal response"
+          },
+          "401": {
+            "description": "Authentication required"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/api/v1/cdr": {
+      "get": {
+        "summary": "GET /api/v1/cdr",
+        "responses": {
+          "200": {
+            "description": "Successful portal response"
+          },
+          "401": {
+            "description": "Authentication required"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/api/v1/cdr/exports": {
+      "post": {
+        "summary": "POST /api/v1/cdr/exports",
+        "responses": {
+          "200": {
+            "description": "Successful portal response"
+          },
+          "401": {
+            "description": "Authentication required"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        },
+        "requestBody": {
+          "required": false,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "additionalProperties": true
+              }
+            }
+          }
+        }
+      },
+      "get": {
+        "summary": "GET /api/v1/cdr/exports",
+        "responses": {
+          "200": {
+            "description": "Successful portal response"
+          },
+          "401": {
+            "description": "Authentication required"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/api/v1/cdr/{id}": {
+      "get": {
+        "summary": "GET /api/v1/cdr/{id}",
+        "responses": {
+          "200": {
+            "description": "Successful portal response"
+          },
+          "401": {
+            "description": "Authentication required"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ]
+      }
+    },
+    "/api/v1/cdr/recent": {
+      "get": {
+        "summary": "GET /api/v1/cdr/recent",
+        "responses": {
+          "200": {
+            "description": "Successful portal response"
+          },
+          "401": {
+            "description": "Authentication required"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/api/v1/calls/live": {
+      "get": {
+        "summary": "GET /api/v1/calls/live",
+        "responses": {
+          "200": {
+            "description": "Successful portal response"
+          },
+          "401": {
+            "description": "Authentication required"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/api/v1/calls/live/stream": {
+      "get": {
+        "summary": "GET /api/v1/calls/live/stream",
+        "responses": {
+          "200": {
+            "description": "Successful portal response"
+          },
+          "401": {
+            "description": "Authentication required"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/api/v1/analytics/traffic": {
+      "get": {
+        "summary": "GET /api/v1/analytics/traffic",
+        "responses": {
+          "200": {
+            "description": "Successful portal response"
+          },
+          "401": {
+            "description": "Authentication required"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/api/v1/analytics/failures": {
+      "get": {
+        "summary": "GET /api/v1/analytics/failures",
+        "responses": {
+          "200": {
+            "description": "Successful portal response"
+          },
+          "401": {
+            "description": "Authentication required"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/api/v1/analytics/destinations": {
+      "get": {
+        "summary": "GET /api/v1/analytics/destinations",
+        "responses": {
+          "200": {
+            "description": "Successful portal response"
+          },
+          "401": {
+            "description": "Authentication required"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/api/v1/gateways": {
+      "get": {
+        "summary": "GET /api/v1/gateways",
+        "responses": {
+          "200": {
+            "description": "Successful portal response"
+          },
+          "401": {
+            "description": "Authentication required"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/api/v1/gateways/{id}": {
+      "get": {
+        "summary": "GET /api/v1/gateways/{id}",
+        "responses": {
+          "200": {
+            "description": "Successful portal response"
+          },
+          "401": {
+            "description": "Authentication required"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ]
+      }
+    },
+    "/api/v1/gateways/{id}/ips": {
+      "get": {
+        "summary": "GET /api/v1/gateways/{id}/ips",
+        "responses": {
+          "200": {
+            "description": "Successful portal response"
+          },
+          "401": {
+            "description": "Authentication required"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ]
+      },
+      "put": {
+        "summary": "PUT /api/v1/gateways/{id}/ips",
+        "responses": {
+          "200": {
+            "description": "Successful portal response"
+          },
+          "401": {
+            "description": "Authentication required"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": false,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "additionalProperties": true
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/gateways/{id}/credentials": {
+      "get": {
+        "summary": "GET /api/v1/gateways/{id}/credentials",
+        "responses": {
+          "200": {
+            "description": "Successful portal response"
+          },
+          "401": {
+            "description": "Authentication required"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ]
+      }
+    },
+    "/api/v1/gateways/{id}/credentials/rotate": {
+      "post": {
+        "summary": "POST /api/v1/gateways/{id}/credentials/rotate",
+        "responses": {
+          "200": {
+            "description": "Successful portal response"
+          },
+          "401": {
+            "description": "Authentication required"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": false,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "additionalProperties": true
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/gateways/{id}/network": {
+      "get": {
+        "summary": "GET /api/v1/gateways/{id}/network",
+        "responses": {
+          "200": {
+            "description": "Successful portal response"
+          },
+          "401": {
+            "description": "Authentication required"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ]
+      }
+    },
+    "/api/v1/gateways/{id}/statistics": {
+      "get": {
+        "summary": "GET /api/v1/gateways/{id}/statistics",
+        "responses": {
+          "200": {
+            "description": "Successful portal response"
+          },
+          "401": {
+            "description": "Authentication required"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ]
+      }
+    },
+    "/api/v1/rates": {
+      "get": {
+        "summary": "GET /api/v1/rates",
+        "responses": {
+          "200": {
+            "description": "Successful portal response"
+          },
+          "401": {
+            "description": "Authentication required"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/api/v1/rates/lookup": {
+      "get": {
+        "summary": "GET /api/v1/rates/lookup",
+        "responses": {
+          "200": {
+            "description": "Successful portal response"
+          },
+          "401": {
+            "description": "Authentication required"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/api/v1/rates/history": {
+      "get": {
+        "summary": "GET /api/v1/rates/history",
+        "responses": {
+          "200": {
+            "description": "Successful portal response"
+          },
+          "401": {
+            "description": "Authentication required"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/api/v1/reports": {
+      "get": {
+        "summary": "GET /api/v1/reports",
+        "responses": {
+          "200": {
+            "description": "Successful portal response"
+          },
+          "401": {
+            "description": "Authentication required"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/api/v1/reports/usage": {
+      "get": {
+        "summary": "GET /api/v1/reports/usage",
+        "responses": {
+          "200": {
+            "description": "Successful portal response"
+          },
+          "401": {
+            "description": "Authentication required"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/api/v1/reports/gateways": {
+      "get": {
+        "summary": "GET /api/v1/reports/gateways",
+        "responses": {
+          "200": {
+            "description": "Successful portal response"
+          },
+          "401": {
+            "description": "Authentication required"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/api/v1/report-schedules": {
+      "get": {
+        "summary": "GET /api/v1/report-schedules",
+        "responses": {
+          "200": {
+            "description": "Successful portal response"
+          },
+          "401": {
+            "description": "Authentication required"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      },
+      "post": {
+        "summary": "POST /api/v1/report-schedules",
+        "responses": {
+          "200": {
+            "description": "Successful portal response"
+          },
+          "401": {
+            "description": "Authentication required"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        },
+        "requestBody": {
+          "required": false,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "additionalProperties": true
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/downloads": {
+      "get": {
+        "summary": "GET /api/v1/downloads",
+        "responses": {
+          "200": {
+            "description": "Successful portal response"
+          },
+          "401": {
+            "description": "Authentication required"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/api/v1/notifications": {
+      "get": {
+        "summary": "GET /api/v1/notifications",
+        "responses": {
+          "200": {
+            "description": "Successful portal response"
+          },
+          "401": {
+            "description": "Authentication required"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/api/v1/me/notification-preferences": {
+      "get": {
+        "summary": "GET /api/v1/me/notification-preferences",
+        "responses": {
+          "200": {
+            "description": "Successful portal response"
+          },
+          "401": {
+            "description": "Authentication required"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      },
+      "put": {
+        "summary": "PUT /api/v1/me/notification-preferences",
+        "responses": {
+          "200": {
+            "description": "Successful portal response"
+          },
+          "401": {
+            "description": "Authentication required"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        },
+        "requestBody": {
+          "required": false,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "additionalProperties": true
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/developer/overview": {
+      "get": {
+        "summary": "GET /api/v1/developer/overview",
+        "responses": {
+          "200": {
+            "description": "Successful portal response"
+          },
+          "401": {
+            "description": "Authentication required"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/api/v1/api-keys": {
+      "get": {
+        "summary": "GET /api/v1/api-keys",
+        "responses": {
+          "200": {
+            "description": "Successful portal response"
+          },
+          "401": {
+            "description": "Authentication required"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      },
+      "post": {
+        "summary": "POST /api/v1/api-keys",
+        "responses": {
+          "200": {
+            "description": "Successful portal response"
+          },
+          "401": {
+            "description": "Authentication required"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        },
+        "requestBody": {
+          "required": false,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "additionalProperties": true
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/developer/request-logs": {
+      "get": {
+        "summary": "GET /api/v1/developer/request-logs",
+        "responses": {
+          "200": {
+            "description": "Successful portal response"
+          },
+          "401": {
+            "description": "Authentication required"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/api/v1/webhooks": {
+      "get": {
+        "summary": "GET /api/v1/webhooks",
+        "responses": {
+          "200": {
+            "description": "Successful portal response"
+          },
+          "401": {
+            "description": "Authentication required"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      },
+      "post": {
+        "summary": "POST /api/v1/webhooks",
+        "responses": {
+          "200": {
+            "description": "Successful portal response"
+          },
+          "401": {
+            "description": "Authentication required"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        },
+        "requestBody": {
+          "required": false,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "additionalProperties": true
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/webhook-deliveries": {
+      "get": {
+        "summary": "GET /api/v1/webhook-deliveries",
+        "responses": {
+          "200": {
+            "description": "Successful portal response"
+          },
+          "401": {
+            "description": "Authentication required"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/api/v1/team": {
+      "get": {
+        "summary": "GET /api/v1/team",
+        "responses": {
+          "200": {
+            "description": "Successful portal response"
+          },
+          "401": {
+            "description": "Authentication required"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/api/v1/team/invitations": {
+      "post": {
+        "summary": "POST /api/v1/team/invitations",
+        "responses": {
+          "200": {
+            "description": "Successful portal response"
+          },
+          "401": {
+            "description": "Authentication required"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        },
+        "requestBody": {
+          "required": false,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "additionalProperties": true
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/team/roles": {
+      "get": {
+        "summary": "GET /api/v1/team/roles",
+        "responses": {
+          "200": {
+            "description": "Successful portal response"
+          },
+          "401": {
+            "description": "Authentication required"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/api/v1/support/tickets": {
+      "get": {
+        "summary": "GET /api/v1/support/tickets",
+        "responses": {
+          "200": {
+            "description": "Successful portal response"
+          },
+          "401": {
+            "description": "Authentication required"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      },
+      "post": {
+        "summary": "POST /api/v1/support/tickets",
+        "responses": {
+          "200": {
+            "description": "Successful portal response"
+          },
+          "401": {
+            "description": "Authentication required"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        },
+        "requestBody": {
+          "required": false,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "additionalProperties": true
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/support/tickets/{id}": {
+      "get": {
+        "summary": "GET /api/v1/support/tickets/{id}",
+        "responses": {
+          "200": {
+            "description": "Successful portal response"
+          },
+          "401": {
+            "description": "Authentication required"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ]
+      }
+    },
+    "/api/v1/support/tickets/{id}/messages": {
+      "post": {
+        "summary": "POST /api/v1/support/tickets/{id}/messages",
+        "responses": {
+          "200": {
+            "description": "Successful portal response"
+          },
+          "401": {
+            "description": "Authentication required"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": false,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "additionalProperties": true
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

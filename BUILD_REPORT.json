@@ -1,0 +1,13 @@
+{
+  "routes": 142,
+  "admin": 97,
+  "client": 45,
+  "apis": 187,
+  "missing_action_schemas": 0,
+  "static_validation": "pass",
+  "dependency_build": "not_run_registry_unavailable",
+  "runtime_integration": "requires_staging",
+  "vos_contract_validation": "requires_target_instance",
+  "production_certified": false,
+  "generated_at": "2026-08-21T22:11:45Z"
+}

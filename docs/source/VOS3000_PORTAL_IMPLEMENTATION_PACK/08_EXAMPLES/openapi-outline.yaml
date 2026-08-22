@@ -1,0 +1,80 @@
+openapi: 3.1.0
+info:
+  title: VOS Portal API
+  version: 1.0.0
+servers:
+  - url: https://api.example.com/api/v1
+
+paths:
+  /balance:
+    get:
+      summary: Get customer balance
+      responses:
+        "200":
+          description: Balance response
+
+  /cdr:
+    get:
+      summary: Query customer-scoped CDR
+      parameters:
+        - in: query
+          name: from
+          schema: { type: string, format: date-time }
+        - in: query
+          name: to
+          schema: { type: string, format: date-time }
+        - in: query
+          name: cursor
+          schema: { type: string }
+      responses:
+        "200":
+          description: Cursor-paginated CDR
+
+  /calls/live:
+    get:
+      summary: Get customer-scoped current calls
+      responses:
+        "200":
+          description: Live call snapshot
+
+  /gateways:
+    get:
+      summary: List customer gateways
+      responses:
+        "200":
+          description: Customer gateway list
+
+  /rates/lookup:
+    get:
+      summary: Lookup customer rate for number
+      parameters:
+        - in: query
+          name: number
+          required: true
+          schema: { type: string }
+      responses:
+        "200":
+          description: Matched rate
+
+  /deposits:
+    post:
+      summary: Create add-funds deposit
+      parameters:
+        - in: header
+          name: Idempotency-Key
+          required: true
+          schema: { type: string }
+      responses:
+        "202":
+          description: Deposit created/pending
+
+components:
+  securitySchemes:
+    cookieSession:
+      type: apiKey
+      in: cookie
+      name: __Host-session
+    apiKey:
+      type: apiKey
+      in: header
+      name: Authorization

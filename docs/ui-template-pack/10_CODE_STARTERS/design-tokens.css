@@ -1,0 +1,16 @@
+:root {
+  --primary:#2563EB; --primary-hover:#1D4ED8; --primary-soft:#DBEAFE;
+  --realtime:#06B6D4; --realtime-deep:#0891B2;
+  --bg:#F8FAFC; --surface:#FFFFFF; --surface-subtle:#F1F5F9;
+  --border:#E2E8F0; --border-strong:#CBD5E1;
+  --text:#0F172A; --text-secondary:#475569; --text-muted:#64748B; --text-disabled:#94A3B8;
+  --success:#16A34A; --warning:#D97706; --danger:#DC2626; --pending:#7C3AED;
+  --radius-input:6px; --radius-card:8px; --radius-modal:12px; --radius-button:8px;
+}
+[data-theme="dark"] {
+  --bg:#080D17; --surface:#111827; --surface-subtle:#172033;
+  --border:#253149; --border-strong:#334155;
+  --text:#F8FAFC; --text-secondary:#CBD5E1; --text-muted:#94A3B8;
+}
+.numeric { font-variant-numeric: tabular-nums; }
+.technical { font-family: "IBM Plex Mono", ui-monospace, monospace; }

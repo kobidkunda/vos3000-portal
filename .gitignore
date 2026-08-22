@@ -1,0 +1,31 @@
+node_modules
+.next
+dist
+coverage
+.env
+*.log
+.DS_Store
+infra/data/
+exports/
+logs/
+# IDE / editor metadata
+.agents/
+.claude/
+.cursor/
+.omo/
+.codegraph/
+
+# OS
+**/.DS_Store
+Thumbs.db
+
+# Secrets / generated session files
+cookies.txt
+cookies_client.txt
+*.env.local
+
+# Build artifacts
+seed_real.mjs
+
+# Docker local data
+infra/data/
