@@ -22,8 +22,8 @@ WHITE="\033[1;37m"
 RESET="\033[0m"
 
 # Default configuration
-DEFAULT_API_PORT=4000
-DEFAULT_WEB_PORT=3001
+DEFAULT_API_PORT=5026
+DEFAULT_WEB_PORT=5027
 API_PORT=""
 WEB_PORT=""
 SKIP_TESTS=false
@@ -47,8 +47,8 @@ show_help() {
   printf "  ${GREEN}-w, --with-worker${RESET}   Also launch the background worker (@vos/worker)\n"
   printf "  ${GREEN}-k, --stop${RESET}          Stop all running dev server processes and exit\n"
   printf "  ${GREEN}-c, --clean${RESET}         Clean build caches (.next, dist, node_modules/.cache, logs)\n"
-  printf "      ${GREEN}--api-port <P>${RESET}  Specify API port (default: 4000 or from .env)\n"
-  printf "      ${GREEN}--web-port <P>${RESET}  Specify Web port (default: 3001)\n"
+  printf "      ${GREEN}--api-port <P>${RESET}  Specify API port (default: 5026 or from .env)\n"
+  printf "      ${GREEN}--web-port <P>${RESET}  Specify Web port (default: 5027)\n"
   printf "  ${GREEN}-h, --help${RESET}          Show this help message\n\n"
   printf "${BOLD}Examples:${RESET}\n"
   printf "  ${CYAN}./dev.sh${RESET}               # Check/stop existing, run dev tests, start app with live logs\n"
@@ -168,12 +168,12 @@ clean_caches() {
 
 # Process cleanup: Find & kill processes by port and matching project node processes
 kill_existing_processes() {
-  log_step "Checking for running instances of the app on ports $API_PORT, $WEB_PORT, 3000..."
+  log_step "Checking for running instances of the app on ports $API_PORT, $WEB_PORT (legacy 3000/3001/4000 also swept)..."
 
   local pids_to_kill=()
 
   # 1. Check ports using lsof
-  for port in "$API_PORT" "$WEB_PORT" 3000; do
+  for port in "$API_PORT" "$WEB_PORT" 3000 3001 4000; do
     if command -v lsof >/dev/null 2>&1; then
       local port_pids
       port_pids=$(lsof -ti "tcp:$port" 2>/dev/null || true)
@@ -258,6 +258,25 @@ kill_existing_processes() {
   fi
 }
 
+# Bring up Docker infrastructure (postgres, clickhouse, redis, redpanda) on the
+# reserved 5020-5030 host port range (see docker-compose.yml).
+start_docker_infra() {
+  log_step "Ensuring Docker infrastructure containers are up (host ports 5020-5030)..."
+
+  if ! command -v docker >/dev/null 2>&1 || ! docker compose version >/dev/null 2>&1; then
+    log_warn "docker compose not available; skipping infrastructure bring-up."
+    return 0
+  fi
+
+  local timeout_s="${INFRA_WAIT_TIMEOUT_S:-240}"
+  if docker compose up -d --wait --wait-timeout "$timeout_s" postgres clickhouse redis redpanda init-redpanda; then
+    log_success "Docker infrastructure ready (postgres:5020 clickhouse:5021 redis:5023 redpanda:5024/5025)."
+  else
+    log_error "Docker infrastructure failed to become healthy. Inspect with 'docker compose ps'."
+    exit 1
+  fi
+}
+
 # Verify Node.js version and required dependencies
 check_prerequisites() {
   log_step "Checking prerequisites"
@@ -320,6 +339,16 @@ run_dev_tests() {
   if [[ -f "scripts/migrate-postgres.mjs" && -f ".env" ]]; then
     log_info "Applying PostgreSQL schema migrations (if DB available)..."
     node --env-file=.env scripts/migrate-postgres.mjs 2>/dev/null && log_success "PostgreSQL migrations verified." || log_warn "PostgreSQL not reachable or migration skipped (OK for demo mode)."
+  fi
+
+  # Seed ClickHouse with realistic CDR data (required by the real-data CDR tests)
+  if [[ -f "scripts/seed-vos-data.mjs" && -f ".env" ]]; then
+    log_info "Seeding ClickHouse CDR data (scripts/seed-vos-data.mjs)..."
+    if node --env-file=.env scripts/seed-vos-data.mjs >"$LOGS_DIR/seed-vos-data.log" 2>&1; then
+      log_success "ClickHouse CDR seed complete."
+    else
+      log_warn "ClickHouse CDR seeding failed (CDR real-data tests may fail); see logs/seed-vos-data.log"
+    fi
   fi
 
   log_success "All dev tests & validations PASSED!"
@@ -465,6 +494,12 @@ start_dev_servers() {
       fi
     done
 
+    if [[ "$api_ready" = false || "$web_ready" = false ]]; then
+      printf "\n"
+      [[ "$api_ready" = false ]] && printf "${YELLOW}[DEV] ⚠ API server did not become ready on :%s${RESET}\n" "$API_PORT"
+      [[ "$web_ready" = false ]] && printf "${YELLOW}[DEV] ⚠ Web server did not become ready on :%s${RESET}\n" "$WEB_PORT"
+    fi
+
     printf "\n"
     printf "${GREEN}============================================================${RESET}\n"
     printf "${BOLD}${GREEN}  ✔ CallWork Development Environment is READY!        ${RESET}\n"
@@ -473,6 +508,7 @@ start_dev_servers() {
     printf "  ${BOLD}API Server:${RESET}   ${CYAN}http://localhost:%s${RESET}\n" "$API_PORT"
     printf "  ${BOLD}Swagger Docs:${RESET} ${CYAN}http://localhost:%s/docs${RESET}\n" "$API_PORT"
     printf "  ${BOLD}Health Check:${RESET} ${CYAN}http://localhost:%s/api/v1/health${RESET}\n" "$API_PORT"
+    printf "  ${BOLD}Infra (Docker):${RESET} ${CYAN}postgres:5020 clickhouse:5021/5022 redis:5023 redpanda:5024/5025${RESET}\n"
     printf "${DIM}------------------------------------------------------------${RESET}\n"
     printf "  ${BOLD}Demo Admin:${RESET}   admin@example.com / Admin123!\n"
     printf "  ${BOLD}Demo Client:${RESET}  client@example.com / Client123!\n"
@@ -505,10 +541,15 @@ if [[ "$STOP_ONLY" = true ]]; then
   exit 0
 fi
 
-# 2. Check Node & tools
+export NODE_ENV=development
+
+# 2. Bring up Docker infrastructure (postgres/clickhouse/redis/redpanda on 5020-5030)
+start_docker_infra
+
+# 3. Check Node & tools
 check_prerequisites
 
-# 3. Run Dev Tests & Validations unless skipped
+# 4. Run Dev Tests & Validations unless skipped
 if [[ "$SKIP_TESTS" = false ]]; then
   run_dev_tests
 else
@@ -523,5 +564,5 @@ if [[ "$TEST_ONLY" = true ]]; then
   exit 0
 fi
 
-# 4. Start Dev Servers with Live Logs
+# 5. Start Dev Servers with Live Logs
 start_dev_servers

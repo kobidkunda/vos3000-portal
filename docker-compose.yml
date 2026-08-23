@@ -5,21 +5,22 @@ services:
       POSTGRES_USER: vos
       POSTGRES_PASSWORD: vos
       POSTGRES_DB: vos_portal
-    ports: ["5432:5432"] # development convenience; do not publish database ports in production
+    ports: ["5020:5432"] # host 5020 -> container 5432 (reserved host range 5020-5030); do not publish database ports in production
     volumes:
       - pgdata:/var/lib/postgresql
     healthcheck: {test: ["CMD-SHELL", "pg_isready -U vos -d vos_portal"], interval: 5s, timeout: 3s, retries: 20}
 
   clickhouse:
-    image: clickhouse/clickhouse-server:26.3.17.110
-    ports: ["8123:8123", "9000:9000"] # development convenience
+    build: {context: ./infra/clickhouse} # baked config + bootstrap: Colima virtiofs mounts files as dirs, and the stock entrypoint rewrites users.d
+    user: clickhouse # server refuses to run as root (Code 430 data-owner check)
+    ports: ["5021:8123", "5022:9000"] # host HTTP 5021 / native 5022 -> container 8123/9000
     volumes:
       - chdata:/var/lib/clickhouse
     healthcheck: {test: ["CMD", "wget", "-qO-", "http://localhost:8123/ping"], interval: 5s, timeout: 3s, retries: 20}
 
   redis:
     image: redis:8.10-alpine
-    ports: ["6379:6379"] # development convenience
+    ports: ["5023:6379"] # host 5023 -> container 6379
     command: ["redis-server","--appendonly","yes"]
     volumes: ["redisdata:/data"]
     healthcheck: {test: ["CMD", "redis-cli", "ping"], interval: 5s, timeout: 3s, retries: 20}
@@ -27,7 +28,7 @@ services:
   redpanda:
     image: redpandadata/redpanda:v26.1.7
     command: ["redpanda","start","--overprovisioned","--smp","1","--memory","1G","--reserve-memory","0M","--node-id","0","--check=false","--kafka-addr","PLAINTEXT://0.0.0.0:9092","--advertise-kafka-addr","PLAINTEXT://redpanda:9092"]
-    ports: ["9092:9092", "9644:9644"] # development convenience
+    ports: ["5024:9092", "5025:9644"] # host kafka 5024 / admin 5025 -> container 9092/9644
     volumes: ["redpandadata:/var/lib/redpanda/data"]
     healthcheck: {test: ["CMD-SHELL", "rpk cluster health >/dev/null 2>&1"], interval: 5s, timeout: 5s, retries: 30}
 
@@ -40,14 +41,22 @@ services:
   migrate-postgres:
     build: {context: ., dockerfile: apps/api/Dockerfile}
     env_file: .env
+    environment:
+      DATABASE_URL: postgres://vos:vos@postgres:5432/vos_portal
     command: ["node","scripts/migrate-postgres.mjs"]
     depends_on: {postgres: {condition: service_healthy}}
 
   api:
     build: {context: ., dockerfile: apps/api/Dockerfile}
     env_file: .env
-    environment: {PORT: 4000, TRUST_PROXY: "true"}
-    ports: ["4000:4000"] # development convenience; production should expose only nginx
+    environment:
+      PORT: 4000
+      TRUST_PROXY: "true"
+      DATABASE_URL: postgres://vos:vos@postgres:5432/vos_portal
+      REDIS_URL: redis://redis:6379
+      CLICKHOUSE_URL: http://clickhouse:8123
+      REDPANDA_BROKERS: redpanda:9092
+    ports: ["5026:4000"] # host 5026 -> container 4000; production should expose only nginx
     depends_on:
       migrate-postgres: {condition: service_completed_successfully}
       clickhouse: {condition: service_healthy}
@@ -58,6 +67,11 @@ services:
   worker:
     build: {context: ., dockerfile: apps/worker/Dockerfile}
     env_file: .env
+    environment:
+      DATABASE_URL: postgres://vos:vos@postgres:5432/vos_portal
+      REDIS_URL: redis://redis:6379
+      CLICKHOUSE_URL: http://clickhouse:8123
+      REDPANDA_BROKERS: redpanda:9092
     depends_on:
       migrate-postgres: {condition: service_completed_successfully}
       clickhouse: {condition: service_healthy}
@@ -67,12 +81,14 @@ services:
 
   web:
     build: {context: ., dockerfile: apps/web/Dockerfile}
-    ports: ["3000:3000"] # development convenience
+    environment:
+      API_INTERNAL_URL: http://api:4000
+    ports: ["5027:3000"] # host 5027 -> container 3000
     depends_on: {api: {condition: service_started}}
 
   gateway:
-    image: nginx:1.29-alpine
-    ports: ["8080:80"]
+    build: {context: ./infra/nginx} # baked nginx.conf (virtiofs file mounts are unreliable on Colima)
+    ports: ["5028:80"] # host 5028 -> container 80
     volumes: []
     depends_on: [web, api]
 

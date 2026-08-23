@@ -3,14 +3,14 @@ import pg from "pg";
 import crypto from "crypto";
 
 const ch = createClient({
-  url: process.env.CLICKHOUSE_URL ?? "http://localhost:8123",
+  url: process.env.CLICKHOUSE_URL ?? "http://localhost:5021",
   username: process.env.CLICKHOUSE_USER ?? "default",
   password: process.env.CLICKHOUSE_PASSWORD ?? "",
   database: process.env.CLICKHOUSE_DATABASE ?? "vos",
 });
 
 const pool = new pg.Pool({
-  connectionString: process.env.DATABASE_URL ?? "postgres://vos:vos@localhost:5432/vos_portal",
+  connectionString: process.env.DATABASE_URL ?? "postgres://vos:vos@localhost:5020/vos_portal",
 });
 
 async function main() {

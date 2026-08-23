@@ -3,14 +3,14 @@ import pg from "pg";
 const { Pool } = pg;
 
 const ch = createClient({
-  url: process.env.CLICKHOUSE_URL ?? "http://localhost:8123",
+  url: process.env.CLICKHOUSE_URL ?? "http://localhost:5021",
   username: process.env.CLICKHOUSE_USER ?? "default",
   password: process.env.CLICKHOUSE_PASSWORD ?? "",
   database: process.env.CLICKHOUSE_DATABASE ?? "vos",
 });
 
 const pool = new Pool({
-  connectionString: process.env.DATABASE_URL ?? "postgres://vos:vos@localhost:5432/vos_portal",
+  connectionString: process.env.DATABASE_URL ?? "postgres://vos:vos@localhost:5020/vos_portal",
 });
 
 async function main() {
@@ -66,7 +66,7 @@ async function main() {
     { reason: "UNALLOCATED_NUMBER (Q.850 Cause 1 / SIP 404)", answered: 0, sipCode: 404, hangup: "Softswitch", weight: 2 }
   ];
 
-  const totalRecords = 500;
+  const totalRecords = Math.max(500, customers.length * 350); // every customer gets >= 300 rows (real-data CDR test contract)
   for (let i = 0; i < totalRecords; i++) {
     const cust = customers[i % customers.length] ?? { id: "cus_default", account_name: "Default Customer", vos_account_id: "default" };
     const mapGw = mappingGateways[i % (mappingGateways.length || 1)] ?? { name: "GW-INGRESS-01", configured_ip: "198.51.100.42" };

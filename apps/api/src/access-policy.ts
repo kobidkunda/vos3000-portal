@@ -22,13 +22,13 @@ function allowClientRole(role:string,method:string,path:string){
   if(role==="owner")return true;
   if(role==="read_only")return !isWrite;
   if(role==="billing_client"){
-    const allowed=pathHas(path,["/dashboard","/balance","/billing","/payments","/deposits","/cdr","/reports","/report-schedules","/downloads","/rates","/notifications","/notification-preferences","/support","/me/profile"]);
+    const allowed=pathHas(path,["/dashboard","/balance","/billing","/payments","/deposits","/cdr","/reports","/report-schedules","/downloads","/rates","/devices","/notifications","/notification-preferences","/support","/me/profile"]);
     if(!allowed)return false;
     if(!isWrite)return true;
     return pathHas(path,["/deposits","/reports","/report-schedules","/notification-preferences","/support","/me/profile"]);
   }
   if(role==="technical"){
-    const allowed=pathHas(path,["/dashboard","/status","/calls","/cdr","/analytics","/gateways","/rates","/notifications","/support","/me/profile"]);
+    const allowed=pathHas(path,["/dashboard","/status","/calls","/cdr","/analytics","/gateways","/rates","/devices","/notifications","/support","/me/profile"]);
     if(!allowed)return false;
     if(!isWrite)return true;
     return pathHas(path,["/gateways/","/support/","/notification-preferences","/me/profile"]);
@@ -47,7 +47,7 @@ function allowAdminRole(role:string,method:string,path:string){
   if(role==="super_admin")return true;
   if(role==="read_only_admin")return !isWrite;
   if(role==="noc"){
-    const allowed=pathHas(path,["/noc","/system/health","/system/performance","/system/processes","/system/servers","/alarms","/gateways","/phones","/calls","/cdr","/analytics","/tools","/registration","/routing-analysis"]);
+    const allowed=pathHas(path,["/noc","/system/health","/system/performance","/system/processes","/system/servers","/alarms","/gateways","/phones","/calls","/cdr","/analytics","/tools","/registration","/routing-analysis","/devices"]);
     if(!allowed)return false;
     if(!isWrite)return true;
     return pathHas(path,["/alarms/","/calls/live/","/tools/"]);
@@ -65,7 +65,7 @@ function allowAdminRole(role:string,method:string,path:string){
     return pathHas(path,["/customers","/rates","/packages","/report-schedules"]);
   }
   if(role==="support"){
-    const allowed=pathHas(path,["/customers","/cdr","/gateways","/phones","/calls","/support"]);
+    const allowed=pathHas(path,["/customers","/cdr","/gateways","/phones","/calls","/support","/devices"]);
     if(!allowed)return false;
     if(!isWrite)return true;
     return pathHas(path,["/support/"]);
@@ -112,6 +112,6 @@ export function validateBrowserOrigin(headers:Record<string,unknown>,method:stri
   if(method==="GET"||method==="HEAD"||method==="OPTIONS"||authSource!=="cookie")return true;
   const origin=String(headers.origin??"");
   if(!origin)return false;
-  const allowed=(process.env.WEB_URL??"http://localhost:3000").split(",").map(x=>x.trim()).filter(Boolean);
+  const allowed=(process.env.WEB_URL??"http://localhost:5027").split(",").map(x=>x.trim()).filter(Boolean);
   return allowed.includes(origin);
 }

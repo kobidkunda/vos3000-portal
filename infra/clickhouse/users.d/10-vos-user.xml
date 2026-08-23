@@ -1,0 +1,12 @@
+<!-- DEV ONLY — dedicated app account, same credentials as docker-compose.yml's
+     CLICKHOUSE_* defaults (.env CLICKHOUSE_USER/PASSWORD). -->
+<clickhouse>
+  <users>
+    <vos>
+      <password>vos</password>
+      <networks>
+        <ip>::/0</ip>
+      </networks>
+    </vos>
+  </users>
+</clickhouse>

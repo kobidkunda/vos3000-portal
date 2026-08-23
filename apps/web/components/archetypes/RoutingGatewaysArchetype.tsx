@@ -67,7 +67,23 @@ export function RoutingGatewaysArchetype({
   const [lastRefreshed, setLastRefreshed] = useState<Date>(new Date());
   const [searchQuery, setSearchQuery] = useState("");
   const [activeFilter, setActiveFilter] = useState<"all" | "unlocked" | "locked" | "static" | "rewrite_callee" | "rewrite_caller">("all");
-  const [viewMode, setViewMode] = useState<"table" | "cards">("table");
+  // null = auto (cards on narrow viewports, table on desktop)
+  const [viewMode, setViewMode] = useState<null | "table" | "cards">(null);
+  const [viewportNarrow, setViewportNarrow] = useState(false);
+  const effectiveView: "table" | "cards" = viewMode ?? (viewportNarrow ? "cards" : "table");
+
+  useEffect(() => {
+    const mq = window.matchMedia("(max-width: 1280px)");
+    const apply = () => setViewportNarrow(mq.matches);
+    apply();
+    mq.addEventListener("change", apply);
+    // resize fallback: some engines miss the media-query change event
+    window.addEventListener("resize", apply);
+    return () => {
+      mq.removeEventListener("change", apply);
+      window.removeEventListener("resize", apply);
+    };
+  }, []);
   const [isExportOpen, setIsExportOpen] = useState(false);
   const [copiedKey, setCopiedKey] = useState<string | null>(null);
 
@@ -599,7 +615,7 @@ export function RoutingGatewaysArchetype({
           <button
             type="button"
             onClick={() => setViewMode("table")}
-            className={`btn sm ${viewMode === "table" ? "primary" : "secondary"}`}
+            className={`btn sm ${effectiveView === "table" ? "primary" : "secondary"}`}
             style={{ padding: "4px 8px" }}
             title="Dense Table View"
           >
@@ -608,7 +624,7 @@ export function RoutingGatewaysArchetype({
           <button
             type="button"
             onClick={() => setViewMode("cards")}
-            className={`btn sm ${viewMode === "cards" ? "primary" : "secondary"}`}
+            className={`btn sm ${effectiveView === "cards" ? "primary" : "secondary"}`}
             style={{ padding: "4px 8px" }}
             title="Card Grid View"
           >
@@ -618,20 +634,20 @@ export function RoutingGatewaysArchetype({
       </div>
 
       {/* TABLE VIEW (Desktop Optimized) */}
-      {viewMode === "table" ? (
-        <div className="card" style={{ padding: 0, overflow: "hidden", border: "1px solid var(--border)" }}>
-          <div style={{ overflowX: "auto", scrollbarGutter: "stable" }}>
+      {effectiveView === "table" ? (
+        <div className="card rgw-table-card" style={{ padding: 0, overflow: "hidden", border: "1px solid var(--border)" }}>
+          <div className="rgw-table-scroll">
             <table className="table" style={{ width: "100%", fontSize: 13, borderCollapse: "collapse" }}>
               <thead>
                 <tr style={{ background: "var(--surface2)", borderBottom: "1px solid var(--border)" }}>
-                  <th style={{ textAlign: "left", padding: "10px 14px", fontWeight: 650 }}>Lock / Status</th>
-                  <th style={{ textAlign: "left", padding: "10px 14px", fontWeight: 650 }}>Gateway Identifier</th>
-                  <th style={{ textAlign: "left", padding: "10px 14px", fontWeight: 650 }}>Routing Prefix</th>
-                  <th style={{ textAlign: "left", padding: "10px 14px", fontWeight: 650 }}>Remote Destination</th>
-                  <th style={{ textAlign: "left", padding: "10px 14px", fontWeight: 650 }}>Protocol & RTP</th>
-                  <th style={{ textAlign: "right", padding: "10px 14px", fontWeight: 650 }}>Capacity</th>
-                  <th style={{ textAlign: "left", padding: "10px 14px", fontWeight: 650 }}>Number Rewrites</th>
-                  <th style={{ textAlign: "right", padding: "10px 14px", fontWeight: 650 }}>Actions</th>
+                  <th style={{ textAlign: "left", padding: "8px 10px", fontWeight: 650 }}>Lock / Status</th>
+                  <th style={{ textAlign: "left", padding: "8px 10px", fontWeight: 650 }}>Gateway Identifier</th>
+                  <th style={{ textAlign: "left", padding: "8px 10px", fontWeight: 650 }}>Routing Prefix</th>
+                  <th style={{ textAlign: "left", padding: "8px 10px", fontWeight: 650 }}>Remote Destination</th>
+                  <th style={{ textAlign: "left", padding: "8px 10px", fontWeight: 650 }}>Protocol & RTP</th>
+                  <th style={{ textAlign: "right", padding: "8px 10px", fontWeight: 650 }}>Capacity</th>
+                  <th style={{ textAlign: "left", padding: "8px 10px", fontWeight: 650 }}>Number Rewrites</th>
+                  <th style={{ textAlign: "right", padding: "8px 10px", fontWeight: 650 }}>Actions</th>
                 </tr>
               </thead>
               <tbody>
@@ -656,7 +672,7 @@ export function RoutingGatewaysArchetype({
                         className="tableRowHover"
                       >
                         {/* Lock State */}
-                        <td style={{ padding: "10px 14px", whiteSpace: "nowrap" }}>
+                        <td style={{ padding: "8px 10px", whiteSpace: "nowrap" }}>
                           <span
                             className={`badge ${gw.lockType === 0 ? "badge-online" : gw.lockType === 3 ? "badge-danger" : "badge-warning"}`}
                             style={{ fontSize: 11, fontWeight: 650 }}
@@ -667,7 +683,7 @@ export function RoutingGatewaysArchetype({
                         </td>
 
                         {/* Name & Priority */}
-                        <td style={{ padding: "10px 14px" }}>
+                        <td style={{ padding: "8px 10px" }}>
                           <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
                             <span style={{ fontWeight: 650, color: "var(--text)" }}>{gw.name}</span>
                             <span
@@ -688,7 +704,7 @@ export function RoutingGatewaysArchetype({
                         </td>
 
                         {/* Prefix */}
-                        <td style={{ padding: "10px 14px", whiteSpace: "nowrap" }}>
+                        <td style={{ padding: "8px 10px", whiteSpace: "nowrap" }}>
                           <span
                             style={{
                               fontFamily: "var(--font-mono, monospace)",
@@ -706,7 +722,7 @@ export function RoutingGatewaysArchetype({
                         </td>
 
                         {/* Remote Destination */}
-                        <td style={{ padding: "10px 14px", whiteSpace: "nowrap" }}>
+                        <td style={{ padding: "8px 10px", whiteSpace: "nowrap" }}>
                           <div style={{ display: "flex", alignItems: "center", gap: 6 }}>
                             <span
                               style={{
@@ -740,13 +756,13 @@ export function RoutingGatewaysArchetype({
                         </td>
 
                         {/* Protocol & RTP */}
-                        <td style={{ padding: "10px 14px", whiteSpace: "nowrap" }}>
+                        <td style={{ padding: "8px 10px", whiteSpace: "nowrap" }}>
                           <div style={{ fontSize: 12, fontWeight: 600, color: "var(--text)" }}>{gw.protocolName}</div>
                           <div style={{ fontSize: 11, color: "var(--muted)" }}>{gw.rtpForwardName}</div>
                         </td>
 
                         {/* Capacity */}
-                        <td style={{ padding: "10px 14px", textAlign: "right", whiteSpace: "nowrap" }}>
+                        <td style={{ padding: "8px 10px", textAlign: "right", whiteSpace: "nowrap" }}>
                           <div style={{ fontWeight: 700, color: "var(--text)", fontFamily: "var(--font-mono, monospace)" }}>
                             {gw.capacity} <span style={{ fontSize: 11, color: "var(--muted)", fontWeight: 400 }}>lines</span>
                           </div>
@@ -756,7 +772,7 @@ export function RoutingGatewaysArchetype({
                         </td>
 
                         {/* Rewrites */}
-                        <td style={{ padding: "10px 14px" }}>
+                        <td style={{ padding: "8px 10px" }}>
                           <div style={{ display: "flex", flexDirection: "column", gap: 3 }}>
                             {gw.rewriteRulesInCallee && (
                               <span
@@ -806,7 +822,7 @@ export function RoutingGatewaysArchetype({
                         </td>
 
                         {/* Actions */}
-                        <td style={{ padding: "10px 14px", textAlign: "right", whiteSpace: "nowrap" }}>
+                        <td style={{ padding: "8px 10px", textAlign: "right", whiteSpace: "nowrap" }}>
                           <div style={{ display: "flex", alignItems: "center", justifyContent: "flex-end", gap: 6 }}>
                             <button
                               type="button"

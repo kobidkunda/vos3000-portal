@@ -1,0 +1,199 @@
+- generic [active] [ref=f9e1]:
+  - generic [ref=f9e2]:
+    - link "Skip to main content" [ref=f9e3] [cursor=pointer]:
+      - /url: "#main-content"
+    - complementary "Client portal navigation" [ref=f9e4]:
+      - generic [ref=f9e6]:
+        - img "CallWork" [ref=f9e7]
+        - generic: Client operations
+      - generic [ref=f9e8]:
+        - generic [ref=f9e9]:
+          - generic [ref=f9e10]: Access & Account Security
+          - link "Profile & Organization" [ref=f9e11] [cursor=pointer]:
+            - /url: /app/settings/profile
+        - generic [ref=f9e17]:
+          - generic [ref=f9e18]: Home & Overview
+          - link "Client Dashboard" [ref=f9e19] [cursor=pointer]:
+            - /url: /app
+        - generic [ref=f9e27]:
+          - generic [ref=f9e28]: Balance, Funds & Payments
+          - link "Balance & Wallet" [ref=f9e29] [cursor=pointer]:
+            - /url: /app/billing/balance
+          - link "Add Funds" [ref=f9e35] [cursor=pointer]:
+            - /url: /app/billing/add-funds
+          - link "Payment History" [ref=f9e41] [cursor=pointer]:
+            - /url: /app/billing/payments
+          - link "Statements & Billing Summary" [ref=f9e47] [cursor=pointer]:
+            - /url: /app/billing/statements
+        - generic [ref=f9e53]:
+          - generic [ref=f9e54]: CDR & Call History
+          - link "CDR Explorer" [ref=f9e55] [cursor=pointer]:
+            - /url: /app/cdr
+          - link "Recent Calls" [ref=f9e62] [cursor=pointer]:
+            - /url: /app/cdr/recent
+          - link "CDR Export Jobs" [ref=f9e69] [cursor=pointer]:
+            - /url: /app/cdr/exports
+        - generic [ref=f9e76]:
+          - generic [ref=f9e77]: Live Calls & Traffic
+          - link "Live Calls" [ref=f9e78] [cursor=pointer]:
+            - /url: /app/calls/live
+          - link "Traffic Analytics" [ref=f9e85] [cursor=pointer]:
+            - /url: /app/analytics/traffic
+          - link "Failure Analytics" [ref=f9e92] [cursor=pointer]:
+            - /url: /app/analytics/failures
+          - link "Destination Analytics" [ref=f9e99] [cursor=pointer]:
+            - /url: /app/analytics/destinations
+        - generic [ref=f9e106]:
+          - generic [ref=f9e107]: Gateways & SIP
+          - link "My Gateways" [ref=f9e108] [cursor=pointer]:
+            - /url: /app/gateways
+        - generic [ref=f9e114]:
+          - generic [ref=f9e115]: Rates & Pricing
+          - link "My Rate Sheet" [ref=f9e116] [cursor=pointer]:
+            - /url: /app/rates
+          - link "Rate Lookup" [ref=f9e123] [cursor=pointer]:
+            - /url: /app/rates/lookup
+          - link "Rate Change History" [ref=f9e130] [cursor=pointer]:
+            - /url: /app/rates/history
+        - generic [ref=f9e137]:
+          - generic [ref=f9e138]: Reports & Downloads
+          - link "Reports Home" [ref=f9e139] [cursor=pointer]:
+            - /url: /app/reports
+          - link "Usage Report" [ref=f9e145] [cursor=pointer]:
+            - /url: /app/reports/usage
+          - link "Gateway Report" [ref=f9e151] [cursor=pointer]:
+            - /url: /app/reports/gateways
+          - link "Scheduled Reports" [ref=f9e157] [cursor=pointer]:
+            - /url: /app/reports/schedules
+          - link "Downloads" [ref=f9e163] [cursor=pointer]:
+            - /url: /app/downloads
+        - generic [ref=f9e169]:
+          - generic [ref=f9e170]: Notifications
+          - link "Notification Center" [ref=f9e171] [cursor=pointer]:
+            - /url: /app/notifications
+          - link "Alert Preferences" [ref=f9e179] [cursor=pointer]:
+            - /url: /app/settings/notifications
+        - generic [ref=f9e187]:
+          - generic [ref=f9e188]: Developer API & Webhooks
+          - link "API Overview" [ref=f9e189] [cursor=pointer]:
+            - /url: /app/developers
+          - link "API Keys" [ref=f9e195] [cursor=pointer]:
+            - /url: /app/developers/api-keys
+          - link "API Request Logs" [ref=f9e201] [cursor=pointer]:
+            - /url: /app/developers/logs
+          - link "Webhook Endpoints" [ref=f9e207] [cursor=pointer]:
+            - /url: /app/developers/webhooks
+          - link "Webhook Delivery Log" [ref=f9e213] [cursor=pointer]:
+            - /url: /app/developers/webhook-deliveries
+        - generic [ref=f9e219]:
+          - generic [ref=f9e220]: Team & Permissions
+          - link "Team Members" [ref=f9e221] [cursor=pointer]:
+            - /url: /app/team
+          - link "Client Roles" [ref=f9e229] [cursor=pointer]:
+            - /url: /app/team/roles
+        - generic [ref=f9e237]:
+          - generic [ref=f9e238]: Support
+          - link "Support Tickets" [ref=f9e239] [cursor=pointer]:
+            - /url: /app/support
+          - link "New Support Ticket" [ref=f9e245] [cursor=pointer]:
+            - /url: /app/support/new
+        - generic [ref=f9e251]:
+          - generic [ref=f9e252]: Devices & Setup
+          - link "Device Setup Hub" [ref=f9e253] [cursor=pointer]:
+            - /url: /app/devices/setup
+      - generic [ref=f9e259]:
+        - generic [ref=f9e260]:
+          - generic [ref=f9e261]: 24/7 NOC Support
+          - generic [ref=f9e266]: Direct hotline & emergency dispatch
+          - link "Contact NOC" [ref=f9e267] [cursor=pointer]:
+            - /url: /app/support/tickets
+        - generic [ref=f9e271]:
+          - generic [ref=f9e272]:
+            - generic [ref=f9e273]: VOS3000 Engine
+            - generic [ref=f9e274]: external
+          - generic [ref=f9e275]:
+            - link "Security" [ref=f9e276] [cursor=pointer]:
+              - /url: /app/settings/security/mfa
+            - button "Toggle theme" [ref=f9e281] [cursor=pointer]:
+              - generic [ref=f9e284]: Dark
+          - button "Sign out" [ref=f9e285] [cursor=pointer]
+    - main [ref=f9e290]:
+      - generic [ref=f9e291]:
+        - generic [ref=f9e292]:
+          - generic [ref=f9e293]:
+            - generic [ref=f9e294]: Client
+            - generic [ref=f9e297]: Devices & Setup
+            - generic [ref=f9e300]: Device Configuration Guide
+          - generic [ref=f9e301]: System Degraded
+        - generic [ref=f9e303]:
+          - button "Search pages… ⌘K" [ref=f9e304] [cursor=pointer]:
+            - generic [ref=f9e308]: Search pages…
+            - generic [ref=f9e309]: ⌘K
+          - link "Notifications" [ref=f9e310] [cursor=pointer]:
+            - /url: /app/notifications
+          - button "Toggle color theme" [ref=f9e315] [cursor=pointer]
+          - button "Client account menu" [ref=f9e319] [cursor=pointer]:
+            - generic [ref=f9e320]: C
+            - generic [ref=f9e321]: Client Portal
+      - generic [ref=f9e347]:
+        - generic [ref=f9e348]:
+          - link "Device Setup Hub" [ref=f9e349] [cursor=pointer]:
+            - /url: /app/devices/setup
+          - generic [ref=f9e352]: ·
+          - generic [ref=f9e353]: microsip
+        - generic [ref=f9e354]:
+          - generic [ref=f9e356]:
+            - button "✓ Choose Device Pick your dialer or phone" [ref=f9e357] [cursor=pointer]:
+              - generic [ref=f9e358]: ✓
+              - generic [ref=f9e359]:
+                - generic [ref=f9e360]: Choose Device
+                - generic [ref=f9e361]: Pick your dialer or phone
+            - button "✓ SIP Account Copy credentials & provisioning" [ref=f9e476] [cursor=pointer]:
+              - generic [ref=f9e363]: ✓
+              - generic [ref=f9e364]:
+                - generic [ref=f9e365]: SIP Account
+                - generic [ref=f9e366]: Copy credentials & provisioning
+            - button "✓ Network & Codecs Transport, STUN, codecs" [ref=f9e517] [cursor=pointer]:
+              - generic [ref=f9e368]: ✓
+              - generic [ref=f9e369]:
+                - generic [ref=f9e370]: Network & Codecs
+                - generic [ref=f9e371]: Transport, STUN, codecs
+            - button "4 Test & Verify Check registration & troubleshoot" [ref=f9e372] [cursor=pointer]:
+              - generic [ref=f9e373]: "4"
+              - generic [ref=f9e374]:
+                - generic [ref=f9e375]: Test & Verify
+                - generic [ref=f9e376]: Check registration & troubleshoot
+            - generic [ref=f9e377]:
+              - generic [ref=f9e378]: MicroSIP
+              - generic [ref=f9e381]: QR
+          - generic [ref=f9e518]:
+            - generic [ref=f9e519]:
+              - generic [ref=f9e520]:
+                - heading "Live Registration" [level=3] [ref=f9e521]
+                - button "Check now" [ref=f9e522] [cursor=pointer]
+              - generic [ref=f9e528]:
+                - text: Click Check now to probe registration via
+                - code [ref=f9e529]: gateway:3078ea63:online
+                - text: (Redis). Status badge + text shown per DESIGN.md (never color alone).
+            - generic [ref=f9e530]:
+              - heading "Troubleshooting" [level=4] [ref=f9e531]
+              - generic [ref=f9e532]:
+                - group [ref=f9e533]:
+                  - generic "NAT / One-way audio" [ref=f9e534] [cursor=pointer]
+                - group [ref=f9e535]:
+                  - generic "401 Unauthorized" [ref=f9e536] [cursor=pointer]
+                - group [ref=f9e537]:
+                  - generic "Timeout / No response" [ref=f9e538] [cursor=pointer]
+            - generic [ref=f9e539]:
+              - button "Back" [ref=f9e540] [cursor=pointer]
+              - link "Done — Back to hub" [ref=f9e541] [cursor=pointer]:
+                - /url: /app/devices/setup
+        - generic [ref=f9e469]:
+          - generic [ref=f9e470]: Request ID shown in toasts on copy/reveal.
+          - generic [ref=f9e471]: ·
+          - generic [ref=f9e472]: No secrets in logs or URL — masked DTO only.
+          - generic [ref=f9e473]: ·
+          - link "Hub" [ref=f9e474] [cursor=pointer]:
+            - /url: /app/devices/setup
+  - button "Open Next.js Dev Tools" [ref=f9e343] [cursor=pointer]
+  - alert [ref=f9e475]

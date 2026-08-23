@@ -1,0 +1,44 @@
+- generic [active] [ref=f1e1]:
+  - generic [ref=f1e2]:
+    - generic [ref=f1e3]:
+      - generic [ref=f1e4]:
+        - img "CallWork" [ref=f1e5]
+        - generic [ref=f1e6]: Carrier Telecom Platform
+      - generic [ref=f1e8]:
+        - generic [ref=f1e9]: Carrier-Grade Telephony & Operations
+        - heading "Carrier operations, routing, billing & client self-service in one unified platform." [level=1] [ref=f1e10]
+        - paragraph [ref=f1e11]: High-speed CDR analytics, real-time NOC streaming, gateway metrics, rate cards, balance settlements, and automated reporting.
+        - generic [ref=f1e12]:
+          - generic [ref=f1e13]: ClickHouse CDR
+          - generic [ref=f1e14]: Redpanda Pipelines
+          - generic [ref=f1e15]: VOS3000 Adapter
+          - generic [ref=f1e16]: PostgreSQL Ledger
+      - generic [ref=f1e17]:
+        - generic [ref=f1e18]: PostgreSQL · ClickHouse · Redis · Redpanda
+        - generic [ref=f1e19]: Version 1.0 Enterprise
+    - generic [ref=f1e20]:
+      - button "Toggle theme" [ref=f1e22] [cursor=pointer]
+      - generic [ref=f1e25]:
+        - generic [ref=f1e26]: Client Security
+        - heading "Client Login" [level=2] [ref=f1e27]
+        - generic [ref=f1e28]:
+          - paragraph [ref=f1e29]: Enter your authorized credentials to access client telemetry.
+          - generic [ref=f1e30]:
+            - generic [ref=f1e31]: Email or login identifier
+            - textbox "Email or login identifier" [ref=f1e32]:
+              - /placeholder: operator@telecom.net
+              - text: client@example.com
+          - generic [ref=f1e33]:
+            - generic [ref=f1e34]: Password
+            - generic [ref=f1e35]:
+              - textbox "Password" [ref=f1e36]: Client123!
+              - button "Show password" [ref=f1e37] [cursor=pointer]
+          - button "Sign In" [ref=f1e41] [cursor=pointer]
+          - generic [ref=f1e42]:
+            - button "Forgot password?" [ref=f1e43] [cursor=pointer]
+            - button "Create account" [ref=f1e44] [cursor=pointer]
+          - generic [ref=f1e45]:
+            - strong [ref=f1e46]: "Development Mode:"
+            - text: Demo operator credentials have been pre-filled for local testing.
+  - button "Open Next.js Dev Tools" [ref=f1e52] [cursor=pointer]
+  - alert [ref=f1e56]

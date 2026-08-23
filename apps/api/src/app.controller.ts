@@ -9,7 +9,8 @@ import { PlatformService } from "./platform.service.js";
 import { DataSourcesService } from "./data-sources.service.js";
 import { NowpaymentsService } from "./nowpayments.service.js";
 import { authorizeProductApi, validateBrowserOrigin } from "./access-policy.js";
-import { productApis, type ProductApiDefinition } from "@vos/shared";
+import { productApis, type ProductApiDefinition, validateSupportConfigPutBody } from "@vos/shared";
+import { SupportService } from "./support/support.service.js";
 
 const rid=()=>crypto.randomUUID();
 const cookieName=()=>process.env.NODE_ENV==="production"?"__Host-vos_session":"vos_session";
@@ -23,7 +24,8 @@ export class AppController {
     @Inject(AuthService) private auth:AuthService,
     @Inject(PlatformService) private platform:PlatformService,
     @Inject(DataSourcesService) private sources:DataSourcesService,
-    @Inject(NowpaymentsService) private nowpayments:NowpaymentsService
+    @Inject(NowpaymentsService) private nowpayments:NowpaymentsService,
+    @Inject(SupportService) private support:SupportService
   ){}
   private async ctx(req:FastifyRequest){return this.auth.resolveContext(req.headers as any,req.ip)}
   private originOk(req:FastifyRequest,method:string){const source=this.auth.tokenFromHeaders(req.headers as any)?.source;return validateBrowserOrigin(req.headers as any,method,source)}
@@ -430,6 +432,72 @@ export class AppController {
     }catch(e:any){
       res.status(e.statusCode??500);
       return {ok:false,request_id,error:{code:e.code??"TEST_FAILED",message:e.message}};
+    }
+  }
+
+  @Get("admin/settings/support")
+  async getSupportSettings(@Req() req:FastifyRequest,@Res({passthrough:true}) res:FastifyReply){
+    const request_id=rid(),c=await this.ctx(req);
+    if(!c){res.status(401);return {ok:false,request_id,error:{code:"UNAUTHENTICATED",message:"Authentication required"}}}
+    if(c.side!=="admin"){res.status(403);return {ok:false,request_id,error:{code:"FORBIDDEN",message:"Admin session required"}}}
+    try{
+      const data=await this.support.getSupportConfig();
+      return {ok:true,request_id,data};
+    }catch(e:any){
+      res.status(e.statusCode??500);
+      return {ok:false,request_id,error:{code:e.code??"SUPPORT_SETTINGS_ERROR",message:e.message}};
+    }
+  }
+
+  @Put("admin/settings/support")
+  async putSupportSettings(@Body() body:any,@Req() req:FastifyRequest,@Res({passthrough:true}) res:FastifyReply){
+    const request_id=rid(),c=await this.ctx(req);
+    if(!c){res.status(401);return {ok:false,request_id,error:{code:"UNAUTHENTICATED",message:"Authentication required"}}}
+    if(c.side!=="admin"){res.status(403);return {ok:false,request_id,error:{code:"FORBIDDEN",message:"Admin session required"}}}
+    if(!this.originOk(req,"PUT")){res.status(403);return {ok:false,request_id,error:{code:"INVALID_ORIGIN",message:"Browser origin rejected"}}}
+    const decision=authorizeProductApi(c,{method:"PUT",path:"/api/v1/admin/settings/support",sides:["Admin"],pages:["Support Settings"],pageRoutes:["/admin/settings/support"]} as ProductApiDefinition);
+    if(!decision.ok){res.status(decision.statusCode!);return {ok:false,request_id,error:{code:decision.code,message:decision.message}}}
+    const errors=validateSupportConfigPutBody(body);
+    if(errors.length){
+      console.log(JSON.stringify({ts:new Date().toISOString(),level:"warn",msg:"support_config.put",request_id,actor:c.userId,ip:req.ip,outcome:"validation_error",field:errors[0].field}));
+      res.status(400);return {ok:false,request_id,error:{code:"VALIDATION_ERROR",message:errors[0].message,details:{fields:errors}}};
+    }
+    try{
+      const before=await this.support.getSupportConfig().catch(()=>null);
+      const data=await this.support.saveSupportConfig(body,c.userId);
+      await this.sources.audit(c,request_id,"PUT /api/v1/admin/settings/support","support_config","global",
+        before?{enabled:before.enabled,label:before.label,telegram:{enabled:before.telegram.enabled,handle:before.telegram.handle},teams:{enabled:before.teams.enabled,id:before.teams.id}}:undefined,
+        {enabled:data.enabled,label:data.label,telegram:{enabled:data.telegram.enabled,handle:data.telegram.handle},teams:{enabled:data.teams.enabled,id:data.teams.id}},
+        req.ip);
+      console.log(JSON.stringify({ts:new Date().toISOString(),level:"info",msg:"support_config.put",request_id,actor:c.userId,ip:req.ip,outcome:"ok"}));
+      return {ok:true,request_id,data};
+    }catch(e:any){
+      if(e?.code==="VALIDATION_ERROR"){res.status(400);return {ok:false,request_id,error:{code:"VALIDATION_ERROR",message:e.message,details:{fields:e.details}}}}
+      console.log(JSON.stringify({ts:new Date().toISOString(),level:"error",msg:"support_config.put",request_id,actor:c.userId,ip:req.ip,outcome:"error",code:e?.code??"UNKNOWN"}));
+      res.status(e.statusCode??500);
+      return {ok:false,request_id,error:{code:e.code??"SUPPORT_SETTINGS_UPDATE_FAILED",message:e.message}};
+    }
+  }
+
+  @Get("support/config")
+  async getSupportClientConfig(@Req() req:FastifyRequest,@Res({passthrough:true}) res:FastifyReply){
+    const request_id=rid(),c=await this.ctx(req);
+    if(!c){res.status(401);return {ok:false,request_id,error:{code:"UNAUTHENTICATED",message:"Authentication required"}}}
+    if(c.side!=="client"){res.status(403);return {ok:false,request_id,error:{code:"FORBIDDEN",message:"Client session required"}}}
+    try{
+      const cfg=await this.support.getSupportConfig();
+      // Public-safe projection for the client FAB: URLs only, never raw handles/ids.
+      const data={
+        enabled:cfg.enabled,
+        label:cfg.label??"",
+        telegram:{enabled:cfg.telegram.enabled,url:cfg.telegram.url},
+        teams:{enabled:cfg.teams.enabled,url:cfg.teams.url},
+        updatedAt:cfg.updatedAt
+      };
+      return {ok:true,request_id,data};
+    }catch(e:any){
+      res.status(e.statusCode??500);
+      return {ok:false,request_id,error:{code:e.code??"SUPPORT_CONFIG_ERROR",message:e.message}};
     }
   }
 

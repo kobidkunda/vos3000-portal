@@ -1,0 +1,306 @@
+- generic [active] [ref=f3e1]:
+  - generic [ref=f3e2]:
+    - link "Skip to main content" [ref=f3e3] [cursor=pointer]:
+      - /url: "#main-content"
+    - complementary "Client portal navigation" [ref=f3e4]:
+      - generic [ref=f3e6]:
+        - img "CallWork" [ref=f3e7]
+        - generic: Client operations
+      - generic [ref=f3e8]:
+        - generic [ref=f3e9]:
+          - generic [ref=f3e10]: Access & Account Security
+          - link "Profile & Organization" [ref=f3e11] [cursor=pointer]:
+            - /url: /app/settings/profile
+        - generic [ref=f3e17]:
+          - generic [ref=f3e18]: Home & Overview
+          - link "Client Dashboard" [ref=f3e19] [cursor=pointer]:
+            - /url: /app
+        - generic [ref=f3e27]:
+          - generic [ref=f3e28]: Balance, Funds & Payments
+          - link "Balance & Wallet" [ref=f3e29] [cursor=pointer]:
+            - /url: /app/billing/balance
+          - link "Add Funds" [ref=f3e35] [cursor=pointer]:
+            - /url: /app/billing/add-funds
+          - link "Payment History" [ref=f3e41] [cursor=pointer]:
+            - /url: /app/billing/payments
+          - link "Statements & Billing Summary" [ref=f3e47] [cursor=pointer]:
+            - /url: /app/billing/statements
+        - generic [ref=f3e53]:
+          - generic [ref=f3e54]: CDR & Call History
+          - link "CDR Explorer" [ref=f3e55] [cursor=pointer]:
+            - /url: /app/cdr
+          - link "Recent Calls" [ref=f3e62] [cursor=pointer]:
+            - /url: /app/cdr/recent
+          - link "CDR Export Jobs" [ref=f3e69] [cursor=pointer]:
+            - /url: /app/cdr/exports
+        - generic [ref=f3e76]:
+          - generic [ref=f3e77]: Live Calls & Traffic
+          - link "Live Calls" [ref=f3e78] [cursor=pointer]:
+            - /url: /app/calls/live
+          - link "Traffic Analytics" [ref=f3e85] [cursor=pointer]:
+            - /url: /app/analytics/traffic
+          - link "Failure Analytics" [ref=f3e92] [cursor=pointer]:
+            - /url: /app/analytics/failures
+          - link "Destination Analytics" [ref=f3e99] [cursor=pointer]:
+            - /url: /app/analytics/destinations
+        - generic [ref=f3e106]:
+          - generic [ref=f3e107]: Gateways & SIP
+          - link "My Gateways" [ref=f3e108] [cursor=pointer]:
+            - /url: /app/gateways
+        - generic [ref=f3e114]:
+          - generic [ref=f3e115]: Rates & Pricing
+          - link "My Rate Sheet" [ref=f3e116] [cursor=pointer]:
+            - /url: /app/rates
+          - link "Rate Lookup" [ref=f3e123] [cursor=pointer]:
+            - /url: /app/rates/lookup
+          - link "Rate Change History" [ref=f3e130] [cursor=pointer]:
+            - /url: /app/rates/history
+        - generic [ref=f3e137]:
+          - generic [ref=f3e138]: Reports & Downloads
+          - link "Reports Home" [ref=f3e139] [cursor=pointer]:
+            - /url: /app/reports
+          - link "Usage Report" [ref=f3e145] [cursor=pointer]:
+            - /url: /app/reports/usage
+          - link "Gateway Report" [ref=f3e151] [cursor=pointer]:
+            - /url: /app/reports/gateways
+          - link "Scheduled Reports" [ref=f3e157] [cursor=pointer]:
+            - /url: /app/reports/schedules
+          - link "Downloads" [ref=f3e163] [cursor=pointer]:
+            - /url: /app/downloads
+        - generic [ref=f3e169]:
+          - generic [ref=f3e170]: Notifications
+          - link "Notification Center" [ref=f3e171] [cursor=pointer]:
+            - /url: /app/notifications
+          - link "Alert Preferences" [ref=f3e179] [cursor=pointer]:
+            - /url: /app/settings/notifications
+        - generic [ref=f3e187]:
+          - generic [ref=f3e188]: Developer API & Webhooks
+          - link "API Overview" [ref=f3e189] [cursor=pointer]:
+            - /url: /app/developers
+          - link "API Keys" [ref=f3e195] [cursor=pointer]:
+            - /url: /app/developers/api-keys
+          - link "API Request Logs" [ref=f3e201] [cursor=pointer]:
+            - /url: /app/developers/logs
+          - link "Webhook Endpoints" [ref=f3e207] [cursor=pointer]:
+            - /url: /app/developers/webhooks
+          - link "Webhook Delivery Log" [ref=f3e213] [cursor=pointer]:
+            - /url: /app/developers/webhook-deliveries
+        - generic [ref=f3e219]:
+          - generic [ref=f3e220]: Team & Permissions
+          - link "Team Members" [ref=f3e221] [cursor=pointer]:
+            - /url: /app/team
+          - link "Client Roles" [ref=f3e229] [cursor=pointer]:
+            - /url: /app/team/roles
+        - generic [ref=f3e237]:
+          - generic [ref=f3e238]: Support
+          - link "Support Tickets" [ref=f3e239] [cursor=pointer]:
+            - /url: /app/support
+          - link "New Support Ticket" [ref=f3e245] [cursor=pointer]:
+            - /url: /app/support/new
+        - generic [ref=f3e251]:
+          - generic [ref=f3e252]: Devices & Setup
+          - link "Device Setup Hub" [ref=f3e253] [cursor=pointer]:
+            - /url: /app/devices/setup
+      - generic [ref=f3e259]:
+        - generic [ref=f3e260]:
+          - generic [ref=f3e261]: 24/7 NOC Support
+          - generic [ref=f3e266]: Direct hotline & emergency dispatch
+          - link "Contact NOC" [ref=f3e267] [cursor=pointer]:
+            - /url: /app/support/tickets
+        - generic [ref=f3e271]:
+          - generic [ref=f3e272]:
+            - generic [ref=f3e273]: VOS3000 Engine
+            - generic [ref=f3e274]: external
+          - generic [ref=f3e275]:
+            - link "Security" [ref=f3e276] [cursor=pointer]:
+              - /url: /app/settings/security/mfa
+            - button "Toggle theme" [ref=f3e281] [cursor=pointer]:
+              - generic [ref=f3e284]: Dark
+          - button "Sign out" [ref=f3e285] [cursor=pointer]
+    - main [ref=f3e290]:
+      - generic [ref=f3e291]:
+        - generic [ref=f3e292]:
+          - generic [ref=f3e293]:
+            - generic [ref=f3e294]: Client
+            - generic [ref=f3e297]: Devices & Setup
+            - generic [ref=f3e300]: Device Setup Hub
+          - generic [ref=f3e301]: System Online
+        - generic [ref=f3e303]:
+          - button "Search pages… ⌘K" [ref=f3e304] [cursor=pointer]:
+            - generic [ref=f3e308]: Search pages…
+            - generic [ref=f3e309]: ⌘K
+          - link "Notifications" [ref=f3e310] [cursor=pointer]:
+            - /url: /app/notifications
+          - button "Toggle color theme" [ref=f3e315] [cursor=pointer]
+          - button "Client account menu" [ref=f3e319] [cursor=pointer]:
+            - generic [ref=f3e320]: C
+            - generic [ref=f3e321]: Client Portal
+      - generic [ref=f3e347]:
+        - generic [ref=f3e348]:
+          - generic [ref=f3e349]:
+            - heading "Device Setup Hub" [level=1] [ref=f3e350]
+            - paragraph [ref=f3e351]: Guide users to configure dialers, softphones, and IP phones - discovery hub.
+          - generic [ref=f3e352]:
+            - generic [ref=f3e353]: 12 devices
+            - generic [ref=f3e354]: 4 gateways
+        - generic [ref=f3e355]:
+          - generic [ref=f3e356]:
+            - generic [ref=f3e357]: Gateway
+            - combobox "Gateway" [ref=f3e358]:
+              - option "veejay singh — 62.84.182.224" [selected]
+              - option "veejay singh — 62.84.182.224"
+              - option "veejay singh — 62.84.182.224"
+              - option "veejay singh — 62.84.182.224"
+            - generic [ref=f3e359]: 3078ea63
+          - generic [ref=f3e360]:
+            - button "All" [pressed] [ref=f3e361] [cursor=pointer]
+            - button "Softphone" [ref=f3e362] [cursor=pointer]
+            - button "Desk Phone" [ref=f3e363] [cursor=pointer]
+            - button "Mobile" [ref=f3e364] [cursor=pointer]
+            - button "WebRTC" [ref=f3e365] [cursor=pointer]
+          - textbox "Search devices" [ref=f3e372]:
+            - /placeholder: Search devices, e.g. Yealink
+        - generic [ref=f3e373]:
+          - link "Configure MicroSIP - softphone, 1 min setup" [ref=f3e374] [cursor=pointer]:
+            - /url: /app/devices/setup/microsip?gatewayId=3078ea63-3356-4994-a25b-373cef108c8c
+            - generic [ref=f3e375]: softphone
+            - generic [ref=f3e383]:
+              - generic [ref=f3e384]: MicroSIP
+              - generic [ref=f3e385]:
+                - generic [ref=f3e386]: 1 min
+                - generic [ref=f3e392]: ·
+                - generic [ref=f3e393]: microsip
+            - generic [ref=f3e394]: QR
+            - generic [ref=f3e396]: Configure
+          - link "Configure Linphone - softphone, 1 min setup" [ref=f3e400] [cursor=pointer]:
+            - /url: /app/devices/setup/linphone?gatewayId=3078ea63-3356-4994-a25b-373cef108c8c
+            - generic [ref=f3e401]: softphone
+            - generic [ref=f3e409]:
+              - generic [ref=f3e410]: Linphone
+              - generic [ref=f3e411]:
+                - generic [ref=f3e412]: 1 min
+                - generic [ref=f3e418]: ·
+                - generic [ref=f3e419]: linphone
+            - generic [ref=f3e420]: QR
+            - generic [ref=f3e422]: Configure
+          - link "Configure Zoiper 5 - softphone, 1 min setup" [ref=f3e426] [cursor=pointer]:
+            - /url: /app/devices/setup/zoiper?gatewayId=3078ea63-3356-4994-a25b-373cef108c8c
+            - generic [ref=f3e427]: softphone
+            - generic [ref=f3e435]:
+              - generic [ref=f3e436]: Zoiper 5
+              - generic [ref=f3e437]:
+                - generic [ref=f3e438]: 1 min
+                - generic [ref=f3e444]: ·
+                - generic [ref=f3e445]: zoiper
+            - generic [ref=f3e446]: QR
+            - generic [ref=f3e448]: Configure
+          - link "Configure Groundwire - softphone, 2 min setup" [ref=f3e452] [cursor=pointer]:
+            - /url: /app/devices/setup/groundwire?gatewayId=3078ea63-3356-4994-a25b-373cef108c8c
+            - generic [ref=f3e453]: softphone
+            - generic [ref=f3e461]:
+              - generic [ref=f3e462]: Groundwire
+              - generic [ref=f3e463]:
+                - generic [ref=f3e464]: 2 min
+                - generic [ref=f3e470]: ·
+                - generic [ref=f3e471]: groundwire
+            - generic [ref=f3e472]: QR
+            - generic [ref=f3e474]: Configure
+          - link "Configure Bria Solo / Teams - softphone, 2 min setup" [ref=f3e478] [cursor=pointer]:
+            - /url: /app/devices/setup/bria?gatewayId=3078ea63-3356-4994-a25b-373cef108c8c
+            - generic [ref=f3e479]: softphone
+            - generic [ref=f3e487]:
+              - generic [ref=f3e488]: Bria Solo / Teams
+              - generic [ref=f3e489]:
+                - generic [ref=f3e490]: 2 min
+                - generic [ref=f3e496]: ·
+                - generic [ref=f3e497]: bria
+            - generic [ref=f3e498]: QR
+            - generic [ref=f3e500]: Configure
+          - link "Configure Yealink T5 Series - deskphone, 2 min setup" [ref=f3e504] [cursor=pointer]:
+            - /url: /app/devices/setup/yealink-t5x?gatewayId=3078ea63-3356-4994-a25b-373cef108c8c
+            - generic [ref=f3e505]: deskphone
+            - generic [ref=f3e515]:
+              - generic [ref=f3e516]: Yealink T5 Series
+              - generic [ref=f3e517]:
+                - generic [ref=f3e518]: 2 min
+                - generic [ref=f3e524]: ·
+                - generic [ref=f3e525]: yealink-t5x
+            - generic [ref=f3e526]:
+              - generic [ref=f3e527]: QR
+              - generic [ref=f3e528]: CFG
+            - generic [ref=f3e529]: Configure
+          - link "Configure Grandstream GXP / GRP - deskphone, 2 min setup" [ref=f3e533] [cursor=pointer]:
+            - /url: /app/devices/setup/grandstream?gatewayId=3078ea63-3356-4994-a25b-373cef108c8c
+            - generic [ref=f3e534]: deskphone
+            - generic [ref=f3e544]:
+              - generic [ref=f3e545]: Grandstream GXP / GRP
+              - generic [ref=f3e546]:
+                - generic [ref=f3e547]: 2 min
+                - generic [ref=f3e553]: ·
+                - generic [ref=f3e554]: grandstream
+            - generic [ref=f3e555]:
+              - generic [ref=f3e556]: QR
+              - generic [ref=f3e557]: CFG
+            - generic [ref=f3e558]: Configure
+          - link "Configure Cisco 78xx - deskphone, 3 min setup" [ref=f3e562] [cursor=pointer]:
+            - /url: /app/devices/setup/cisco-78xx?gatewayId=3078ea63-3356-4994-a25b-373cef108c8c
+            - generic [ref=f3e563]: deskphone
+            - generic [ref=f3e573]:
+              - generic [ref=f3e574]: Cisco 78xx
+              - generic [ref=f3e575]:
+                - generic [ref=f3e576]: 3 min
+                - generic [ref=f3e582]: ·
+                - generic [ref=f3e583]: cisco-78xx
+            - generic [ref=f3e584]: CFG
+            - generic [ref=f3e586]: Configure
+          - link "Configure Poly VVX / Edge - deskphone, 2 min setup" [ref=f3e590] [cursor=pointer]:
+            - /url: /app/devices/setup/poly-vvx?gatewayId=3078ea63-3356-4994-a25b-373cef108c8c
+            - generic [ref=f3e591]: deskphone
+            - generic [ref=f3e601]:
+              - generic [ref=f3e602]: Poly VVX / Edge
+              - generic [ref=f3e603]:
+                - generic [ref=f3e604]: 2 min
+                - generic [ref=f3e610]: ·
+                - generic [ref=f3e611]: poly-vvx
+            - generic [ref=f3e612]:
+              - generic [ref=f3e613]: QR
+              - generic [ref=f3e614]: CFG
+            - generic [ref=f3e615]: Configure
+          - link "Configure Fanvil X / U Series - deskphone, 2 min setup" [ref=f3e619] [cursor=pointer]:
+            - /url: /app/devices/setup/fanvil?gatewayId=3078ea63-3356-4994-a25b-373cef108c8c
+            - generic [ref=f3e620]: deskphone
+            - generic [ref=f3e630]:
+              - generic [ref=f3e631]: Fanvil X / U Series
+              - generic [ref=f3e632]:
+                - generic [ref=f3e633]: 2 min
+                - generic [ref=f3e639]: ·
+                - generic [ref=f3e640]: fanvil
+            - generic [ref=f3e641]:
+              - generic [ref=f3e642]: QR
+              - generic [ref=f3e643]: CFG
+            - generic [ref=f3e644]: Configure
+          - link "Configure WebRTC Dialer (Browser) - webrtc, instant" [ref=f3e648] [cursor=pointer]:
+            - /url: /app/devices/setup/webrtc?gatewayId=3078ea63-3356-4994-a25b-373cef108c8c
+            - generic [ref=f3e649]: webrtc
+            - generic [ref=f3e656]:
+              - generic [ref=f3e657]: WebRTC Dialer (Browser)
+              - generic [ref=f3e658]:
+                - generic [ref=f3e659]: Instant
+                - generic [ref=f3e665]: ·
+                - generic [ref=f3e666]: webrtc
+            - generic [ref=f3e667]: WebRTC
+            - generic [ref=f3e669]: Configure
+          - link "Configure Mobile Dialer - mobile, 1 min setup" [ref=f3e673] [cursor=pointer]:
+            - /url: /app/devices/setup/mobile-dialer?gatewayId=3078ea63-3356-4994-a25b-373cef108c8c
+            - generic [ref=f3e674]: mobile
+            - generic [ref=f3e681]:
+              - generic [ref=f3e682]: Mobile Dialer
+              - generic [ref=f3e683]:
+                - generic [ref=f3e684]: 1 min
+                - generic [ref=f3e690]: ·
+                - generic [ref=f3e691]: mobile-dialer
+            - generic [ref=f3e692]: QR
+            - generic [ref=f3e694]: Configure
+        - generic [ref=f3e698]: "Tip: pick your gateway first — wizard pre-fills SIP server, port and transport from the mapping gateway. Credentials are masked until you reveal."
+  - button "Open Next.js Dev Tools" [ref=f3e343] [cursor=pointer]
+  - alert [ref=f3e703]

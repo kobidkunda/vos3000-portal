@@ -108,10 +108,10 @@ The dev runner automatically:
 
 | Service | URL |
 |---------|-----|
-| Web (Admin/Client) | http://localhost:3001 |
-| API | http://localhost:4000 |
-| API Swagger Docs | http://localhost:4000/docs |
-| API Health Check | http://localhost:4000/api/v1/health |
+| Web (Admin/Client) | http://localhost:5027 |
+| API | http://localhost:5026 |
+| API Swagger Docs | http://localhost:5026/docs |
+| API Health Check | http://localhost:5026/api/v1/health |
 
 ### Demo credentials
 
@@ -162,9 +162,9 @@ This will:
 
 | Service | URL |
 |---------|-----|
-| Web (via nginx gateway) | http://localhost:8080 |
-| Web (direct) | http://localhost:3000 |
-| API (direct) | http://localhost:4000 |
+| Web (via nginx gateway) | http://localhost:5028 |
+| Web (direct) | http://localhost:5027 |
+| API (direct) | http://localhost:5026 |
 
 ### Useful Docker Compose commands
 
@@ -340,10 +340,10 @@ curl -s -X POST "http://<VOS_IP>:7391/external/server" \
 
 | Variable | Example |
 |----------|---------|
-| `DATABASE_URL` | `postgres://vos:pass@localhost:5432/vos_portal` |
-| `CLICKHOUSE_URL` | `http://localhost:8123` |
-| `REDIS_URL` | `redis://localhost:6379` |
-| `REDPANDA_BROKERS` | `localhost:9092` |
+| `DATABASE_URL` | `postgres://vos:pass@localhost:5020/vos_portal` |
+| `CLICKHOUSE_URL` | `http://localhost:5021` |
+| `REDIS_URL` | `redis://localhost:5023` |
+| `REDPANDA_BROKERS` | `localhost:5024` |
 
 ### VOS3000
 
@@ -428,7 +428,7 @@ Validation: PASSED
 ```bash
 ./dev.sh --stop
 # or
-lsof -ti:3001,4000 | xargs kill -9
+lsof -ti:5026,5027 | xargs kill -9
 ```
 
 ### Docker Compose health check failures

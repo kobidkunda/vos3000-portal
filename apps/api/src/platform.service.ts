@@ -665,7 +665,16 @@ export class PlatformService {
       if(path==="/api/v1/gateways")return {items:await this.sources.listGateways(ctx) as any[],source:"postgres"};
       if(path==="/api/v1/gateways/{id}"||path==="/api/v1/gateways/{id}/ips"){const x=await this.sources.listGateways(ctx,String(params.id??""));return {items:x?[x]:[],source:"postgres"};}
       if(path==="/api/v1/rates")return {items:await this.sources.listRates(ctx) as any[],source:"postgres"};
-      if(path==="/api/v1/rates/lookup"){const x=await this.sources.listRates(ctx,String(query?.number??""));return {items:x?[x]:[],source:"postgres"};}
+      if(path==="/api/v1/rates/lookup"){
+        const number=String(query?.number??"");
+        if(number){
+          // Single longest-prefix match for the dialed number (listRates returns one row or null).
+          const x=await this.sources.listRates(ctx,number);
+          return {items:x?[x]:[],source:"postgres"};
+        }
+        // No number given: page payload carries the customer's full rate sheet.
+        return {items:await this.sources.listRates(ctx) as any[],source:"postgres"};
+      }
       if(path==="/api/v1/developer/request-logs")return {items:await this.sources.apiRequestLogs(ctx),source:"postgres"};
       if(path==="/api/v1/developer/overview")return {items:[{base_url:"/api/v1",authentication:"session or scoped API key",rate_limits:"deployment policy",openapi:"/docs"}],source:"portal"};
       if(path==="/api/v1/status"){const gateways=await this.sources.listGateways(ctx) as any[];return {items:gateways,source:"postgres"};}

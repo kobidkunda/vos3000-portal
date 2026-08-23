@@ -2460,6 +2460,30 @@ export const portalRoutes = [
     "purpose": "Gradually enable portal modules by tenant."
   },
   {
+    "side": "Admin",
+    "group": "Portal Operations",
+    "name": "Support Settings",
+    "route": "/admin/settings/support",
+    "archetype": "SETTINGS",
+    "data_mode": "transactional/configuration",
+    "phase": "P12 \u2014 Observability, Security Hardening, Backup & High Availability",
+    "template_file": "04_ADMIN_PAGES/support-settings.md",
+    "features": [
+      "Telegram handle/URL + enable",
+      "Teams ID/URL + enable",
+      "Global enable toggle",
+      "Preview resolved URLs",
+      "Validation + audit + RBAC",
+      "Degraded state handling"
+    ],
+    "apis": [
+      "GET /api/v1/admin/settings/support",
+      "PUT /api/v1/admin/settings/support"
+    ],
+    "basis": "[PORTAL]",
+    "purpose": "Configure global support contacts surfaced as client FAB"
+  },
+  {
     "side": "Client",
     "group": "Access & Account Security",
     "name": "Client Login",
@@ -3563,5 +3587,110 @@ export const portalRoutes = [
     ],
     "basis": "[PORTAL]",
     "purpose": "Conversation and status for one ticket."
+  }
+  ,
+  {
+    "side": "Client",
+    "group": "Devices & Setup",
+    "name": "Device Setup Hub",
+    "route": "/app/devices/setup",
+    "archetype": "DETAIL",
+    "data_mode": "query",
+    "phase": "P04 Device Configuration Hub",
+    "template_file": "DEVICE_SETUP/001_device-setup-hub.md",
+    "features": [
+      "Gateway/phone picker (tenant-scoped)",
+      "Category filter pills All | Softphone | Desk Phone | Mobile | WebRTC",
+      "Search input 36px height",
+      "Device card grid 1-col mobile / 2-col tablet / 3-col desktop",
+      "8px radius cards border #E2E8F0 hover #F1F5F9 16px padding",
+      "Line-icon SVG illustration per device (no external asset)",
+      "Device label 16px/600, category badge 11px/600, effort 30 sec helper 12px",
+      "Capability chips QR/CFG/WebRTC",
+      "Keyboard focusable cards with aria-label",
+      "Loading skeleton / empty / error / permission-denied / degraded states"
+    ],
+    "apis": [
+      "GET /api/v1/devices/setup/devices",
+      "GET /api/v1/gateways",
+      "GET /api/v1/ui/page?route=/app/devices/setup"
+    ],
+    "basis": "[PORTAL]",
+    "purpose": "Guide users to configure dialers, softphones, and IP phones - discovery hub."
+  },
+  {
+    "side": "Client",
+    "group": "Devices & Setup",
+    "name": "Device Configuration Guide",
+    "route": "/app/devices/setup/{deviceKey}",
+    "archetype": "WIZARD",
+    "data_mode": "query",
+    "phase": "P04 Device Configuration Hub",
+    "template_file": "DEVICE_SETUP/002_device-configuration-wizard.md",
+    "features": [
+      "Vertical stepper desktop 248px / horizontal top mobile - 4 steps",
+      "Step 1 Choose Device (hero 60px icon + prerequisites)",
+      "Step 2 SIP Account (masked table mono 13px, copy, QR, .cfg download, reveal w/ re-auth)",
+      "Step 3 Network & Codecs (transport pills, STUN toggle, codec checklist, DTMF, keep-alive)",
+      "Step 4 Test & Verify (live registration check, test call, troubleshooting matrix)",
+      "DeviceInstructions registry-driven SVG 120x80 per device",
+      "Progress persisted localStorage + deep-link ?gatewayId=&step=",
+      "Single primary button per DESIGN.md:5",
+      "focus ring 2px blue #2563EB, WCAG AA, tabular-nums for port/latency"
+    ],
+    "apis": [
+      "GET /api/v1/devices/setup/instructions",
+      "POST /api/v1/devices/setup/verify",
+      "POST /api/v1/devices/setup/copy-event",
+      "GET /api/v1/ui/page?route=/app/devices/setup/{deviceKey}"
+    ],
+    "basis": "[PORTAL]",
+    "purpose": "Guided per-device SIP provisioning with verification."
+  },
+  {
+    "side": "Admin",
+    "group": "Devices & Setup",
+    "name": "Device Setup Hub",
+    "route": "/admin/devices/setup",
+    "archetype": "DETAIL",
+    "data_mode": "query",
+    "phase": "P04 Device Configuration Hub",
+    "template_file": "DEVICE_SETUP/003_admin-device-setup-hub.md",
+    "features": [
+      "Same card grid as client",
+      "Account picker search by customer name / portal ID / VOS account ID",
+      "Gateway picker filtered to selected customer",
+      "Deep-link from Customer Overview Phones Configure button",
+      "Shareable provisioning link (expiring 24h, signed JWT, masked only)"
+    ],
+    "apis": [
+      "GET /api/v1/admin/devices/setup/devices",
+      "GET /api/v1/admin/customers",
+      "GET /api/v1/ui/page?route=/admin/devices/setup"
+    ],
+    "basis": "[PORTAL]",
+    "purpose": "Admin mirror of device setup with customer picker and share link."
+  },
+  {
+    "side": "Admin",
+    "group": "Devices & Setup",
+    "name": "Device Configuration Guide",
+    "route": "/admin/devices/setup/{deviceKey}",
+    "archetype": "WIZARD",
+    "data_mode": "query",
+    "phase": "P04 Device Configuration Hub",
+    "template_file": "DEVICE_SETUP/004_admin-device-configuration-wizard.md",
+    "features": [
+      "Same 4-step wizard as client",
+      "Admin can generate expiring share link for customer",
+      "Audit every reveal/copy/verify with request_id"
+    ],
+    "apis": [
+      "GET /api/v1/admin/devices/setup/instructions",
+      "POST /api/v1/admin/devices/setup/verify",
+      "GET /api/v1/ui/page?route=/admin/devices/setup/{deviceKey}"
+    ],
+    "basis": "[PORTAL]",
+    "purpose": "Admin guided provisioning for support."
   }
 ] as const;

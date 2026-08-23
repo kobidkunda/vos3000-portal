@@ -54,7 +54,7 @@ function validateConfig(){
 async function bootstrap(){
   validateConfig();
   const app=await NestFactory.create<NestFastifyApplication>(AppModule,new FastifyAdapter({logger:true,bodyLimit:Number(process.env.API_BODY_LIMIT_BYTES??2_000_000),trustProxy:process.env.TRUST_PROXY==="true"}));
-  const allowedOrigins=(process.env.WEB_URL??"http://localhost:3000").split(",").map(x=>x.trim()).filter(Boolean);
+  const allowedOrigins=(process.env.WEB_URL??"http://localhost:5027").split(",").map(x=>x.trim()).filter(Boolean);
   app.enableCors({origin:allowedOrigins,credentials:true,methods:["GET","HEAD","POST","PUT","PATCH","DELETE","OPTIONS"]});
   const platform=app.get(PlatformService);await platform.init();const auth=app.get(AuthService);const sources=app.get(DataSourcesService);
   const fastify=app.getHttpAdapter().getInstance();
@@ -91,7 +91,8 @@ async function bootstrap(){
     "GET /api/v1/cdr/exports","POST /api/v1/cdr/exports","POST /api/v1/cdr/exports/estimate","DELETE /api/v1/cdr/exports/{id}","POST /api/v1/cdr/exports/{id}/cancel","GET /api/v1/cdr/exports/{id}/download",
     "GET /api/v1/admin/cdr/exports","POST /api/v1/admin/cdr/exports","POST /api/v1/admin/cdr/exports/estimate","DELETE /api/v1/admin/cdr/exports/{id}",
     "GET /api/v1/devices/setup/devices","GET /api/v1/devices/setup/instructions","POST /api/v1/devices/setup/verify","POST /api/v1/devices/setup/copy-event",
-    "GET /api/v1/admin/devices/setup/devices","GET /api/v1/admin/devices/setup/instructions","POST /api/v1/admin/devices/setup/verify"
+    "GET /api/v1/admin/devices/setup/devices","GET /api/v1/admin/devices/setup/instructions","POST /api/v1/admin/devices/setup/verify",
+    "GET /api/v1/admin/settings/support","PUT /api/v1/admin/settings/support"
   ]);
 
   for(const d of productApis as readonly ProductApiDefinition[]){

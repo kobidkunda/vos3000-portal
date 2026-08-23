@@ -2,7 +2,7 @@ import pg from "pg";
 import crypto from "crypto";
 
 const pool = new pg.Pool({
-  connectionString: process.env.DATABASE_URL || "postgres://vos:vos@localhost:5432/vos_portal"
+  connectionString: process.env.DATABASE_URL || "postgres://vos:vos@localhost:5020/vos_portal"
 });
 
 async function run() {

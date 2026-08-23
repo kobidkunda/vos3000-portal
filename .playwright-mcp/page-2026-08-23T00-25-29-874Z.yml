@@ -1,0 +1,245 @@
+- generic [active] [ref=f12e1]:
+  - generic [ref=f12e2]:
+    - link "Skip to main content" [ref=f12e3] [cursor=pointer]:
+      - /url: "#main-content"
+    - complementary "Admin portal navigation" [ref=f12e4]:
+      - generic [ref=f12e6]:
+        - img "CallWork" [ref=f12e7]
+        - generic: Admin operations
+      - generic [ref=f12e8]:
+        - generic [ref=f12e9]:
+          - generic [ref=f12e10]: Access & Identity
+          - link "Admin Sessions & Devices" [ref=f12e11] [cursor=pointer]:
+            - /url: /admin/settings/sessions
+        - generic [ref=f12e17]:
+          - generic [ref=f12e18]: Command Center
+          - link "Executive Dashboard" [ref=f12e19] [cursor=pointer]:
+            - /url: /admin
+          - link "NOC Live Operations" [ref=f12e27] [cursor=pointer]:
+            - /url: /admin/noc
+          - link "System Health" [ref=f12e35] [cursor=pointer]:
+            - /url: /admin/system/health
+          - link "Alarm Center" [ref=f12e43] [cursor=pointer]:
+            - /url: /admin/alarms
+        - generic [ref=f12e51]:
+          - generic [ref=f12e52]: Customers & Accounts
+          - link "Customer Directory" [ref=f12e53] [cursor=pointer]:
+            - /url: /admin/customers
+          - link "Create Customer Wizard" [ref=f12e61] [cursor=pointer]:
+            - /url: /admin/customers/new
+        - generic [ref=f12e69]:
+          - generic [ref=f12e70]: Gateways & Routing
+          - link "Mapping Gateways" [ref=f12e71] [cursor=pointer]:
+            - /url: /admin/gateways/mapping
+          - link "Routing Gateways" [ref=f12e77] [cursor=pointer]:
+            - /url: /admin/gateways/routing
+          - link "Online Gateways" [ref=f12e83] [cursor=pointer]:
+            - /url: /admin/gateways/online
+          - link "Gateway Network Quality" [ref=f12e89] [cursor=pointer]:
+            - /url: /admin/gateways/network
+          - link "Gateway Status Analytics" [ref=f12e95] [cursor=pointer]:
+            - /url: /admin/gateways/status
+          - link "Gateway Groups" [ref=f12e101] [cursor=pointer]:
+            - /url: /admin/gateway-groups
+          - link "Registration Management" [ref=f12e107] [cursor=pointer]:
+            - /url: /admin/registrations
+          - link "Routing Analysis" [ref=f12e113] [cursor=pointer]:
+            - /url: /admin/tools/routing-analysis
+          - link "Network Test" [ref=f12e119] [cursor=pointer]:
+            - /url: /admin/tools/network-test
+          - link "Domain Management" [ref=f12e125] [cursor=pointer]:
+            - /url: /admin/routing/domains
+          - link "Prohibited Media IP" [ref=f12e131] [cursor=pointer]:
+            - /url: /admin/routing/prohibited-media-ips
+          - link "Softswitches" [ref=f12e137] [cursor=pointer]:
+            - /url: /admin/softswitches
+        - generic [ref=f12e143]:
+          - generic [ref=f12e144]: Phones & Terminals
+          - link "Phone Directory" [ref=f12e145] [cursor=pointer]:
+            - /url: /admin/phones
+          - link "Online Phones" [ref=f12e152] [cursor=pointer]:
+            - /url: /admin/phones/online
+        - generic [ref=f12e159]:
+          - generic [ref=f12e160]: Live Calls & Diagnostics
+          - link "Live Calls" [ref=f12e161] [cursor=pointer]:
+            - /url: /admin/calls/live
+          - link "Call Analysis" [ref=f12e168] [cursor=pointer]:
+            - /url: /admin/diagnostics/call-analysis
+          - link "Registration Analysis" [ref=f12e175] [cursor=pointer]:
+            - /url: /admin/diagnostics/registration-analysis
+        - generic [ref=f12e182]:
+          - generic [ref=f12e183]: CDR & Call Analytics
+          - link "Recent CDR" [ref=f12e184] [cursor=pointer]:
+            - /url: /admin/cdr/recent
+          - link "CDR Explorer" [ref=f12e191] [cursor=pointer]:
+            - /url: /admin/cdr
+          - link "Failure Analytics" [ref=f12e198] [cursor=pointer]:
+            - /url: /admin/analytics/failures
+          - link "Connect Analysis" [ref=f12e205] [cursor=pointer]:
+            - /url: /admin/analytics/connect
+          - link "Interrupt Analysis" [ref=f12e212] [cursor=pointer]:
+            - /url: /admin/analytics/interrupt
+          - link "Call Distribution" [ref=f12e219] [cursor=pointer]:
+            - /url: /admin/analytics/distribution
+          - link "Historical Performance" [ref=f12e226] [cursor=pointer]:
+            - /url: /admin/analytics/historical-performance
+          - link "Gateway Performance" [ref=f12e233] [cursor=pointer]:
+            - /url: /admin/analytics/gateway-performance
+        - generic [ref=f12e240]:
+          - generic [ref=f12e241]: Rates, Packages & Commercial Routing
+          - link "Rate Groups" [ref=f12e242] [cursor=pointer]:
+            - /url: /admin/rates/groups
+          - link "Rate Import Jobs" [ref=f12e250] [cursor=pointer]:
+            - /url: /admin/rates/imports
+          - link "Rate Lookup" [ref=f12e258] [cursor=pointer]:
+            - /url: /admin/rates/lookup
+          - link "Package Groups" [ref=f12e266] [cursor=pointer]:
+            - /url: /admin/packages
+          - link "Margin Monitor" [ref=f12e274] [cursor=pointer]:
+            - /url: /admin/commercial/margins
+        - generic [ref=f12e282]:
+          - generic [ref=f12e283]: Billing, Payments & Settlement
+          - link "Payment Ledger" [ref=f12e284] [cursor=pointer]:
+            - /url: /admin/payments
+          - link "Manual Payment / Credit" [ref=f12e290] [cursor=pointer]:
+            - /url: /admin/payments/new
+          - link "Revenue Details" [ref=f12e296] [cursor=pointer]:
+            - /url: /admin/billing/revenue
+          - link "Gateway Bills" [ref=f12e302] [cursor=pointer]:
+            - /url: /admin/billing/gateway
+          - link "Phone Bills" [ref=f12e308] [cursor=pointer]:
+            - /url: /admin/billing/phone
+          - link "Account Balance Report" [ref=f12e314] [cursor=pointer]:
+            - /url: /admin/billing/account-balance
+          - link "Clearing & Settlement" [ref=f12e320] [cursor=pointer]:
+            - /url: /admin/settlement
+        - generic [ref=f12e326]:
+          - generic [ref=f12e327]: Reports
+          - link "Report Center" [ref=f12e328] [cursor=pointer]:
+            - /url: /admin/reports
+          - link "Gateway Analysis Reports" [ref=f12e334] [cursor=pointer]:
+            - /url: /admin/reports/gateways
+          - link "Agent Income Report" [ref=f12e340] [cursor=pointer]:
+            - /url: /admin/reports/agent-income
+          - link "Scheduled Reports" [ref=f12e346] [cursor=pointer]:
+            - /url: /admin/reports/schedules
+        - generic [ref=f12e352]:
+          - generic [ref=f12e353]: Number Management
+          - link "Number Sections" [ref=f12e354] [cursor=pointer]:
+            - /url: /admin/numbers/sections
+          - link "Area Information" [ref=f12e362] [cursor=pointer]:
+            - /url: /admin/numbers/areas
+          - link "Number Transform" [ref=f12e370] [cursor=pointer]:
+            - /url: /admin/numbers/transforms
+          - link "Black / White List Groups" [ref=f12e378] [cursor=pointer]:
+            - /url: /admin/numbers/lists
+          - link "System White List" [ref=f12e386] [cursor=pointer]:
+            - /url: /admin/numbers/system-whitelist
+          - link "Dynamic Black List" [ref=f12e394] [cursor=pointer]:
+            - /url: /admin/numbers/dynamic-blacklist
+        - generic [ref=f12e402]:
+          - generic [ref=f12e403]: Admin Users, Roles & Audit
+          - link "Admin Users" [ref=f12e404] [cursor=pointer]:
+            - /url: /admin/security/users
+          - link "Roles & Permissions" [ref=f12e412] [cursor=pointer]:
+            - /url: /admin/security/roles
+          - link "Online Admin Users" [ref=f12e420] [cursor=pointer]:
+            - /url: /admin/security/online-users
+          - link "Portal Audit Log" [ref=f12e428] [cursor=pointer]:
+            - /url: /admin/audit
+          - link "VOS System Log" [ref=f12e436] [cursor=pointer]:
+            - /url: /admin/system/vos-log
+        - generic [ref=f12e444]:
+          - generic [ref=f12e445]: System & Maintenance
+          - link "System Parameters" [ref=f12e446] [cursor=pointer]:
+            - /url: /admin/system/parameters
+          - link "System Information" [ref=f12e452] [cursor=pointer]:
+            - /url: /admin/system/info
+          - link "Data Maintenance" [ref=f12e458] [cursor=pointer]:
+            - /url: /admin/system/data-maintenance
+          - link "Performance Monitor" [ref=f12e464] [cursor=pointer]:
+            - /url: /admin/system/performance
+          - link "Process Monitor" [ref=f12e470] [cursor=pointer]:
+            - /url: /admin/system/processes
+          - link "Server Monitor" [ref=f12e476] [cursor=pointer]:
+            - /url: /admin/system/servers
+          - link "Disaster Recovery" [ref=f12e482] [cursor=pointer]:
+            - /url: /admin/system/disaster-recovery
+          - link "Work Calendar" [ref=f12e488] [cursor=pointer]:
+            - /url: /admin/system/work-calendar
+        - generic [ref=f12e494]:
+          - generic [ref=f12e495]: API, Integrations & Automation
+          - link "Portal API Clients" [ref=f12e496] [cursor=pointer]:
+            - /url: /admin/integrations/api-clients
+          - link "Webhook Endpoints" [ref=f12e502] [cursor=pointer]:
+            - /url: /admin/integrations/webhooks
+          - link "Webhook Delivery Log" [ref=f12e508] [cursor=pointer]:
+            - /url: /admin/integrations/webhook-deliveries
+          - link "VOS Web Access Control" [ref=f12e514] [cursor=pointer]:
+            - /url: /admin/integrations/vos-access
+          - link "VOS Web Service Equipment" [ref=f12e520] [cursor=pointer]:
+            - /url: /admin/integrations/vos-equipment
+          - link "Integration Health" [ref=f12e526] [cursor=pointer]:
+            - /url: /admin/integrations/health
+        - generic [ref=f12e532]:
+          - generic [ref=f12e533]: Portal Operations
+          - link "Support Tickets" [ref=f12e534] [cursor=pointer]:
+            - /url: /admin/support/tickets
+          - link "Notification Policies" [ref=f12e542] [cursor=pointer]:
+            - /url: /admin/notifications/policies
+          - link "Notification Log" [ref=f12e550] [cursor=pointer]:
+            - /url: /admin/notifications/log
+          - link "Payment Providers" [ref=f12e558] [cursor=pointer]:
+            - /url: /admin/settings/payments
+          - link "Portal Branding" [ref=f12e566] [cursor=pointer]:
+            - /url: /admin/settings/branding
+          - link "Feature Flags" [ref=f12e574] [cursor=pointer]:
+            - /url: /admin/settings/features
+          - link "Support Settings" [ref=f12e582] [cursor=pointer]:
+            - /url: /admin/settings/support
+        - generic [ref=f12e590]:
+          - generic [ref=f12e591]: Devices & Setup
+          - link "Device Setup Hub" [ref=f12e592] [cursor=pointer]:
+            - /url: /admin/devices/setup
+      - generic [ref=f12e598]:
+        - generic [ref=f12e599]:
+          - generic [ref=f12e600]: 24/7 NOC Support
+          - generic [ref=f12e605]: Direct hotline & emergency dispatch
+          - link "Contact NOC" [ref=f12e606] [cursor=pointer]:
+            - /url: /admin/support/tickets
+        - generic [ref=f12e610]:
+          - generic [ref=f12e611]:
+            - generic [ref=f12e612]: VOS3000 Engine
+            - generic [ref=f12e613]: Checking
+          - generic [ref=f12e614]:
+            - link "Sessions" [ref=f12e615] [cursor=pointer]:
+              - /url: /admin/settings/sessions
+            - button "Toggle theme" [ref=f12e620] [cursor=pointer]:
+              - generic [ref=f12e623]: Dark
+          - button "Sign out" [ref=f12e624] [cursor=pointer]
+    - main [ref=f12e629]:
+      - generic [ref=f12e630]:
+        - generic [ref=f12e631]:
+          - generic [ref=f12e632]:
+            - generic [ref=f12e633]: Admin
+            - generic [ref=f12e636]: Devices & Setup
+            - generic [ref=f12e639]: Device Setup Hub
+          - generic [ref=f12e640]: System Checking
+        - generic [ref=f12e642]:
+          - button "Search pages… ⌘K" [ref=f12e643] [cursor=pointer]:
+            - generic [ref=f12e647]: Search pages…
+            - generic [ref=f12e648]: ⌘K
+          - link "Notifications" [ref=f12e649] [cursor=pointer]:
+            - /url: /admin/alarms
+          - button "Toggle color theme" [ref=f12e654] [cursor=pointer]
+          - link "System health" [ref=f12e657] [cursor=pointer]:
+            - /url: /admin/system/health
+          - button "Admin account menu" [ref=f12e661] [cursor=pointer]:
+            - generic [ref=f12e662]: A
+            - generic [ref=f12e663]: Admin Portal
+      - generic [ref=f12e667]:
+        - generic [ref=f12e669]:
+          - heading "Device Setup Hub" [level=1] [ref=f12e670]
+          - paragraph [ref=f12e671]: Same card grid as client
+        - generic [ref=f12e672]: Loading Device Setup Hub records & operational state…
+  - button "Open Next.js Dev Tools" [ref=f12e685] [cursor=pointer]

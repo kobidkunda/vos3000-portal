@@ -4708,3 +4708,62 @@ button:focus-visible,a:focus-visible,[role=button]:focus-visible{outline:2px sol
 
 
 
+
+/* ── Routing Gateways table: responsive density + edge fade (appended for /admin/gateways/routing) ── */
+.rgw-table-scroll{overflow-x:auto;scrollbarGutter:stable;position:relative;-webkit-mask-image:linear-gradient(to right,#000 0,#000 calc(100% - 28px),transparent 100%);mask-image:linear-gradient(to right,#000 0,#000 calc(100% - 28px),transparent 100%)}
+.rgw-table-card .table th,.rgw-table-card .table td{white-space:normal;word-break:break-word}
+.rgw-table-card td[style*="text-align: right"]{min-width:118px}
+.rgw-table-card td:last-child .btn span:not(:last-child),
+.rgw-table-card td:last-child .btn svg+span{display:none}
+@media (max-width:1024px){
+  .content{padding:16px 14px 56px}
+  .rgw-table-card .table th,.rgw-table-card .table td{padding:6px 8px !important;font-size:12px}
+  .rgw-table-card .table{font-size:12px}
+}
+
+/* ── Device Setup hub + wizard: responsive, a11y, dark-mode polish ── */
+.deviceSilhouette{color:#475569}
+[data-theme="dark"] .deviceSilhouette{color:#94A3B8}
+
+/* Spin animation for loading icons */
+.spin{animation:dss-spin 900ms linear infinite}
+@keyframes dss-spin{from{transform:rotate(0deg)}to{transform:rotate(360deg)}}
+
+/* Wizard stepper collapses to horizontal chips on narrow screens */
+@media (max-width:860px){
+  .wizardStepper{flex:1 1 100% !important;min-width:0 !important}
+  .wizardStepper .card{display:flex;gap:6px;overflow-x:auto;padding:8px !important}
+  .wizardStepper .card > button{flex:0 0 auto;width:auto !important;padding:8px 10px !important}
+  .wizardStepper .card > button > span:last-child > span:last-child{display:none} /* hide helper text on mobile */
+  .wizardStepper .card > button:last-child{display:none} /* hide device summary card in horizontal mode */
+}
+
+/* Hub card grid: single column under 560px */
+@media (max-width:560px){
+  .content div[style*="repeat(auto-fill, minmax(260px, 1fr))"]{grid-template-columns:1fr !important}
+}
+
+/* Focus visibility for keyboard users on interactive cards/buttons */
+.content a[aria-label^="Configure"]:focus-visible,
+.wizardStepper button:focus-visible{
+  outline:2px solid #2563EB;
+  outline-offset:2px;
+}
+
+/* Dark mode adjustments for inline-styled light surfaces in device setup */
+[data-theme="dark"] .content .card[style*="background: #FFFFFF"],
+[data-theme="dark"] .content div[style*="background: #FFFFFF"]{background:#111827 !important;border-color:#1F2937 !important}
+[data-theme="dark"] .content div[style*="background: #F8FAFC"],
+[data-theme="dark"] .content details[style*="background: #F8FAFC"]{background:#0B1220 !important;border-color:#1F2937 !important}
+
+/* ---- Support FAB (client portal, global) ---- */
+.supportFab{position:fixed;right:24px;bottom:24px;z-index:50;display:flex;flex-direction:column;align-items:flex-end;gap:10px}
+.supportFabBtn{display:inline-flex;align-items:center;gap:8px;height:56px;padding:0 20px;border-radius:999px;border:none;background:var(--primary);color:#fff;font-size:13.5px;font-weight:700;cursor:pointer;box-shadow:0 8px 24px rgba(0,0,0,0.15),var(--shadow-lg);text-decoration:none;transition:transform .15s ease,background .15s ease,box-shadow .15s ease}
+.supportFabBtn:hover{background:var(--primary-hover);transform:scale(1.03)}
+.supportFabBtn:focus-visible{outline:2px solid var(--primary);outline-offset:3px}
+.supportFabBtn.sm{height:42px;padding:0 16px;font-size:12.5px;background:var(--surface);color:var(--text);border:1px solid var(--border);box-shadow:var(--shadow-md)}
+.supportFabBtn.sm:hover{background:var(--surface-hover)}
+.supportFabMenu{display:flex;flex-direction:column;gap:8px;opacity:0;transform:translateY(6px);animation:supportFabIn .15s ease forwards}
+@keyframes supportFabIn{to{opacity:1;transform:translateY(0)}}
+@media (max-width:640px){.supportFab{right:16px;bottom:16px}.supportFabMenu{width:100%;align-items:stretch}}
+@media (prefers-reduced-motion:reduce){.supportFabBtn,.supportFabMenu{transition:none;animation:none}}

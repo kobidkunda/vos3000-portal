@@ -2009,6 +2009,154 @@ export const actionSchemas = [
       }
     ],
     "handler": "webhook"
+  },
+  {
+    "method": "POST",
+    "path": "/api/v1/devices/setup/verify",
+    "title": "Verify device registration",
+    "fields": [
+      {
+        "name": "gatewayId",
+        "label": "Gateway ID",
+        "type": "text",
+        "required": true
+      },
+      {
+        "name": "phoneId",
+        "label": "Phone ID",
+        "type": "text",
+        "required": false
+      },
+      {
+        "name": "deviceKey",
+        "label": "Device",
+        "type": "select",
+        "required": true,
+        "options": [
+          "microsip",
+          "linphone",
+          "zoiper",
+          "groundwire",
+          "bria",
+          "yealink-t5x",
+          "grandstream",
+          "cisco-78xx",
+          "poly-vvx",
+          "fanvil",
+          "webrtc",
+          "mobile-dialer"
+        ]
+      }
+    ],
+    "handler": "portal",
+    "resource": "device_setup_verify"
+  },
+  {
+    "method": "POST",
+    "path": "/api/v1/devices/setup/copy-event",
+    "title": "Record device setup copy event",
+    "fields": [
+      {
+        "name": "gatewayId",
+        "label": "Gateway ID",
+        "type": "text",
+        "required": true
+      },
+      {
+        "name": "deviceKey",
+        "label": "Device",
+        "type": "select",
+        "required": true,
+        "options": [
+          "microsip",
+          "linphone",
+          "zoiper",
+          "groundwire",
+          "bria",
+          "yealink-t5x",
+          "grandstream",
+          "cisco-78xx",
+          "poly-vvx",
+          "fanvil",
+          "webrtc",
+          "mobile-dialer"
+        ]
+      },
+      {
+        "name": "field",
+        "label": "Copied field",
+        "type": "select",
+        "required": true,
+        "options": [
+          "sipServer",
+          "port",
+          "transport",
+          "username",
+          "displayName",
+          "sipUri",
+          "qrPayload"
+        ]
+      }
+    ],
+    "handler": "portal",
+    "resource": "device_setup_copy"
+  },
+  {
+    "method": "POST",
+    "path": "/api/v1/admin/devices/setup/verify",
+    "title": "Verify device registration (admin)",
+    "fields": [
+      {
+        "name": "gatewayId",
+        "label": "Gateway ID",
+        "type": "text",
+        "required": true
+      },
+      {
+        "name": "phoneId",
+        "label": "Phone ID",
+        "type": "text",
+        "required": false
+      },
+      {
+        "name": "deviceKey",
+        "label": "Device",
+        "type": "select",
+        "required": true,
+        "options": [
+          "microsip",
+          "linphone",
+          "zoiper",
+          "groundwire",
+          "bria",
+          "yealink-t5x",
+          "grandstream",
+          "cisco-78xx",
+          "poly-vvx",
+          "fanvil",
+          "webrtc",
+          "mobile-dialer"
+        ]
+      }
+    ],
+    "handler": "portal",
+    "resource": "device_setup_verify"
+  }
+,
+  {
+    "method": "PUT",
+    "path": "/api/v1/admin/settings/support",
+    "title": "Save global support contacts (Telegram + Teams)",
+    "fields": [
+      {"name": "enabled", "label": "Support button enabled", "type": "boolean", "required": true},
+      {"name": "label", "label": "Button label", "type": "text", "required": false},
+      {"name": "telegram.enabled", "label": "Telegram enabled", "type": "boolean", "required": true},
+      {"name": "telegram.handle", "label": "Telegram handle", "type": "text", "required": false},
+      {"name": "teams.enabled", "label": "Teams enabled", "type": "boolean", "required": true},
+      {"name": "teams.id", "label": "Teams ID (email or handle)", "type": "text", "required": false}
+    ],
+    "handler": "portal",
+    "resource": "support_config"
   }
 ] as const satisfies readonly ActionSchema[];
 export function findActionSchema(method:string,pathPattern:string){return actionSchemas.find(x=>x.method===method.toUpperCase()&&x.path===pathPattern);}

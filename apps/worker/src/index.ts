@@ -10,13 +10,13 @@ import zlib from "node:zlib";
 import { Readable } from "node:stream";
 import { pipeline } from "node:stream/promises";
 
-const brokers=(process.env.REDPANDA_BROKERS??"localhost:9092").split(",").map(x=>x.trim()).filter(Boolean);
+const brokers=(process.env.REDPANDA_BROKERS??"localhost:5024").split(",").map(x=>x.trim()).filter(Boolean);
 const kafka=new Kafka({clientId:"vos-worker",brokers});
 const cdrConsumer=kafka.consumer({groupId:"cdr-clickhouse-writer"});
 const eventConsumer=kafka.consumer({groupId:"portal-event-dispatcher"});
 const reportConsumer=kafka.consumer({groupId:"portal-report-worker"});
 const producer=kafka.producer({allowAutoTopicCreation:false});
-const ch=createClient({url:process.env.CLICKHOUSE_URL??"http://localhost:8123",username:process.env.CLICKHOUSE_USER??"default",password:process.env.CLICKHOUSE_PASSWORD??"",database:process.env.CLICKHOUSE_DATABASE??"vos"});
+const ch=createClient({url:process.env.CLICKHOUSE_URL??"http://localhost:5021",username:process.env.CLICKHOUSE_USER??"default",password:process.env.CLICKHOUSE_PASSWORD??"",database:process.env.CLICKHOUSE_DATABASE??"vos"});
 const pg=process.env.DATABASE_URL?new Pool({connectionString:process.env.DATABASE_URL,max:Number(process.env.WORKER_PG_POOL_MAX??10)}):undefined;
 const exportDir=process.env.EXPORT_DIR??"/app/exports";
 const maxExportRows=Number(process.env.MAX_EXPORT_ROWS??5_000_000);
@@ -77,7 +77,7 @@ async function retryWebhooks(){
 async function runEvents(){await eventConsumer.connect();await eventConsumer.subscribe({topic:"portal.events",fromBeginning:false});await eventConsumer.run({eachMessage:async({message})=>{const event=JSON.parse(message.value?.toString()??"{}");await dispatchEvent(event)}})}
 
 function sqlTime(v:unknown,end=false){const raw=String(v??"");const dateOnly=/^\d{4}-\d{2}-\d{2}$/.test(raw);const d=new Date(dateOnly?`${raw}T00:00:00.000Z`:raw);if(Number.isNaN(d.getTime()))throw new Error("A valid from/to date is required for CDR export");if(end&&dateOnly)d.setUTCDate(d.getUTCDate()+1);return {value:d.toISOString().replace("T"," ").replace("Z",""),exclusive:end&&dateOnly}}
-async function clickhouseRaw(query:string){const u=new URL(process.env.CLICKHOUSE_URL??"http://localhost:8123");u.searchParams.set("database",process.env.CLICKHOUSE_DATABASE??"vos");const headers:Record<string,string>={"content-type":"text/plain"};if(process.env.CLICKHOUSE_USER)headers.authorization="Basic "+Buffer.from(`${process.env.CLICKHOUSE_USER}:${process.env.CLICKHOUSE_PASSWORD??""}`).toString("base64");const res=await fetch(u,{method:"POST",headers,body:query,signal:AbortSignal.timeout(Number(process.env.REPORT_QUERY_TIMEOUT_MS??300000))});if(!res.ok)throw new Error(`ClickHouse export HTTP ${res.status}: ${(await res.text()).slice(0,500)}`);return res}
+async function clickhouseRaw(query:string){const u=new URL(process.env.CLICKHOUSE_URL??"http://localhost:5021");u.searchParams.set("database",process.env.CLICKHOUSE_DATABASE??"vos");const headers:Record<string,string>={"content-type":"text/plain"};if(process.env.CLICKHOUSE_USER)headers.authorization="Basic "+Buffer.from(`${process.env.CLICKHOUSE_USER}:${process.env.CLICKHOUSE_PASSWORD??""}`).toString("base64");const res=await fetch(u,{method:"POST",headers,body:query,signal:AbortSignal.timeout(Number(process.env.REPORT_QUERY_TIMEOUT_MS??300000))});if(!res.ok)throw new Error(`ClickHouse export HTTP ${res.status}: ${(await res.text()).slice(0,500)}`);return res}
 async function deliverReport(job:any,objectPath:string,count:number){
   const recipients=Array.isArray(job.delivery_recipients)?job.delivery_recipients:[];if(!recipients.length)return;
   const payload={reportId:job.id,scheduleId:job.schedule_id??null,organizationId:job.organization_id??null,recipients,format:job.format,rowCount:count,downloadPath:`/api/v1/downloads/${job.id}/file`,objectPath};

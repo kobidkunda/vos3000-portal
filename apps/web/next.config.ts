@@ -29,20 +29,20 @@ function loadEnvFile() {
 }
 loadEnvFile();
 
-const internalApi = process.env.API_INTERNAL_URL || "http://127.0.0.1:4000";
+const internalApi = process.env.API_INTERNAL_URL || "http://127.0.0.1:5026";
 
 const nextConfig: NextConfig = {
   allowedDevOrigins: [
-    "192.168.88.81:3001",
+    "192.168.88.81:5027",
     "192.168.88.81",
     "192.168.88.81:3000",
     "192.168.88.93",
-    "192.168.88.93:3000",
+    "192.168.88.93:5027",
     "localhost",
     "127.0.0.1",
     "100.116.26.14",
-    "localhost:3001",
-    "127.0.0.1:3001",
+    "localhost:5027",
+    "127.0.0.1:5027",
   ],
   async rewrites() {
     return process.env.NEXT_PUBLIC_API_URL

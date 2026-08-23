@@ -2398,6 +2398,124 @@ export const productApis = [
       "/app/developers/webhooks"
     ]
   }
+  ,
+  {
+    "method": "GET",
+    "path": "/api/v1/devices/setup/devices",
+    "sides": [
+      "Client"
+    ],
+    "pages": [
+      "Device Setup Hub"
+    ],
+    "pageRoutes": [
+      "/app/devices/setup"
+    ]
+  },
+  {
+    "method": "GET",
+    "path": "/api/v1/devices/setup/instructions",
+    "sides": [
+      "Client"
+    ],
+    "pages": [
+      "Device Configuration Guide"
+    ],
+    "pageRoutes": [
+      "/app/devices/setup/{deviceKey}"
+    ]
+  },
+  {
+    "method": "POST",
+    "path": "/api/v1/devices/setup/verify",
+    "sides": [
+      "Client"
+    ],
+    "pages": [
+      "Device Configuration Guide"
+    ],
+    "pageRoutes": [
+      "/app/devices/setup/{deviceKey}"
+    ]
+  },
+  {
+    "method": "POST",
+    "path": "/api/v1/devices/setup/copy-event",
+    "sides": [
+      "Client"
+    ],
+    "pages": [
+      "Device Configuration Guide"
+    ],
+    "pageRoutes": [
+      "/app/devices/setup/{deviceKey}"
+    ]
+  },
+  {
+    "method": "GET",
+    "path": "/api/v1/admin/devices/setup/devices",
+    "sides": [
+      "Admin"
+    ],
+    "pages": [
+      "Device Setup Hub"
+    ],
+    "pageRoutes": [
+      "/admin/devices/setup"
+    ]
+  },
+  {
+    "method": "GET",
+    "path": "/api/v1/admin/devices/setup/instructions",
+    "sides": [
+      "Admin"
+    ],
+    "pages": [
+      "Device Configuration Guide"
+    ],
+    "pageRoutes": [
+      "/admin/devices/setup/{deviceKey}"
+    ]
+  },
+  {
+    "method": "POST",
+    "path": "/api/v1/admin/devices/setup/verify",
+    "sides": [
+      "Admin"
+    ],
+    "pages": [
+      "Device Configuration Guide"
+    ],
+    "pageRoutes": [
+      "/admin/devices/setup/{deviceKey}"
+    ]
+  },
+  {
+    "method": "GET",
+    "path": "/api/v1/admin/settings/support",
+    "sides": [
+      "Admin"
+    ],
+    "pages": [
+      "Support Settings"
+    ],
+    "pageRoutes": [
+      "/admin/settings/support"
+    ]
+  },
+  {
+    "method": "PUT",
+    "path": "/api/v1/admin/settings/support",
+    "sides": [
+      "Admin"
+    ],
+    "pages": [
+      "Support Settings"
+    ],
+    "pageRoutes": [
+      "/admin/settings/support"
+    ]
+  }
 ] as const satisfies readonly ProductApiDefinition[];
 
 const clean=(v:string)=>v.split("?")[0].replace(/\/$/,"")||"/";

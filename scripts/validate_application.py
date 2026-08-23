@@ -4,10 +4,10 @@ root=Path(__file__).resolve().parents[1]
 routes=json.loads((root/'docs/ui-template-pack/ROUTE_MANIFEST.json').read_text())
 errs=[]
 admin=[r for r in routes if r['side']=='Admin']; client=[r for r in routes if r['side']=='Client']
-if len(routes)!=141: errs.append(f'routes={len(routes)} expected 141')
-if len(admin)!=97: errs.append(f'admin={len(admin)} expected 97')
-if len(client)!=44: errs.append(f'client={len(client)} expected 44')
-if len(set(r['route'] for r in routes))!=141: errs.append('duplicate route patterns')
+if len(routes)!=146: errs.append(f'routes={len(routes)} expected 146')
+if len(admin)!=100: errs.append(f'admin={len(admin)} expected 100')
+if len(client)!=46: errs.append(f'client={len(client)} expected 46')
+if len(set(r['route'] for r in routes))!=146: errs.append('duplicate route patterns')
 for r in routes:
  p=root/'docs/ui-template-pack'/r['template_file']
  if not p.exists(): errs.append('missing template '+str(p))
@@ -59,4 +59,4 @@ if not (root/'infra/postgres/migrations/004_payment_state_recovery.sql').exists(
 
 if errs:
  print('FAIL'); print('\n'.join(errs)); sys.exit(1)
-print('PASS: 141/141 routes, 97 admin, 44 client, all templates/APIs/actions and configuration checks passed.')
+print('PASS: 146/146 routes, 100 admin, 46 client, all templates/APIs/actions and configuration checks passed.')

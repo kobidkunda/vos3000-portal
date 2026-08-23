@@ -8,7 +8,7 @@ import type { AuthContext } from "@vos/shared";
 
 process.env.DATA_MODE = "external";
 process.env.AUTH_MODE = "database";
-process.env.DATABASE_URL = process.env.DATABASE_URL || "postgres://vos:vos@localhost:5432/vos_portal";
+process.env.DATABASE_URL = process.env.DATABASE_URL || "postgres://vos:vos@localhost:5020/vos_portal";
 
 const DATABASE_URL = process.env.DATABASE_URL;
 

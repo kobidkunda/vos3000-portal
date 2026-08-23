@@ -149,9 +149,10 @@ export class DataSourcesService implements OnModuleDestroy {
   async init() {
     if (this.initialized) return;
     this.initialized = true;
-    const dbUrl = process.env.DATABASE_URL || "postgres://vos:vos@localhost:5432/vos_portal";
+    const dbUrl = process.env.DATABASE_URL || "postgres://vos:vos@localhost:5020/vos_portal";
+    let testPg: Pool | undefined;
     try {
-      const testPg = new Pool({
+      testPg = new Pool({
         connectionString: dbUrl,
         max: Number(process.env.PG_POOL_MAX ?? 20),
         idleTimeoutMillis: 30_000,
@@ -161,11 +162,13 @@ export class DataSourcesService implements OnModuleDestroy {
       this.pg = testPg;
     } catch {
       // PostgreSQL not available or running in standalone unit test mode
+      await testPg?.end().catch(() => {});
     }
 
+    let testCh: ClickHouseClient | undefined;
     try {
-      const testCh = createClickHouseClient({
-        url: process.env.CLICKHOUSE_URL ?? "http://localhost:8123",
+      testCh = createClickHouseClient({
+        url: process.env.CLICKHOUSE_URL ?? "http://localhost:5021",
         username: process.env.CLICKHOUSE_USER ?? "default",
         password: process.env.CLICKHOUSE_PASSWORD ?? "",
         database: process.env.CLICKHOUSE_DATABASE ?? "vos",
@@ -174,24 +177,29 @@ export class DataSourcesService implements OnModuleDestroy {
       const pingRes = await testCh.ping();
       if (pingRes && pingRes.success) {
         this.ch = testCh;
+      } else {
+        await testCh.close().catch(() => {});
       }
     } catch {
       this.ch = undefined;
+      await testCh?.close().catch(() => {});
     }
 
     try {
-      this.redis = createRedisClient({ url: process.env.REDIS_URL ?? "redis://localhost:6379" });
+      this.redis = createRedisClient({ url: process.env.REDIS_URL ?? "redis://localhost:5023" });
       this.redis.on("error", () => {});
       await this.redis.connect();
     } catch {
       // Redis not available or running in standalone unit test mode
+      this.redis?.destroy();
+      this.redis = undefined;
     }
 
     if (process.env.REDPANDA_BROKERS || this.mode === "external") {
       try {
         this.kafka = new Kafka({
           clientId: "vos-portal-api",
-          brokers: (process.env.REDPANDA_BROKERS ?? "localhost:9092")
+          brokers: (process.env.REDPANDA_BROKERS ?? "localhost:5024")
             .split(",")
             .map((x) => x.trim())
             .filter(Boolean),
@@ -199,7 +207,10 @@ export class DataSourcesService implements OnModuleDestroy {
           retry: { retries: 0 },
         });
         this.producer = this.kafka.producer({ allowAutoTopicCreation: false, retry: { retries: 0 } });
-        await this.producer.connect().catch(() => {});
+        await this.producer.connect().catch(async () => {
+          await this.producer?.disconnect().catch(() => {});
+          this.producer = undefined;
+        });
       } catch {
         // Redpanda not available or running in standalone unit test mode
       }
@@ -263,7 +274,7 @@ export class DataSourcesService implements OnModuleDestroy {
       redpanda: {
         status: this.producer ? "checking" : "not_configured",
         configured: !!this.producer,
-        brokers: (process.env.REDPANDA_BROKERS ?? "localhost:9092").split(",").map((x) => x.trim()),
+        brokers: (process.env.REDPANDA_BROKERS ?? "localhost:5024").split(",").map((x) => x.trim()),
         latencyMs: null as number | null,
         error: null as string | null,
       },
@@ -2907,7 +2918,7 @@ export class DataSourcesService implements OnModuleDestroy {
         const countJson: any = await countRes.json();
         count = Number(countJson?.[0]?.cnt ?? 0);
 
-        const chUrl = new URL(process.env.CLICKHOUSE_URL ?? "http://localhost:8123");
+        const chUrl = new URL(process.env.CLICKHOUSE_URL ?? "http://localhost:5021");
         chUrl.searchParams.set("database", process.env.CLICKHOUSE_DATABASE ?? "vos");
         const headers: Record<string, string> = { "content-type": "text/plain" };
         if (process.env.CLICKHOUSE_USER) {

@@ -1,0 +1,144 @@
+- generic [active] [ref=f8e1]:
+  - generic [ref=f8e2]:
+    - link "Skip to main content" [ref=f8e3] [cursor=pointer]:
+      - /url: "#main-content"
+    - complementary "Client portal navigation" [ref=f8e4]:
+      - generic [ref=f8e6]:
+        - img "CallWork" [ref=f8e7]
+        - generic: Client operations
+      - generic [ref=f8e8]:
+        - generic [ref=f8e9]:
+          - generic [ref=f8e10]: Access & Account Security
+          - link "Profile & Organization" [ref=f8e11] [cursor=pointer]:
+            - /url: /app/settings/profile
+        - generic [ref=f8e17]:
+          - generic [ref=f8e18]: Home & Overview
+          - link "Client Dashboard" [ref=f8e19] [cursor=pointer]:
+            - /url: /app
+        - generic [ref=f8e27]:
+          - generic [ref=f8e28]: Balance, Funds & Payments
+          - link "Balance & Wallet" [ref=f8e29] [cursor=pointer]:
+            - /url: /app/billing/balance
+          - link "Add Funds" [ref=f8e35] [cursor=pointer]:
+            - /url: /app/billing/add-funds
+          - link "Payment History" [ref=f8e41] [cursor=pointer]:
+            - /url: /app/billing/payments
+          - link "Statements & Billing Summary" [ref=f8e47] [cursor=pointer]:
+            - /url: /app/billing/statements
+        - generic [ref=f8e53]:
+          - generic [ref=f8e54]: CDR & Call History
+          - link "CDR Explorer" [ref=f8e55] [cursor=pointer]:
+            - /url: /app/cdr
+          - link "Recent Calls" [ref=f8e62] [cursor=pointer]:
+            - /url: /app/cdr/recent
+          - link "CDR Export Jobs" [ref=f8e69] [cursor=pointer]:
+            - /url: /app/cdr/exports
+        - generic [ref=f8e76]:
+          - generic [ref=f8e77]: Live Calls & Traffic
+          - link "Live Calls" [ref=f8e78] [cursor=pointer]:
+            - /url: /app/calls/live
+          - link "Traffic Analytics" [ref=f8e85] [cursor=pointer]:
+            - /url: /app/analytics/traffic
+          - link "Failure Analytics" [ref=f8e92] [cursor=pointer]:
+            - /url: /app/analytics/failures
+          - link "Destination Analytics" [ref=f8e99] [cursor=pointer]:
+            - /url: /app/analytics/destinations
+        - generic [ref=f8e106]:
+          - generic [ref=f8e107]: Gateways & SIP
+          - link "My Gateways" [ref=f8e108] [cursor=pointer]:
+            - /url: /app/gateways
+        - generic [ref=f8e114]:
+          - generic [ref=f8e115]: Rates & Pricing
+          - link "My Rate Sheet" [ref=f8e116] [cursor=pointer]:
+            - /url: /app/rates
+          - link "Rate Lookup" [ref=f8e123] [cursor=pointer]:
+            - /url: /app/rates/lookup
+          - link "Rate Change History" [ref=f8e130] [cursor=pointer]:
+            - /url: /app/rates/history
+        - generic [ref=f8e137]:
+          - generic [ref=f8e138]: Reports & Downloads
+          - link "Reports Home" [ref=f8e139] [cursor=pointer]:
+            - /url: /app/reports
+          - link "Usage Report" [ref=f8e145] [cursor=pointer]:
+            - /url: /app/reports/usage
+          - link "Gateway Report" [ref=f8e151] [cursor=pointer]:
+            - /url: /app/reports/gateways
+          - link "Scheduled Reports" [ref=f8e157] [cursor=pointer]:
+            - /url: /app/reports/schedules
+          - link "Downloads" [ref=f8e163] [cursor=pointer]:
+            - /url: /app/downloads
+        - generic [ref=f8e169]:
+          - generic [ref=f8e170]: Notifications
+          - link "Notification Center" [ref=f8e171] [cursor=pointer]:
+            - /url: /app/notifications
+          - link "Alert Preferences" [ref=f8e179] [cursor=pointer]:
+            - /url: /app/settings/notifications
+        - generic [ref=f8e187]:
+          - generic [ref=f8e188]: Developer API & Webhooks
+          - link "API Overview" [ref=f8e189] [cursor=pointer]:
+            - /url: /app/developers
+          - link "API Keys" [ref=f8e195] [cursor=pointer]:
+            - /url: /app/developers/api-keys
+          - link "API Request Logs" [ref=f8e201] [cursor=pointer]:
+            - /url: /app/developers/logs
+          - link "Webhook Endpoints" [ref=f8e207] [cursor=pointer]:
+            - /url: /app/developers/webhooks
+          - link "Webhook Delivery Log" [ref=f8e213] [cursor=pointer]:
+            - /url: /app/developers/webhook-deliveries
+        - generic [ref=f8e219]:
+          - generic [ref=f8e220]: Team & Permissions
+          - link "Team Members" [ref=f8e221] [cursor=pointer]:
+            - /url: /app/team
+          - link "Client Roles" [ref=f8e229] [cursor=pointer]:
+            - /url: /app/team/roles
+        - generic [ref=f8e237]:
+          - generic [ref=f8e238]: Support
+          - link "Support Tickets" [ref=f8e239] [cursor=pointer]:
+            - /url: /app/support
+          - link "New Support Ticket" [ref=f8e245] [cursor=pointer]:
+            - /url: /app/support/new
+        - generic [ref=f8e251]:
+          - generic [ref=f8e252]: Devices & Setup
+          - link "Device Setup Hub" [ref=f8e253] [cursor=pointer]:
+            - /url: /app/devices/setup
+      - generic [ref=f8e259]:
+        - generic [ref=f8e260]:
+          - generic [ref=f8e261]: 24/7 NOC Support
+          - generic [ref=f8e266]: Direct hotline & emergency dispatch
+          - link "Contact NOC" [ref=f8e267] [cursor=pointer]:
+            - /url: /app/support/tickets
+        - generic [ref=f8e271]:
+          - generic [ref=f8e272]:
+            - generic [ref=f8e273]: VOS3000 Engine
+            - generic [ref=f8e274]: Checking
+          - generic [ref=f8e275]:
+            - link "Security" [ref=f8e276] [cursor=pointer]:
+              - /url: /app/settings/security/mfa
+            - button "Toggle theme" [ref=f8e281] [cursor=pointer]:
+              - generic [ref=f8e284]: Dark
+          - button "Sign out" [ref=f8e285] [cursor=pointer]
+    - main [ref=f8e290]:
+      - generic [ref=f8e291]:
+        - generic [ref=f8e292]:
+          - generic [ref=f8e293]:
+            - generic [ref=f8e294]: Client
+            - generic [ref=f8e297]: Devices & Setup
+            - generic [ref=f8e300]: Device Configuration Guide
+          - generic [ref=f8e301]: System Checking
+        - generic [ref=f8e303]:
+          - button "Search pages… ⌘K" [ref=f8e304] [cursor=pointer]:
+            - generic [ref=f8e308]: Search pages…
+            - generic [ref=f8e309]: ⌘K
+          - link "Notifications" [ref=f8e310] [cursor=pointer]:
+            - /url: /app/notifications
+          - button "Toggle color theme" [ref=f8e315] [cursor=pointer]
+          - button "Client account menu" [ref=f8e319] [cursor=pointer]:
+            - generic [ref=f8e320]: C
+            - generic [ref=f8e321]: Client Portal
+      - generic [ref=f8e325]:
+        - generic [ref=f8e327]:
+          - heading "Device Configuration Guide" [level=1] [ref=f8e328]
+          - paragraph [ref=f8e329]: Vertical stepper desktop 248px / horizontal top mobile - 4 steps
+        - generic [ref=f8e330]: Loading Device Configuration Guide records & operational state…
+  - button "Open Next.js Dev Tools" [ref=f8e343] [cursor=pointer]
+  - alert [ref=f8e347]

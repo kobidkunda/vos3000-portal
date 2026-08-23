@@ -24,6 +24,7 @@ That boundary is intentional. The repository does not claim an undocumented VOS 
 - Payment/deposit state flow
 - Realtime SSE feed
 - API/webhook/report/support workflows
+- Admin-managed global support contacts (Telegram/Teams) with client Support FAB
 - Docker Compose deployment
 - Validation scripts and tests
 
@@ -65,10 +66,10 @@ The runner automatically:
 - `./dev.sh --clean` (`-c`) — Clean build caches and logs
 
 Open:
-- Web: `http://localhost:3001`
-- API: `http://localhost:4000`
-- Swagger: `http://localhost:4000/docs`
-- Health: `http://localhost:4000/api/v1/health`
+- Web: `http://localhost:5027`
+- API: `http://localhost:5026`
+- Swagger: `http://localhost:5026/docs`
+- Health: `http://localhost:5026/api/v1/health`
 
 Demo credentials:
 - Admin: `admin@example.com` / `Admin123!`

@@ -5,6 +5,7 @@ import { usePathname, useRouter } from "next/navigation";
 import { routesForSide, routeMatches } from "@vos/shared";
 import { API } from "../lib/api";
 import { Icon, iconForGroup } from "../lib/icons";
+import { SupportFab } from "./SupportFab";
 
 type RouteDef = ReturnType<typeof routesForSide>[number];
 type Health = { ok?: boolean; data_mode?: string; dependencies?: Record<string, string> };
@@ -514,6 +515,7 @@ export function Shell({
 
         {/* Page Content */}
         {children}
+        {side === "Client" && <SupportFab />}
       </main>
 
       {/* Command Palette Modal (Cmd+K) */}

@@ -1,0 +1,13 @@
+<!-- DEV ONLY — replaces the stock image's loopback-only default-user.xml.
+     Allows the passwordless `default` user from any network so host-side unit
+     tests and tooling can connect. Production uses the dedicated vos account. -->
+<clickhouse>
+  <users>
+    <default>
+      <password></password>
+      <networks>
+        <ip>::/0</ip>
+      </networks>
+    </default>
+  </users>
+</clickhouse>

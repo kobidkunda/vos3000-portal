@@ -71,6 +71,7 @@ services:
     command: ["node", "scripts/migrate-postgres.mjs"]
     environment:
       NODE_ENV: production
+      DATABASE_URL: postgres://${POSTGRES_USER:-vos}:${POSTGRES_PASSWORD}@postgres:5432/${POSTGRES_DB:-vos_portal}
     depends_on:
       postgres:
         condition: service_healthy
@@ -82,6 +83,10 @@ services:
       NODE_ENV: production
       PORT: 4000
       TRUST_PROXY: "true"
+      DATABASE_URL: postgres://${POSTGRES_USER:-vos}:${POSTGRES_PASSWORD}@postgres:5432/${POSTGRES_DB:-vos_portal}
+      REDIS_URL: redis://:${REDIS_PASSWORD}@redis:6379
+      CLICKHOUSE_URL: http://clickhouse:8123
+      REDPANDA_BROKERS: redpanda:9092
     depends_on:
       migrate-postgres:
         condition: service_completed_successfully
@@ -106,6 +111,10 @@ services:
     env_file: .env
     environment:
       NODE_ENV: production
+      DATABASE_URL: postgres://${POSTGRES_USER:-vos}:${POSTGRES_PASSWORD}@postgres:5432/${POSTGRES_DB:-vos_portal}
+      REDIS_URL: redis://:${REDIS_PASSWORD}@redis:6379
+      CLICKHOUSE_URL: http://clickhouse:8123
+      REDPANDA_BROKERS: redpanda:9092
     depends_on:
       migrate-postgres:
         condition: service_completed_successfully
@@ -133,7 +142,7 @@ services:
   gateway:
     image: nginx:1.29-alpine
     ports:
-      - "${GATEWAY_PORT:-8080}:80"
+      - "${GATEWAY_PORT:-5028}:80" # host 5028 (reserved host range 5020-5030) -> container 80
     volumes:
       - ./infra/nginx/nginx.conf:/etc/nginx/nginx.conf:ro
     depends_on:

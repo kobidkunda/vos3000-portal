@@ -724,6 +724,7 @@ export class RatesController {
       if (!match) {
         return { ok: true, request_id, data: { items: [] } };
       }
+      // Client-safe projection only: never expose carrier cost, rate_group_id or internal IDs.
       return {
         ok: true,
         request_id,
@@ -732,8 +733,13 @@ export class RatesController {
             {
               prefix: match.prefix,
               area_name: match.area_name,
+              country_code: match.country_code,
+              country_name: match.country_name,
+              rate_type: match.rate_type,
               rate_per_minute: match.rate_per_minute,
-              billing_cycle_seconds: match.billing_cycle_seconds || 60
+              billing_cycle_seconds: match.billing_cycle_seconds || 60,
+              initial_interval: match.initial_interval || match.billing_cycle_seconds || 60,
+              increment_interval: match.increment_interval || 1,
             }
           ]
         }

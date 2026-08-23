@@ -746,5 +746,41 @@ export const declaredApis = [
   {
     "method": "POST",
     "path": "/api/v1/support/tickets/{id}/messages"
+  },
+  {
+    "method": "GET",
+    "path": "/api/v1/devices/setup/devices"
+  },
+  {
+    "method": "GET",
+    "path": "/api/v1/devices/setup/instructions"
+  },
+  {
+    "method": "POST",
+    "path": "/api/v1/devices/setup/verify"
+  },
+  {
+    "method": "POST",
+    "path": "/api/v1/devices/setup/copy-event"
+  },
+  {
+    "method": "GET",
+    "path": "/api/v1/admin/devices/setup/devices"
+  },
+  {
+    "method": "GET",
+    "path": "/api/v1/admin/devices/setup/instructions"
+  },
+  {
+    "method": "POST",
+    "path": "/api/v1/admin/devices/setup/verify"
+  },
+  {
+    "method": "GET",
+    "path": "/api/v1/admin/settings/support"
+  },
+  {
+    "method": "PUT",
+    "path": "/api/v1/admin/settings/support"
   }
 ] as const;

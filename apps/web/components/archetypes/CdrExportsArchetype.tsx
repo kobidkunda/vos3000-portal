@@ -798,7 +798,7 @@ export function CdrExportsArchetype({
             </div>
 
             <form onSubmit={handleCreateJob}>
-              <FormErrorHeader error={actionError} onDismiss={() => setActionError("")} />
+              <FormErrorAlert error={actionError} onDismiss={() => setActionError("")} />
               {/* Date Presets */}
               <div style={{ marginBottom: 16 }}>
                 <label style={{ display: "block", fontSize: 12, fontWeight: 700, color: "var(--muted)", marginBottom: 6 }}>

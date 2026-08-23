@@ -26,6 +26,7 @@ import { MappingGatewayDetailArchetype } from "./archetypes/MappingGatewayDetail
 import { CallAnalysisArchetype } from "./archetypes/CallAnalysisArchetype";
 import { RegistrationAnalysisArchetype } from "./archetypes/RegistrationAnalysisArchetype";
 import { PaymentSettingsArchetype } from "./archetypes/PaymentSettingsArchetype";
+import { SupportSettingsArchetype } from "./archetypes/SupportSettingsArchetype";
 import { PaymentsArchetype } from "./archetypes/PaymentsArchetype";
 import { StatementsArchetype } from "./archetypes/StatementsArchetype";
 import { RecentCallsArchetype } from "./archetypes/RecentCallsArchetype";
@@ -34,6 +35,8 @@ import { RateGroupsArchetype } from "./archetypes/RateGroupsArchetype";
 import { RateEditorArchetype } from "./archetypes/RateEditorArchetype";
 import { RateImportsArchetype } from "./archetypes/RateImportsArchetype";
 import { CdrExportsArchetype } from "./archetypes/CdrExportsArchetype";
+import { DeviceSetupHubArchetype } from "./archetypes/DeviceSetupHubArchetype";
+import { DeviceSetupWizardArchetype } from "./archetypes/DeviceSetupWizardArchetype";
 
 export function PortalPage({
   side,
@@ -198,6 +201,29 @@ export function PortalPage({
 
   // Dedicated Route & Archetype Dispatcher
   function renderArchetype() {
+    // Device Setup Hub (Client & Admin)
+    if (route === "/app/devices/setup" || route === "/admin/devices/setup") {
+      return (
+        <DeviceSetupHubArchetype
+          side={side}
+          title={pageTitle}
+          purpose={pagePurpose}
+        />
+      );
+    }
+
+    // Device Configuration Wizard (per-device)
+    if (route.startsWith("/app/devices/setup/") || route.startsWith("/admin/devices/setup/")) {
+      // Extract deviceKey from route suffix
+      const key = route.split("/").pop() ?? "";
+      return (
+        <DeviceSetupWizardArchetype
+          side={side}
+          deviceKeyProp={decodeURIComponent(key)}
+        />
+      );
+    }
+
     // 1. Dashboard (Executive / NOC / Client Overview)
     if (
       effectiveArchetype === "DASHBOARD" ||
@@ -593,6 +619,19 @@ export function PortalPage({
           title={pageTitle}
           purpose={pagePurpose}
           route={route}
+        />
+      );
+    }
+
+    // 8b. Support Settings (global support contacts -> client FAB)
+    if (route === "/admin/settings/support") {
+      return (
+        <SupportSettingsArchetype
+          side={side}
+          title={pageTitle}
+          purpose={pagePurpose}
+          source={data?.source}
+          warnings={data?.warnings}
         />
       );
     }
