@@ -445,6 +445,7 @@ export class DataSourcesService implements OnModuleDestroy {
     max_duration?:unknown;
     requireTenant?:boolean;
     includeCarrierFields?:boolean;
+    includeTotal?:boolean;
   }){
     if(opts.requireTenant && !opts.tenantId) throw Object.assign(new Error("Tenant scope is required for client CDR access"),{statusCode:403,code:"TENANT_SCOPE_REQUIRED"});
     if(!this.ch) return undefined;
@@ -483,7 +484,17 @@ export class DataSourcesService implements OnModuleDestroy {
     const cols = opts.includeCarrierFields
       ? "serial_number,vos_instance_id,customer_id,account_id,agent_id,caller,callee,incoming_caller,incoming_callee,outbound_caller,outbound_callee,mapping_gateway_id,routing_gateway_id,caller_ip,callee_ip,begin_time,end_time,answered,duration,charged_duration,customer_charge,customer_tax,carrier_cost,carrier_tax,call_type,area_prefix,area_name,billing_method,billing_mode,pdd_ms,connect_delay_ms,calling_call_id,called_call_id,termination_reason,hangup_side,raw_json"
       : "serial_number,vos_instance_id,customer_id,account_id,caller,callee,incoming_caller,incoming_callee,mapping_gateway_id,caller_ip,callee_ip,begin_time,end_time,answered,duration,charged_duration,customer_charge,customer_tax,call_type,area_prefix,area_name,billing_method,pdd_ms,connect_delay_ms,calling_call_id,called_call_id,termination_reason,hangup_side,raw_json";
-    const sql=`SELECT ${cols} FROM vos.cdr_events FINAL ${where.length?`WHERE ${where.join(" AND ")}`:""} ORDER BY begin_time DESC LIMIT {limit:UInt32} OFFSET {offset:UInt32}`;
+    const filterSql=where.length?`WHERE ${where.join(" AND ")}`:"";
+    if(opts.includeTotal){
+      const {limit:_limit,offset:_offset,...filterParams}=qp;
+      const countRs=await this.ch.query({query:`SELECT count() AS total FROM vos.cdr_events FINAL ${filterSql}`,query_params:filterParams,format:"JSONEachRow"});
+      const total=Number((await countRs.json())[0]?.total??0);
+      const page=Math.floor(offset/limit)+1;
+      const rs=await this.ch.query({query:`SELECT ${cols} FROM vos.cdr_events FINAL ${filterSql} ORDER BY begin_time DESC LIMIT {limit:UInt32} OFFSET {offset:UInt32}`,query_params:qp,format:"JSONEachRow"});
+      const items=await rs.json();
+      return {items,total,page,page_size:limit,total_pages:Math.max(1,Math.ceil(total/limit))};
+    }
+    const sql=`SELECT ${cols} FROM vos.cdr_events FINAL ${filterSql} ORDER BY begin_time DESC LIMIT {limit:UInt32} OFFSET {offset:UInt32}`;
     const rs=await this.ch.query({query:sql,query_params:qp,format:"JSONEachRow"});
     return await rs.json();
   }

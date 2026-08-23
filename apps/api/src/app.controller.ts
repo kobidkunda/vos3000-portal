@@ -84,7 +84,8 @@ export class AppController {
         if(!decision.ok){res.status(decision.statusCode!);return {ok:false,request_id,error:{code:decision.code,message:decision.message}}}
       }
     }
-    try{return {ok:true,request_id,data:await this.platform.page(route,c)}}catch(e:any){res.status(e.statusCode??500);return {ok:false,request_id,error:{code:e.code??"PAGE_DATA_ERROR",message:e.message}}}
+    const query=Object.fromEntries(new URL(req.url,"http://internal").searchParams.entries());
+    try{return {ok:true,request_id,data:await this.platform.page(route,c,query)}}catch(e:any){res.status(e.statusCode??500);return {ok:false,request_id,error:{code:e.code??"PAGE_DATA_ERROR",message:e.message}}}
   }
 
   @Post("deposits") async deposit(@Body() body:any,@Req() req:FastifyRequest,@Res({passthrough:true}) res:FastifyReply){const request_id=rid(),c=await this.ctx(req);if(!c){res.status(401);return {ok:false,request_id,error:{code:"UNAUTHENTICATED",message:"Sign in required"}}}const decision=this.denyFor(c,"POST","/api/v1/deposits");if(!decision.ok){res.status(decision.statusCode!);return {ok:false,request_id,error:{code:decision.code,message:decision.message}}}if(c.authType!=="session"){res.status(403);return {ok:false,request_id,error:{code:"INTERACTIVE_SESSION_REQUIRED",message:"Adding funds requires an interactive user session"}}}if(!this.originOk(req,"POST")){res.status(403);return {ok:false,request_id,error:{code:"INVALID_ORIGIN",message:"Browser origin rejected"}}}try{return {ok:true,request_id,data:await this.platform.createDeposit(c,body,request_id)}}catch(e:any){res.status(e.statusCode??400);return {ok:false,request_id,error:{code:e.code??"DEPOSIT_ERROR",message:e.message}}}}
@@ -105,10 +106,12 @@ export class AppController {
     if(c.side!=="client"||!c.tenantId){res.status(403);return {ok:false,request_id,error:{code:"FORBIDDEN",message:"Client tenant session required"}}}
     try{
       const q=req.query as any;
-      const items=await this.sources.queryCdr({
+      const pageSize=Math.min(1000,Math.max(1,Number(q?.page_size??q?.limit??25)||25));
+      const page=Math.max(1,Number(q?.page??1)||1);
+      const result:any=await this.sources.queryCdr({
         tenantId:c.tenantId,
-        limit:q?.limit?Number(q.limit):100,
-        offset:q?.offset?Number(q.offset):q?.skip?Number(q.skip):0,
+        limit:pageSize,
+        offset:(page-1)*pageSize,
         from:q?.from,
         to:q?.to,
         caller:q?.caller,
@@ -122,8 +125,9 @@ export class AppController {
         max_duration:q?.max_duration??q?.maxDuration,
         requireTenant:true,
         includeCarrierFields:false,
+        includeTotal:true,
       });
-      return {ok:true,request_id,data:{items:items??[],source:"clickhouse"}};
+      return {ok:true,request_id,data:{items:result.items,pagination:{page:result.page,page_size:result.page_size,total:result.total,total_pages:result.total_pages},source:"clickhouse"}};
     }catch(e:any){res.status(e.statusCode??500);return {ok:false,request_id,error:{code:e.code??"CDR_QUERY_FAILED",message:e.message}}}
   }
 
@@ -175,10 +179,12 @@ export class AppController {
     if(c.side!=="admin"){res.status(403);return {ok:false,request_id,error:{code:"FORBIDDEN",message:"Admin session required"}}}
     try{
       const q=req.query as any;
-      const items=await this.sources.queryCdr({
+      const pageSize=Math.min(1000,Math.max(1,Number(q?.page_size??q?.limit??25)||25));
+      const page=Math.max(1,Number(q?.page??1)||1);
+      const result:any=await this.sources.queryCdr({
         tenantId:c.organizationId?c.tenantId:undefined,
-        limit:q?.limit?Number(q.limit):100,
-        offset:q?.offset?Number(q.offset):q?.skip?Number(q.skip):0,
+        limit:pageSize,
+        offset:(page-1)*pageSize,
         from:q?.from,
         to:q?.to,
         caller:q?.caller,
@@ -192,8 +198,9 @@ export class AppController {
         max_duration:q?.max_duration??q?.maxDuration,
         requireTenant:!!c.organizationId,
         includeCarrierFields:true,
+        includeTotal:true,
       });
-      return {ok:true,request_id,data:{items:items??[],source:"clickhouse"}};
+      return {ok:true,request_id,data:{items:result.items,pagination:{page:result.page,page_size:result.page_size,total:result.total,total_pages:result.total_pages},source:"clickhouse"}};
     }catch(e:any){res.status(e.statusCode??500);return {ok:false,request_id,error:{code:e.code??"CDR_QUERY_FAILED",message:e.message}}}
   }
 

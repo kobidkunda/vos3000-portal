@@ -196,11 +196,14 @@ export function Shell({
     setLogoutError("");
     setLoggingOut(true);
     try {
-      await fetch(`${API}/api/v1/auth/logout`, {
+      const response = await fetch(`${API}/api/v1/auth/logout`, {
         method: "POST",
         credentials: "include",
-        headers: { "content-type": "application/json" },
       }).catch(() => null);
+      if (!response?.ok) {
+        setLogoutError("Sign out failed. Your session is still active.");
+        return;
+      }
       sessionStorage.removeItem("vos_mfa_ticket");
       router.push(side === "Admin" ? "/admin/login" : "/app/login");
       router.refresh();
@@ -242,7 +245,7 @@ export function Shell({
       <aside className={`sidebar ${mobileNavOpen ? "open" : ""}`} aria-label={`${side} portal navigation`}>
         <div className="brand">
           <div style={{ display: "flex", alignItems: "center", gap: 12, minWidth: 0 }}>
-            <img src="/callwork/hor/logo.svg" alt="CallWork" width="112" height="32" style={{ height: "32px", width: "auto", display: "block" }} />
+            <img src="/didflow/hor/logo.svg" alt="Didflow" width="112" height="32" style={{ height: "32px", width: "auto", display: "block" }} />
             <div style={{ minWidth: 0 }}>
               <span className="brandSubtitle">{side} operations</span>
             </div>
@@ -558,4 +561,3 @@ export function Shell({
     </div>
   );
 }
-

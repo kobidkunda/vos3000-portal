@@ -44,6 +44,12 @@ export function AuthPage({
   route: string;
 }) {
   const router = useRouter();
+  const redirectAfterLogin = () => {
+    const next = typeof window === "undefined" ? null : new URLSearchParams(window.location.search).get("next");
+    const safeNext = next?.startsWith("/") && !next.startsWith("//") ? next : null;
+    router.push(safeNext ?? (side === "Admin" ? "/admin" : "/app"));
+    router.refresh();
+  };
   const lower = title.toLowerCase();
   const setup = lower.includes("mfa setup");
   const challenge = lower.includes("mfa challenge");
@@ -180,8 +186,7 @@ export function AuthPage({
         return;
       }
 
-      router.push(side === "Admin" ? "/admin" : "/app");
-      router.refresh();
+      redirectAfterLogin();
     } catch (err: any) {
       setError(err);
     } finally {
@@ -337,8 +342,7 @@ export function AuthPage({
       }
 
       sessionStorage.removeItem("vos_mfa_ticket");
-      router.push(side === "Admin" ? "/admin" : "/app");
-      router.refresh();
+      redirectAfterLogin();
     } catch (err: any) {
       setError(err);
     } finally {
@@ -545,7 +549,7 @@ export function AuthPage({
       {/* Left Brand Hero Section */}
       <section className="authHero">
         <div className="brand" style={{ padding: 0 }}>
-          <img src="/callwork/hor/logo.svg" alt="CallWork" width="132" height="36" style={{ height: "36px", width: "auto", display: "block", filter: "brightness(0) invert(1)" }} />
+          <img src="/didflow/hor/logo.svg" alt="Didflow" width="132" height="36" style={{ height: "36px", width: "auto", display: "block", filter: "brightness(0) invert(1)" }} />
           <div>
             <div className="brandSubtitle" style={{ color: "#93c5fd" }}>Carrier Telecom Platform</div>
           </div>

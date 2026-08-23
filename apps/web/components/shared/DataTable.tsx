@@ -32,6 +32,12 @@ export interface DataTableProps<T = any> {
   enableColumnChooser?: boolean;
   enableDensity?: boolean;
   enableViewToggle?: boolean;
+  serverSide?: boolean;
+  totalCount?: number;
+  page?: number;
+  disableQuickFilter?: boolean;
+  onPageChange?: (page: number) => void;
+  onPageSizeChange?: (pageSize: number) => void;
   defaultDensity?: "comfortable" | "compact" | "dense";
   defaultViewMode?: "table" | "card" | "auto";
 }
@@ -174,6 +180,12 @@ export function DataTable<T extends Record<string, any> = any>({
   enableColumnChooser = true,
   enableDensity = true,
   enableViewToggle = true,
+  serverSide = false,
+  totalCount,
+  page,
+  disableQuickFilter = false,
+  onPageChange,
+  onPageSizeChange,
   defaultDensity = "compact",
   defaultViewMode = "auto",
 }: DataTableProps<T>) {
@@ -575,12 +587,16 @@ export function DataTable<T extends Record<string, any> = any>({
     });
   }, [filteredData, sortKey, sortDir]);
 
+  const displayTotal = serverSide ? Math.max(0, totalCount ?? data.length) : filteredData.length;
+
   // Pagination
-  const totalPages = Math.max(1, Math.ceil(sortedData.length / rowsPerPage));
+  const totalPages = Math.max(1, Math.ceil(displayTotal / rowsPerPage));
+  const activePage = Math.min(totalPages, Math.max(1, page ?? currentPage));
   const paginatedData = useMemo(() => {
+    if (serverSide) return sortedData;
     const start = (currentPage - 1) * rowsPerPage;
     return sortedData.slice(start, start + rowsPerPage);
-  }, [sortedData, currentPage, rowsPerPage]);
+  }, [serverSide, sortedData, currentPage, rowsPerPage]);
 
   // Selection Handlers
   const isAllPaginatedSelected =
@@ -639,7 +655,7 @@ export function DataTable<T extends Record<string, any> = any>({
       <div className="tableToolbar">
         <div className="tableToolbarGroup">
           {/* Quick Search within Table */}
-          <div className="filterInputWrap" style={{ width: 220, minWidth: 160 }}>
+          <div className="filterInputWrap" style={{ width: 220, minWidth: 160, ...(disableQuickFilter ? { display: "none" } : {}) }}>
             <Icon name="search" size={13} />
             <input
               type="text"
@@ -1143,9 +1159,9 @@ export function DataTable<T extends Record<string, any> = any>({
       <div className="paginationBar">
         <div style={{ display: "flex", alignItems: "center", gap: 14, flexWrap: "wrap" }}>
           <span>
-            Showing <strong>{Math.min(filteredData.length, (currentPage - 1) * rowsPerPage + 1)}</strong> to{" "}
-            <strong>{Math.min(filteredData.length, currentPage * rowsPerPage)}</strong> of{" "}
-            <strong>{filteredData.length.toLocaleString()}</strong> entries
+            Showing <strong>{displayTotal === 0 ? 0 : (activePage - 1) * rowsPerPage + 1}</strong> to{" "}
+            <strong>{Math.min(displayTotal, activePage * rowsPerPage)}</strong> of{" "}
+            <strong>{displayTotal.toLocaleString()}</strong> entries
           </span>
 
           <div style={{ display: "flex", alignItems: "center", gap: 6 }}>
@@ -1156,6 +1172,7 @@ export function DataTable<T extends Record<string, any> = any>({
               onChange={(e) => {
                 setRowsPerPage(Number(e.target.value));
                 setCurrentPage(1);
+                onPageSizeChange?.(Number(e.target.value));
               }}
               style={{ height: 26, padding: "0 18px 0 6px", fontSize: 11.5 }}
             >
@@ -1172,8 +1189,8 @@ export function DataTable<T extends Record<string, any> = any>({
             <button
               type="button"
               className="btn ghost sm"
-              disabled={currentPage === 1}
-              onClick={() => setCurrentPage(1)}
+              disabled={activePage === 1}
+              onClick={() => { setCurrentPage(1); onPageChange?.(1); }}
               style={{ height: 28, padding: "0 6px" }}
               title="First Page"
             >
@@ -1182,8 +1199,8 @@ export function DataTable<T extends Record<string, any> = any>({
             <button
               type="button"
               className="btn ghost sm"
-              disabled={currentPage === 1}
-              onClick={() => setCurrentPage((p) => Math.max(1, p - 1))}
+              disabled={activePage === 1}
+              onClick={() => { const next=Math.max(1,activePage-1);setCurrentPage(next);onPageChange?.(next); }}
               style={{ height: 28, padding: "0 8px" }}
             >
               Prev
@@ -1193,15 +1210,15 @@ export function DataTable<T extends Record<string, any> = any>({
               // Sliding window for page numbers
               let pageNum = i + 1;
               if (totalPages > 5) {
-                const start = Math.max(1, Math.min(currentPage - 2, totalPages - 4));
+                const start = Math.max(1, Math.min(activePage - 2, totalPages - 4));
                 pageNum = start + i;
               }
               return (
                 <button
                   key={pageNum}
                   type="button"
-                  className={`btn sm ${currentPage === pageNum ? "primary" : "ghost"}`}
-                  onClick={() => setCurrentPage(pageNum)}
+                  className={`btn sm ${activePage === pageNum ? "primary" : "ghost"}`}
+                  onClick={() => { setCurrentPage(pageNum); onPageChange?.(pageNum); }}
                   style={{ height: 28, minWidth: 28, padding: 0 }}
                 >
                   {pageNum}
@@ -1212,8 +1229,8 @@ export function DataTable<T extends Record<string, any> = any>({
             <button
               type="button"
               className="btn ghost sm"
-              disabled={currentPage === totalPages}
-              onClick={() => setCurrentPage((p) => Math.min(totalPages, p + 1))}
+              disabled={activePage === totalPages}
+              onClick={() => { const next=Math.min(totalPages,activePage+1);setCurrentPage(next);onPageChange?.(next); }}
               style={{ height: 28, padding: "0 8px" }}
             >
               Next
@@ -1221,8 +1238,8 @@ export function DataTable<T extends Record<string, any> = any>({
             <button
               type="button"
               className="btn ghost sm"
-              disabled={currentPage === totalPages}
-              onClick={() => setCurrentPage(totalPages)}
+              disabled={activePage === totalPages}
+              onClick={() => { setCurrentPage(totalPages); onPageChange?.(totalPages); }}
               style={{ height: 28, padding: "0 6px" }}
               title="Last Page"
             >

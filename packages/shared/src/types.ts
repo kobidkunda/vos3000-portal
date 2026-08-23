@@ -31,6 +31,14 @@ export interface PagePayload {
   source: PageSource;
   stale?: boolean;
   warnings?: string[];
+  pagination?: PaginationMeta;
+}
+
+export interface PaginationMeta {
+  page: number;
+  page_size: number;
+  total: number;
+  total_pages: number;
 }
 export interface ApiEnvelope<T=unknown> {
   ok: boolean;

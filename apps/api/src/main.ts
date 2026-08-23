@@ -123,7 +123,7 @@ async function bootstrap(){
   registerStream("/api/v1/admin/noc/stream","/api/v1/admin/noc/stream");
   registerStream("/api/v1/calls/live/stream","/api/v1/calls/live/stream");
 
-  const doc:any=SwaggerModule.createDocument(app,new DocumentBuilder().setTitle("CallWork Portal API").setDescription("CallWork portal API surface on callwork.com — derived from the Admin and Customer specifications. Softswitch operations remain capability-gated until verified against the deployed VOS build.").setVersion("1.2").addBearerAuth().build());
+  const doc:any=SwaggerModule.createDocument(app,new DocumentBuilder().setTitle("Didflow Portal API").setDescription("Didflow portal API surface on didflow.com — derived from the Admin and Customer specifications. Softswitch operations remain capability-gated until verified against the deployed VOS build.").setVersion("1.2").addBearerAuth().build());
   for(const d of productApis){doc.paths[d.path]=doc.paths[d.path]??{};doc.paths[d.path][d.method.toLowerCase()]={summary:`${d.method} ${d.path}`,responses:{200:{description:"Successful portal response"},400:{description:"Validation error"},401:{description:"Authentication required"},403:{description:"Forbidden"},503:{description:"Dependency/capability unavailable"}}}}
   SwaggerModule.setup("docs",app,doc);
   await app.listen({port:Number(process.env.PORT??4000),host:"0.0.0.0"});

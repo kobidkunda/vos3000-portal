@@ -193,13 +193,13 @@ export function FinanceActionArchetype({
   }
 
   return (
-    <div className="content">
+    <div className="content financeCheckout">
       {/* Breadcrumb & Header */}
       <div className="pageHead" style={{ marginBottom: 16 }}>
         <div>
           <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
             <h1>{title}</h1>
-            <span className="badge badge-online" style={{ fontSize: 10.5 }}>
+            <span className="badge badge-online financeSourceBadge" style={{ fontSize: 10.5 }}>
               Source: {source}
             </span>
           </div>
@@ -230,13 +230,10 @@ export function FinanceActionArchetype({
         <div>
           {/* Current Balance Card */}
           <div
-            className="card"
+            className="card balanceCard"
             style={{
               padding: "18px 22px",
               marginBottom: 20,
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "space-between",
               background: "linear-gradient(135deg, rgba(37,99,235,0.06), rgba(6,182,212,0.04))",
             }}
           >
@@ -280,12 +277,16 @@ export function FinanceActionArchetype({
               onDismiss={clearErrors}
             />
             {/* Step 1: Deposit Amount */}
-            <div className="card" style={{ marginBottom: 20 }}>
+            <div className="card financeFormCard" style={{ marginBottom: 20 }}>
               <div className="cardHead">
                 <div className="cardTitle" style={{ fontSize: 14, fontWeight: 700 }}>
                   1. Enter Deposit Amount (USD)
                 </div>
               </div>
+
+              <label htmlFor="field-amount" className="financeFieldLabel">
+                Deposit amount
+              </label>
 
               <div style={{ position: "relative", marginBottom: 12 }}>
                 <span
@@ -316,6 +317,7 @@ export function FinanceActionArchetype({
                     height: 46,
                   }}
                   value={amount}
+                  inputMode="decimal"
                   onChange={(e) => {
                     setAmount(e.target.value);
                     clearFieldError("amount");
@@ -367,7 +369,7 @@ export function FinanceActionArchetype({
             </div>
 
             {/* Step 2: Payment Method - Crypto Exclusive */}
-            <div className="card" style={{ marginBottom: 20 }}>
+            <div className="card financeFormCard" style={{ marginBottom: 20 }}>
               <div className="cardHead">
                 <div className="cardTitle" style={{ fontSize: 14, fontWeight: 700 }}>
                   2. Payment Method
@@ -385,7 +387,7 @@ export function FinanceActionArchetype({
                   marginBottom: 16,
                 }}
               >
-                <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: 8 }}>
+                <div className="paymentMethodHead" style={{ marginBottom: 8 }}>
                   <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
                     <div
                       style={{
@@ -417,10 +419,11 @@ export function FinanceActionArchetype({
                   <div style={{ fontSize: 11, fontWeight: 700, color: "var(--muted)", marginBottom: 8, textTransform: "uppercase" }}>
                     Popular Supported Cryptocurrencies
                   </div>
-                  <div style={{ display: "flex", flexWrap: "wrap", gap: 6 }}>
-                    {supportedCoins.map((coin) => (
-                      <span
-                        key={coin.name}
+                    <div style={{ display: "flex", flexWrap: "wrap", gap: 6 }}>
+                      {supportedCoins.map((coin) => (
+                        <span
+                          key={coin.name}
+                          className="coinChip"
                         style={{
                           display: "inline-flex",
                           alignItems: "center",
@@ -435,7 +438,7 @@ export function FinanceActionArchetype({
                         }}
                       >
                         <span>{coin.name}</span>
-                        <span style={{ fontSize: 9.5, color: "var(--muted)", background: "var(--bg)", padding: "1px 4px", borderRadius: 4 }}>
+                      <span style={{ fontSize: 10.5, color: "var(--muted)", background: "var(--bg)", padding: "2px 5px", borderRadius: 4 }}>
                           {coin.badge}
                         </span>
                       </span>
@@ -481,13 +484,13 @@ export function FinanceActionArchetype({
                   </div>
 
                   {activePayment.metadata?.checkout_url && !success && (
-                    <div style={{ display: "flex", gap: 8, marginTop: 12 }}>
+                    <div className="invoiceActions" style={{ display: "flex", gap: 8, marginTop: 12 }}>
                       <a
                         href={activePayment.metadata.checkout_url}
                         target="_blank"
                         rel="noreferrer"
                         className="btn primary sm"
-                        style={{ flex: 1, textAlign: "center", justifyContent: "center" }}
+                        style={{ minHeight: 44, flex: 1, textAlign: "center", justifyContent: "center" }}
                       >
                         <Icon name="externalLink" size={14} />
                         <span>Open NOWPayments Checkout</span>
@@ -496,6 +499,7 @@ export function FinanceActionArchetype({
                         type="button"
                         onClick={copyCheckoutUrl}
                         className="btn secondary sm"
+                        style={{ minHeight: 44 }}
                       >
                         <Icon name={copiedLink ? "check" : "copy"} size={14} />
                         <span>{copiedLink ? "Copied" : "Copy Link"}</span>
@@ -505,7 +509,7 @@ export function FinanceActionArchetype({
 
                   {/* Dev mode simulation helper */}
                   {!success && (
-                    <div style={{ marginTop: 14, paddingTop: 12, borderTop: "1px dashed var(--border)", display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+                    <div className="sandboxActionRow" style={{ marginTop: 14, paddingTop: 12, borderTop: "1px dashed var(--border)", justifyContent: "space-between", alignItems: "center" }}>
                       <span style={{ fontSize: 11, color: "var(--muted)" }}>
                         Development / Sandbox Test:
                       </span>
@@ -514,7 +518,7 @@ export function FinanceActionArchetype({
                         onClick={handleSimulateWebhook}
                         disabled={simulating}
                         className="btn sm"
-                        style={{ fontSize: 11, padding: "3px 8px" }}
+                        style={{ minHeight: 40, padding: "8px 12px", fontSize: 12 }}
                       >
                         {simulating ? "Processing…" : "Simulate Instant IPN Confirmation"}
                       </button>
@@ -538,7 +542,7 @@ export function FinanceActionArchetype({
                 </div>
               </div>
 
-              <div style={{ overflowX: "auto" }}>
+              <div className="desktopFinanceTable">
                 {rows.length === 0 ? (
                   <div style={{ padding: 24, textAlign: "center", color: "var(--muted)", fontSize: 12.5 }}>
                     No prior payments recorded in PostgreSQL ledger for this tenant scope.
@@ -575,6 +579,33 @@ export function FinanceActionArchetype({
                     </tbody>
                   </table>
                 )}
+              </div>
+
+              <div className="financeMobileTransactions">
+                {rows.length === 0 ? (
+                  <div className="financeTransactionEmpty">
+                    No prior payments recorded in PostgreSQL ledger for this tenant scope.
+                  </div>
+                ) : rows.slice(0, 8).map((tx, idx) => (
+                  <article key={`mobile-${tx.id ?? idx}`} className="financeTransactionCard">
+                    <div className="financeTransactionTop">
+                      <span className="mono">{tx.receipt_number ?? (tx.id ? String(tx.id).slice(0, 8).toUpperCase() : `#${idx + 1}`)}</span>
+                      <Status value={tx.status ?? "Completed"} size="sm" />
+                    </div>
+                    <div className="financeTransactionRow">
+                      <span>Date</span>
+                      <strong>{fmtDate(tx.completed_at ?? tx.created_at)}</strong>
+                    </div>
+                    <div className="financeTransactionRow">
+                      <span>Provider</span>
+                      <strong>{tx.provider ?? tx.type ?? "Deposit"}</strong>
+                    </div>
+                    <div className="financeTransactionRow">
+                      <span>Amount</span>
+                      <strong>${Number(tx.credited_amount ?? tx.amount ?? 0).toFixed(2)} {tx.currency ?? "USD"}</strong>
+                    </div>
+                  </article>
+                ))}
               </div>
             </div>
           </form>

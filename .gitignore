@@ -26,6 +26,9 @@ cookies_client.txt
 
 # Build artifacts
 seed_real.mjs
+.playwright-cli/
+.playwright-mcp/
+output/
 
 # Docker local data
 infra/data/

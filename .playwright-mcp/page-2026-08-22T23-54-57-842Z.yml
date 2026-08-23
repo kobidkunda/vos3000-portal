@@ -4,7 +4,7 @@
       - /url: "#main-content"
     - complementary "Client portal navigation" [ref=e4]:
       - generic [ref=e6]:
-        - img "CallWork" [ref=e7]
+        - img "Didflow" [ref=e7]
         - generic: Client operations
       - generic [ref=e8]:
         - generic [ref=e9]:

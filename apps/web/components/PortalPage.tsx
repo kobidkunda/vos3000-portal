@@ -1,6 +1,6 @@
 "use client";
 import React, { useEffect, useState, useCallback, useMemo } from "react";
-import { useSearchParams } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import { api } from "../lib/api";
 import { Shell } from "./Shell";
 import { Icon } from "../lib/icons";
@@ -53,6 +53,7 @@ export function PortalPage({
   archetype: string;
   features: string[];
 }) {
+  const router = useRouter();
   const [data, setData] = useState<any>(null);
   const [err, setErr] = useState("");
   const [loading, setLoading] = useState(true);
@@ -85,6 +86,15 @@ export function PortalPage({
   const isForbiddenError = err && (
     /forbidden|mismatch|permission|http 403/i.test(err)
   );
+  const loginHref = side === "Admin" ? "/admin/login" : "/app/login";
+
+  useEffect(() => {
+    if (!isAuthError) return;
+    const redirectTimer = window.setTimeout(() => {
+      void router.replace(loginHref);
+    }, 1200);
+    return () => window.clearTimeout(redirectTimer);
+  }, [isAuthError, loginHref, router]);
 
   if (loading && !data) {
     return (
@@ -108,9 +118,8 @@ export function PortalPage({
   }
 
   if (isAuthError) {
-    const loginHref = side === "Admin" ? "/admin/login" : "/app/login";
     return (
-      <Shell side={side}>
+      <div className="content">
         <div className="content">
           <div className="pageHead" style={{ marginBottom: 20 }}>
             <div>
@@ -126,13 +135,13 @@ export function PortalPage({
             <p style={{ color: "var(--muted)", fontSize: 13, marginBottom: 20 }}>
               You must be signed in to the {side} Portal to access this operational workspace and carrier records.
             </p>
-            <a href={loginHref} className="btn primary" style={{ display: "inline-flex", alignItems: "center", gap: 8, padding: "8px 20px" }}>
+            <a href={loginHref} className="btn primary" style={{ display: "inline-flex", alignItems: "center", gap: 8, padding: "8px 20px" }} aria-label={`Redirecting to ${side} Portal sign-in`}>
               <Icon name="security" size={14} />
               <span>Sign In to {side} Portal →</span>
             </a>
           </div>
         </div>
-      </Shell>
+      </div>
     );
   }
 

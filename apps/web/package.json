@@ -6,7 +6,7 @@
     "dev": "next dev -H 0.0.0.0 -p ${PORT:-3001}",
     "build": "next build",
     "start": "next start -H 0.0.0.0 -p ${PORT:-3000}",
-    "test": "tsx --test lib/wizard.test.ts lib/phone.test.ts lib/form-error.test.ts lib/form-error-state.test.ts lib/auth-forms-error.test.ts lib/m3-forms-error.test.ts lib/devicesRegistry.test.ts"
+    "test": "tsx --test lib/wizard.test.ts lib/phone.test.ts lib/form-error.test.ts lib/form-error-state.test.ts lib/auth-forms-error.test.ts lib/m3-forms-error.test.ts lib/devicesRegistry.test.ts lib/session-proxy.test.ts proxy.test.ts"
   },
   "dependencies": {
     "@vos/shared": "1.0.0",

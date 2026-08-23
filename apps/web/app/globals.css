@@ -1,5 +1,5 @@
 /* ==========================================================================
-   CALLWORK — CARRIER-GRADE DESIGN SYSTEM (callwork.com)
+   DIDFLOW — CARRIER-GRADE DESIGN SYSTEM (didflow.com)
    Follows DESIGN.md & modern-web-guidance best practices
    ========================================================================== */
 
@@ -1074,7 +1074,7 @@ a {
 /* Cards & Layout Grids */
 .grid2 {
   display: grid;
-  grid-template-columns: minmax(0, 2fr) minmax(320px, 1fr);
+  grid-template-columns: minmax(0, 2fr) minmax(0, 1fr);
   gap: 16px;
   align-items: start;
 }
@@ -2847,6 +2847,88 @@ a {
 }
 
 @media (max-width: 768px) {
+  .financeCheckout .financeSourceBadge {
+    display: none;
+  }
+  .financeCheckout .financeSummaryCol {
+    order: -1;
+  }
+  .balanceCard {
+    align-items: stretch;
+    flex-direction: column;
+  }
+  .balanceCard > div {
+    min-width: 0;
+  }
+  .paymentMethodHead {
+    flex-direction: column;
+  }
+  .amountChipsGrid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  .amountChipBtn,
+  .financeCheckout .btn.sm {
+    min-height: 44px;
+  }
+  .coinChip {
+    width: 100%;
+    justify-content: flex-start;
+  }
+  .invoiceActions {
+    flex-direction: column;
+  }
+  .invoiceActions > * {
+    width: 100%;
+  }
+  .sandboxActionRow {
+    align-items: stretch;
+    flex-direction: column;
+  }
+  .desktopFinanceTable {
+    display: none;
+  }
+  .financeMobileTransactions {
+    display: grid;
+    gap: 10px;
+    padding: 14px;
+  }
+  .financeTransactionCard {
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
+    background: var(--surface);
+    padding: 12px;
+  }
+  .financeTransactionTop {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+    margin-bottom: 10px;
+    font-size: 12px;
+  }
+  .financeTransactionRow {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 12px;
+    padding: 4px 0;
+    font-size: 13px;
+  }
+  .financeTransactionRow span:first-child {
+    color: var(--muted);
+    flex: 0 0 auto;
+  }
+  .financeTransactionRow strong:last-child {
+    text-align: right;
+    font-variant-numeric: tabular-nums;
+    overflow-wrap: anywhere;
+  }
+  .financeTransactionEmpty {
+    color: var(--muted);
+    font-size: 13px;
+    text-align: center;
+    padding: 16px 0;
+  }
   .topbar {
     padding: 0 12px;
     height: 58px;
@@ -3295,6 +3377,52 @@ a {
   grid-template-columns: repeat(4, 1fr);
   gap: 8px;
   margin: 12px 0 20px;
+}
+
+/* Client checkout mobile ergonomics */
+.financeCheckout .btn {
+  min-height: 44px;
+}
+.financeFieldLabel {
+  display: block;
+  margin-bottom: 6px;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--text2);
+}
+.financeFormCard {
+  padding: 16px;
+}
+.balanceCard {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
+}
+.paymentMethodHead {
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 12px;
+}
+.sandboxActionRow {
+  display: flex;
+  gap: 10px;
+}
+.desktopFinanceTable {
+  overflow-x: auto;
+}
+.financeMobileTransactions {
+  display: grid;
+  gap: 10px;
+  padding: 14px;
+}
+@media (min-width: 769px) {
+  .financeMobileTransactions {
+    display: none;
+  }
+}
+.coinChipBadge {
+  font-size: 10.5px !important;
 }
 .amountChipBtn {
   height: 40px;

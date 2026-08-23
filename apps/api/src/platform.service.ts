@@ -610,7 +610,38 @@ export class PlatformService {
     } catch {}
   }
 
+  private paginateRows(items:any[], query:any={}){
+    const search=String(query?.search??query?.q??"").trim().toLowerCase();
+    const status=String(query?.status??"").trim();
+    const gateway=String(query?.gateway??"").trim();
+    let filtered=Array.isArray(items)?items:[];
+    if(search)filtered=filtered.filter(row=>Object.values(row??{}).some(value=>value!==null&&value!==undefined&&String(value).toLowerCase().includes(search)));
+    if(status&&status.toLowerCase()!=="all statuses")filtered=filtered.filter(row=>{
+      const value=String(row?.status??row?.state??row?.severity??row?.termination_reason??"").toLowerCase();
+      const answered=row?.answered===1||row?.answered===true||row?.answered==="1";
+      const normalized=status.toLowerCase()==="answered"?(answered||/answer|200 ok/i.test(value)):status.toLowerCase()==="failed"?!answered&&!/online|active|completed/i.test(value):value;
+      return String(normalized).includes(status.toLowerCase());
+    });
+    if(gateway&&gateway.toLowerCase()!=="all gateways")filtered=filtered.filter(row=>[row?.mapping_gateway_id,row?.routing_gateway_id,row?.gateway,row?.gateway_name].some(value=>String(value??"").toLowerCase().includes(gateway.toLowerCase())));
+    const page=Math.max(1,Number.parseInt(String(query?.page??1),10)||1);
+    const pageSize=Math.min(200,Math.max(1,Number.parseInt(String(query?.page_size??query?.pageSize??100),10)||100));
+    const offset=(page-1)*pageSize;
+    const rows=filtered.slice(offset,offset+pageSize);
+    const total=filtered.length;
+    return {
+      items:rows,
+      pagination:{page:Math.floor(offset/pageSize)+1,page_size:pageSize,total,total_pages:Math.max(1,Math.ceil(total/pageSize))}
+    };
+  }
+
   private async readProductApi(def:ProductApiDefinition,ctx:AuthContext|undefined,params:any={},query:any={}){
+    const result=await this.readProductApiRaw(def,ctx,params,query);
+    if(result?.pagination)return result;
+    const paginated=this.paginateRows(result?.items??[],query);
+    return {...result,...paginated};
+  }
+
+  private async readProductApiRaw(def:ProductApiDefinition,ctx:AuthContext|undefined,params:any={},query:any={}){
     const path=def.path;
     if(!ctx) return {items:[] as any[],source:"public"};
 
@@ -786,12 +817,13 @@ export class PlatformService {
     return {items:(await this.sources.listResources(resourceType(path),ctx,100)).map((x:any)=>x.data??x),source:"postgres"};
   }
 
-  async page(routePath:string,ctx?:AuthContext):Promise<PagePayload>{
+  async page(routePath:string,ctx?:AuthContext,pageQuery:any={}):Promise<PagePayload>{
     const def=findPortalRoute(routePath);if(!def)throw Object.assign(new Error("Page route not found"),{statusCode:404,code:"NOT_FOUND"});
     if(ctx&&((def.side==="Admin"&&ctx.side!=="admin")||(def.side==="Client"&&ctx.side!=="client")))throw Object.assign(new Error("Portal side does not match authenticated session"),{statusCode:403,code:"FORBIDDEN"});
     let rows:any[]=[];let source:PagePayload["source"]="postgres";const warnings:string[]=[];
     let customKpis:any[]|undefined=undefined;
     let customPayload:any=undefined;
+    let resultPagination:PagePayload["pagination"]=undefined;
 
     if(ctx){
       if(routePath==="/app"&&ctx.tenantId){
@@ -853,7 +885,7 @@ export class PlatformService {
         const firstGet=def.apis.map(x=>x.match(/^GET\s+(.+)$/)).find(Boolean);
         if(firstGet){
           const apiPath=firstGet![1].split("?")[0];const apiDef:ProductApiDefinition={method:"GET",path:apiPath,sides:[def.side],pages:[def.name],pageRoutes:[def.route]};
-          try{const result:any=await this.readProductApi(apiDef,ctx,this.paramsForApi(def.route,routePath,apiPath),{});rows=result.items??[];source=(result.source as any)??"postgres";if(result.warnings)warnings.push(...result.warnings)}catch(e:any){warnings.push(`Data source unavailable: ${e.message}`)}
+          try{const result:any=await this.readProductApi(apiDef,ctx,this.paramsForApi(def.route,routePath,apiPath),pageQuery);rows=result.items??[];source=(result.source as any)??"postgres";resultPagination=result.pagination;if(result.warnings)warnings.push(...result.warnings)}catch(e:any){warnings.push(`Data source unavailable: ${e.message}`)}
         }
         if(!rows.length&&!warnings.length)warnings.push("No persisted or verified upstream data exists for this page yet.");
       }
@@ -871,7 +903,8 @@ export class PlatformService {
         }
       }catch{}
     }
-    return {route:def.route,title:def.name,group:def.group,archetype:def.archetype as any,purpose:def.purpose,kpis,columns,rows,chart,features:[...def.features],apis:[...def.apis],generatedAt:now(),source,warnings:warnings.length?warnings:undefined,stale:false,...(customPayload?{detailData:customPayload}:{})};
+    const pagination=resultPagination;
+    return {route:def.route,title:def.name,group:def.group,archetype:def.archetype as any,purpose:def.purpose,kpis,columns,rows,chart,features:[...def.features],apis:[...def.apis],generatedAt:now(),source,warnings:warnings.length?warnings:undefined,stale:false,pagination,...(customPayload?{detailData:customPayload}:{})};
   }
 
   async createDeposit(ctx:AuthContext,body:any,requestId:string){
@@ -901,7 +934,7 @@ export class PlatformService {
             priceAmount: Number(amount),
             priceCurrency: currency,
             orderId: payment.id,
-            orderDescription: `CallWork Wallet Deposit - ${payment.id.slice(0,8)}`,
+            orderDescription: `Didflow Wallet Deposit - ${payment.id.slice(0,8)}`,
             ipnCallbackUrl: webhookUrl,
             successUrl: `${webUrlBase}/app/billing/payments`,
             cancelUrl: `${webUrlBase}/app/billing/add-funds`,
@@ -942,7 +975,7 @@ export class PlatformService {
       priceAmount: Number(amount),
       priceCurrency: currency,
       orderId: rec.id,
-      orderDescription: `CallWork Wallet Deposit - ${rec.id.slice(0,8)}`,
+      orderDescription: `Didflow Wallet Deposit - ${rec.id.slice(0,8)}`,
     });
     const standalonePayment = {
       ...rec,

@@ -1,7 +1,7 @@
 /**
  * apps/web/lib/form-error.ts
  *
- * Universal Error Normalization Engine for CallWork Telecom Platform (callwork.com).
+ * Universal Error Normalization Engine for Didflow Telecom Platform (didflow.com).
  * Normalizes all 8 error shapes into a canonical ParsedFormError contract:
  * 1. VOS ApiEnvelope ({ ok: false, request_id, error: { code, message, details } })
  * 2. NestJS / class-validator validation arrays ({ statusCode: 400, message: string[] | object[] })

@@ -1,7 +1,7 @@
 /**
  * apps/web/lib/api.ts
  *
- * Carrier-grade client API transport wrapper for CallWork (callwork.com).
+ * Carrier-grade client API transport wrapper for Didflow (didflow.com).
  * Preserves complete structured error details (code, details, request_id, status, errors, raw)
  * while maintaining 100% backward compatibility with all existing callers.
  */

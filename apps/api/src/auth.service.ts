@@ -115,7 +115,7 @@ export class AuthService {
     if(ctx.authType==="api_key")throw Object.assign(new Error("MFA requires an interactive user session"),{statusCode:403,code:"SESSION_REQUIRED"});
     const action=String(input.action??"");
     if(action==="enroll"){
-      const secret=base32Encode(crypto.randomBytes(20)),enrollmentId=crypto.randomUUID();await this.storePendingMfa(enrollmentId,{userId:ctx.userId,secret,expires:Date.now()+600_000});const label=encodeURIComponent(ctx.email);const issuer=encodeURIComponent(process.env.APP_NAME??"CallWork");return {enrollmentId,secret,otpauthUrl:`otpauth://totp/${issuer}:${label}?secret=${secret}&issuer=${issuer}&digits=6&period=30`};
+      const secret=base32Encode(crypto.randomBytes(20)),enrollmentId=crypto.randomUUID();await this.storePendingMfa(enrollmentId,{userId:ctx.userId,secret,expires:Date.now()+600_000});const label=encodeURIComponent(ctx.email);const issuer=encodeURIComponent(process.env.APP_NAME??"Didflow");return {enrollmentId,secret,otpauthUrl:`otpauth://totp/${issuer}:${label}?secret=${secret}&issuer=${issuer}&digits=6&period=30`};
     }
     if(action==="verify"){
       const pending=await this.getPendingMfa(String(input.enrollmentId??""));if(!pending||pending.userId!==ctx.userId||pending.expires<Date.now())throw Object.assign(new Error("MFA enrollment expired"),{statusCode:400,code:"MFA_ENROLLMENT_EXPIRED"});if(!verifyTotp(pending.secret,String(input.code??"")))throw Object.assign(new Error("Invalid verification code"),{statusCode:400,code:"INVALID_MFA_CODE"});

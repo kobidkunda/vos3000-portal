@@ -11,12 +11,12 @@ export const viewport: Viewport = {
 };
 
 export const metadata: Metadata = {
-  title: "CallWork — Telecom Operations & Client Platform",
-  description: "CallWork — high-performance telecom operations, live CDR analytics, gateway routing, and customer self-service on callwork.com.",
+  title: "Didflow — Telecom Operations & Client Platform",
+  description: "Didflow — high-performance telecom operations, live CDR analytics, gateway routing, and customer self-service on didflow.com.",
   icons: {
-    icon: "/callwork/fabicon/fabicon.png",
-    shortcut: "/callwork/fabicon/fabicon.png",
-    apple: "/callwork/hor/logo.png",
+    icon: "/didflow/fabicon/fabicon.png",
+    shortcut: "/didflow/fabicon/fabicon.png",
+    apple: "/didflow/hor/logo.png",
   },
 };
 

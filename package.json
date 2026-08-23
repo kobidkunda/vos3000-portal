@@ -14,7 +14,7 @@
     "build": "npm run build -w @vos/shared && npm run build -w @vos/adapter && npm run build -w @vos/api && npm run build -w @vos/worker && npm run build -w @vos/web",
     "start": "npm run start -w @vos/api",
     "validate": "python3 scripts/validate_application.py",
-    "test": "npm run test -w @vos/api && npm run test -w @vos/shared",
+    "test": "npm run test -w @vos/api && npm run test -w @vos/shared && npm run test -w @vos/web",
     "predev": "npm run build -w @vos/shared && npm run build -w @vos/adapter",
     "migrate:postgres": "node scripts/migrate-postgres.mjs"
   },

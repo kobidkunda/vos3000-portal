@@ -4,7 +4,7 @@
       - /url: "#main-content"
     - complementary "Admin portal navigation" [ref=f12e4]:
       - generic [ref=f12e6]:
-        - img "CallWork" [ref=f12e7]
+        - img "Didflow" [ref=f12e7]
         - generic: Admin operations
       - generic [ref=f12e8]:
         - generic [ref=f12e9]:

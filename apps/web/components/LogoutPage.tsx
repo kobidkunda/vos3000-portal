@@ -49,7 +49,6 @@ export function LogoutPage({ side }: { side: "Admin" | "Client" }) {
       const res = await fetch(`${API}/api/v1/auth/logout`, {
         method: "POST",
         credentials: "include",
-        headers: { "content-type": "application/json" },
       });
       if (!res.ok) {
         const json = await res.json().catch(() => null);
@@ -60,6 +59,7 @@ export function LogoutPage({ side }: { side: "Admin" | "Client" }) {
           requestId: json?.error?.request_id || json?.request_id,
           raw: json,
         });
+        return;
       }
       sessionStorage.removeItem("vos_mfa_ticket");
       setDone(true);
