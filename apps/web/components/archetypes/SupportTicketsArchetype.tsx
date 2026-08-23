@@ -24,6 +24,7 @@ export function SupportTicketsArchetype({
   kpis = [],
   source = "postgres (support_tickets)",
   warnings,
+  prefill,
 }: {
   side: "Admin" | "Client";
   title?: string;
@@ -32,6 +33,7 @@ export function SupportTicketsArchetype({
   kpis?: any[];
   source?: string;
   warnings?: string[];
+  prefill?: {subject?:string;category?:string;description?:string;open?:boolean}|null;
 }) {
   const initialTickets: Ticket[] = useMemo(() => {
     if (!rows || !rows.length) return [];
@@ -77,11 +79,11 @@ export function SupportTicketsArchetype({
 
   const [replyText, setReplyText] = useState("");
   const [replyErr, setReplyErr] = useState<unknown | null>(null);
-  const [isNewTicketOpen, setIsNewTicketOpen] = useState(false);
-  const [newSubject, setNewSubject] = useState("");
-  const [newCategory, setNewCategory] = useState("Routing & Gateways");
+  const [isNewTicketOpen, setIsNewTicketOpen] = useState(!!prefill?.open);
+  const [newSubject, setNewSubject] = useState(prefill?.subject??"");
+  const [newCategory, setNewCategory] = useState(prefill?.category??"Routing & Gateways");
   const [newPriority, setNewPriority] = useState<"Critical" | "High" | "Normal" | "Low">("Normal");
-  const [newMessage, setNewMessage] = useState("");
+  const [newMessage, setNewMessage] = useState(prefill?.description??"");
   const [createErr, setCreateErr] = useState<unknown | null>(null);
   const [busy, setBusy] = useState(false);
 
@@ -428,6 +430,7 @@ export function SupportTicketsArchetype({
                       <option>Routing & Gateways</option>
                       <option>Billing & Finance</option>
                       <option>Rate & Commercial</option>
+                      <option>Custom Plan Request</option>
                       <option>Technical / API</option>
                       <option>Emergency Dispatch</option>
                     </select>

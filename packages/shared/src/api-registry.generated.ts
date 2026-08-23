@@ -4,6 +4,20 @@ export interface ProductApiDefinition { method:ProductApiMethod; path:string; si
 export const productApis = [
   {
     "method": "GET",
+    "path": "/api/v1/admin/settings/registration",
+    "sides": ["Admin"],
+    "pages": ["Registration Settings"],
+    "pageRoutes": ["/admin/settings/registration"]
+  },
+  {
+    "method": "PUT",
+    "path": "/api/v1/admin/settings/registration",
+    "sides": ["Admin"],
+    "pages": ["Registration Settings"],
+    "pageRoutes": ["/admin/settings/registration"]
+  },
+  {
+    "method": "GET",
     "path": "/api/v1/admin/alarms",
     "sides": [
       "Admin"

@@ -324,7 +324,6 @@ export function MappingGatewayDetailArchetype({
             type="button"
             className="btn primary sm"
             onClick={() => setIsEditModalOpen(true)}
-            style={{ background: "linear-gradient(135deg, var(--primary) 0%, var(--cyan-deep) 100%)", borderColor: "transparent" }}
           >
             <Icon name="settings" size={13} />
             <span>Edit Gateway Parameters</span>

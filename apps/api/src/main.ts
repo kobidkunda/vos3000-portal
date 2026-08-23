@@ -92,6 +92,7 @@ async function bootstrap(){
     "GET /api/v1/admin/cdr/exports","POST /api/v1/admin/cdr/exports","POST /api/v1/admin/cdr/exports/estimate","DELETE /api/v1/admin/cdr/exports/{id}",
     "GET /api/v1/devices/setup/devices","GET /api/v1/devices/setup/instructions","POST /api/v1/devices/setup/verify","POST /api/v1/devices/setup/copy-event",
     "GET /api/v1/admin/devices/setup/devices","GET /api/v1/admin/devices/setup/instructions","POST /api/v1/admin/devices/setup/verify",
+    "POST /api/v1/auth/register","GET /api/v1/admin/settings/registration","PUT /api/v1/admin/settings/registration",
     "GET /api/v1/admin/settings/support","PUT /api/v1/admin/settings/support"
   ]);
 

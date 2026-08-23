@@ -1,5 +1,6 @@
 "use client";
 import React, { useEffect, useState, useCallback, useMemo } from "react";
+import { useSearchParams } from "next/navigation";
 import { api } from "../lib/api";
 import { Shell } from "./Shell";
 import { Icon } from "../lib/icons";
@@ -27,6 +28,7 @@ import { CallAnalysisArchetype } from "./archetypes/CallAnalysisArchetype";
 import { RegistrationAnalysisArchetype } from "./archetypes/RegistrationAnalysisArchetype";
 import { PaymentSettingsArchetype } from "./archetypes/PaymentSettingsArchetype";
 import { SupportSettingsArchetype } from "./archetypes/SupportSettingsArchetype";
+import { RegistrationSettingsArchetype } from "./archetypes/RegistrationSettingsArchetype";
 import { PaymentsArchetype } from "./archetypes/PaymentsArchetype";
 import { StatementsArchetype } from "./archetypes/StatementsArchetype";
 import { RecentCallsArchetype } from "./archetypes/RecentCallsArchetype";
@@ -54,6 +56,7 @@ export function PortalPage({
   const [data, setData] = useState<any>(null);
   const [err, setErr] = useState("");
   const [loading, setLoading] = useState(true);
+  const searchParams=useSearchParams();
 
   const load = useCallback(async () => {
     setLoading(true);
@@ -242,6 +245,8 @@ export function PortalPage({
           chart={chart}
           source={data?.source}
           warnings={data?.warnings}
+          customPlanState={data?.custom_plan}
+          stale={Boolean(data?.stale)}
         />
       );
     }
@@ -565,7 +570,23 @@ export function PortalPage({
       );
     }
 
-    // 6. Detail Views (Gateway Details, Customer Details, CDR Details)
+    // 6. Rate Lookup & Prefix Cost Estimator — route-specific match MUST precede
+    //    the generic DETAIL archetype catch-all below.
+    if (route.includes("/rates/lookup") || route.includes("/rate-lookup")) {
+      return (
+        <RateLookupArchetype
+          side={side}
+          title={pageTitle}
+          purpose={pagePurpose}
+          rows={rows}
+          kpis={kpis}
+          source={data?.source}
+          warnings={data?.warnings}
+        />
+      );
+    }
+
+    // 7. Detail Views (Gateway Details, Customer Details, CDR Details)
     if (
       effectiveArchetype === "DETAIL" ||
       route.includes("/detail") ||
@@ -624,6 +645,15 @@ export function PortalPage({
     }
 
     // 8b. Support Settings (global support contacts -> client FAB)
+    if (route === "/admin/settings/registration") {
+      return (
+        <RegistrationSettingsArchetype
+          title={pageTitle}
+          purpose={pagePurpose}
+        />
+      );
+    }
+
     if (route === "/admin/settings/support") {
       return (
         <SupportSettingsArchetype
@@ -654,21 +684,6 @@ export function PortalPage({
       );
     }
 
-    // 10. Rate Lookup & Prefix Cost Estimator
-    if (route.includes("/rates/lookup") || route.includes("/rate-lookup")) {
-      return (
-        <RateLookupArchetype
-          side={side}
-          title={pageTitle}
-          purpose={pagePurpose}
-          rows={rows}
-          kpis={kpis}
-          source={data?.source}
-          warnings={data?.warnings}
-        />
-      );
-    }
-
     // 11. Support & Ticketing Center
     if (route.includes("/support/tickets") || route.includes("/support")) {
       return (
@@ -680,6 +695,12 @@ export function PortalPage({
           kpis={kpis}
           source={data?.source}
           warnings={data?.warnings}
+          prefill={route.endsWith("/support/new")?{
+            open:true,
+            category:searchParams.get("category")==="custom_plan_request"?"Custom Plan Request":searchParams.get("category")||undefined,
+            subject:searchParams.get("subject")||(searchParams.get("template")==="custom_plan"?"Request: Custom rate plan":undefined),
+            description:searchParams.get("template")==="custom_plan"?"Destinations:\nExpected minutes/month:\nBilling preference:\nNotes:":undefined
+          }:null}
         />
       );
     }
@@ -718,4 +739,3 @@ export function PortalPage({
     </Shell>
   );
 }
-

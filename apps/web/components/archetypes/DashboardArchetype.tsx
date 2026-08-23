@@ -39,6 +39,8 @@ export function DashboardArchetype({
   chart = [],
   source = "vos + postgres",
   warnings = [],
+  customPlanState = null,
+  stale = false,
 }: {
   side: "Admin" | "Client";
   title: string;
@@ -49,11 +51,15 @@ export function DashboardArchetype({
   chart?: number[];
   source?: string;
   warnings?: string[];
+  customPlanState?: {customer_rate_group_id?:string|null;default_rate_group_id?:string|null;updated_at?:string|null}|null;
+  stale?: boolean;
 }) {
   const [selectedInterval, setSelectedInterval] = useState("24H");
   const [eventsPaused, setEventsPaused] = useState(false);
 
   const isNoc = title.toLowerCase().includes("noc") || route.includes("/noc");
+  const customPlan = side === "Client" ? customPlanState : null;
+  const onCustomPlan = !!customPlan && (!customPlan.default_rate_group_id || customPlan.customer_rate_group_id === customPlan.default_rate_group_id);
 
   // Real traffic series from backend or empty state
   const callsSeries = useMemo(() => {
@@ -127,6 +133,34 @@ export function DashboardArchetype({
           </Link>
         </div>
       </div>
+
+      {customPlan && (
+        <div className="card" style={{ marginBottom: 20, background: "#DBEAFE", borderColor: "#E2E8F0" }}>
+          <div style={{ display: "flex", gap: 16, alignItems: "flex-start", justifyContent: "space-between", flexWrap: "wrap" }}>
+            <div style={{ minWidth: 260, display: "flex", gap: 12 }}>
+              <span style={{ color: "#1D4ED8", display: "flex", marginTop: 2 }}><Icon name="support" size={18} /></span>
+              <div>
+                <div style={{ display: "flex", alignItems: "center", gap: 8, flexWrap: "wrap" }}>
+                  <h2 style={{ fontSize: 16, fontWeight: 700, color: "#0F172A" }}>Need a customised plan?</h2>
+                  {onCustomPlan && <span className="badge" style={{ background: "#FFFFFF", color: "#1D4ED8", border: "1px solid #BFDBFE" }}>You&apos;re on Custom</span>}
+                </div>
+                <p style={{ fontSize: 13, lineHeight: 1.5, color: "#475569", marginTop: 4, maxWidth: 640 }}>
+                  Tell us destinations, volume, billing cycle and we&apos;ll tailor rates for you.
+                </p>
+                <div className="mono" style={{ fontSize: 12, color: "#64748B", marginTop: 6, display: "flex", justifyContent: "flex-end", gap: 8, textAlign: "right", fontVariantNumeric: "tabular-nums" }}>
+                  <span>Plan ID {String(customPlan.customer_rate_group_id ?? "CUSTOM")}</span>
+                  <span>Updated {customPlan.updated_at ? new Date(customPlan.updated_at).toLocaleString() : "unavailable"}</span>
+                  <span>{stale ? "Stale" : "Live"}</span>
+                </div>
+              </div>
+            </div>
+            <div style={{ display: "flex", gap: 8, alignItems: "center" }}>
+              <Link href="/app/support/new?category=custom_plan_request&template=custom_plan" className="btn primary sm">Create support ticket</Link>
+              <button type="button" className="btn secondary sm" onClick={() => window.dispatchEvent(new CustomEvent("vos:support-open"))}>Start chat</button>
+            </div>
+          </div>
+        </div>
+      )}
 
       {/* Warnings / Degradations Banner */}
       {warnings && warnings.length > 0 && (

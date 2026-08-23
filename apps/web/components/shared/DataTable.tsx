@@ -1042,6 +1042,11 @@ export function DataTable<T extends Record<string, any> = any>({
                 row.name ??
                 row.subject ??
                 row.gateway ??
+                // Rate-sheet style rows: lead with destination + prefix
+                (row.prefix != null && (row.area_name || row.country_name)
+                  ? `${row.area_name ?? row.country_name} · +${row.prefix}`
+                  : undefined) ??
+                row.area_name ??
                 row.id ??
                 `Record #${rIdx + 1}`;
 

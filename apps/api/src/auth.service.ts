@@ -152,6 +152,71 @@ export class AuthService {
     const organizationId=actor?.organizationId??input.organizationId??null;
     const passwordHash=await this.hashPassword(String(input.temporaryPassword));const client=await this.sources.pg.connect();try{await client.query("BEGIN");const role=await client.query("SELECT id FROM roles WHERE code=$1 AND scope=$2",[roleCode,side]);if(!role.rowCount)throw Object.assign(new Error("Unknown role"),{statusCode:400,code:"INVALID_ROLE"});const u=await client.query("INSERT INTO users(organization_id,email,password_hash,display_name,user_type,invalid_after) VALUES($1,$2,$3,$4,$5,$6) RETURNING id,email,display_name,user_type,status,created_at",[organizationId,String(input.email).trim().toLowerCase(),passwordHash,String(input.displayName),side,input.expiresAt??null]);await client.query("INSERT INTO user_roles(user_id,role_id) VALUES($1,$2)",[u.rows[0].id,role.rows[0].id]);await client.query("COMMIT");return {...u.rows[0],role:roleCode}}catch(e){await client.query("ROLLBACK");throw e}finally{client.release()}}
 
+  async registerSelfServiceCustomer(rawInput:any,meta:{ip?:string;userAgent?:string}){
+    if(this.authMode!=="database") throw Object.assign(new Error("Self-registration requires database authentication"),{statusCode:503,code:"DATABASE_AUTH_REQUIRED"});
+    if(!this.sources.pg) throw Object.assign(new Error("Database is required"),{statusCode:503,code:"DATABASE_REQUIRED"});
+    const email=String(rawInput?.email??"").trim().toLowerCase();
+    const organizationName=String(rawInput?.organizationName??"").trim().replace(/\s+/g," ");
+    const phone=String(rawInput?.phone??"").trim();
+    if(!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(email)||email.length>320) throw Object.assign(new Error("Enter a valid email address"),{statusCode:400,code:"VALIDATION_ERROR",field:"email"});
+    if(organizationName.length<2||organizationName.length>120) throw Object.assign(new Error("Organization name must be 2-120 characters"),{statusCode:400,code:"VALIDATION_ERROR",field:"organizationName"});
+    if(phone.length<7||phone.length>32||!/^\+[0-9 ()-]+$/.test(phone)) throw Object.assign(new Error("Enter a valid phone number"),{statusCode:400,code:"VALIDATION_ERROR",field:"phone"});
+    if(!(await this.consumeRateLimit(`register:ip:${meta.ip??"unknown"}`,Number(process.env.REGISTER_IP_RATE_LIMIT??10),Number(process.env.REGISTER_RATE_WINDOW_SECONDS??900)))||
+       !(await this.consumeRateLimit(`register:email:${email}`,Number(process.env.REGISTER_EMAIL_RATE_LIMIT??5),Number(process.env.REGISTER_RATE_WINDOW_SECONDS??900))))
+      throw Object.assign(new Error("Too many registration attempts. Try again later."),{statusCode:429,code:"RATE_LIMITED"});
+
+    const passwordHash=await this.hashPassword(String(rawInput?.password??""));
+    const client=await this.sources.pg.connect();
+    let created:any;
+    try{
+      await client.query("BEGIN");
+      let settings:any;
+      try{settings=await client.query("SELECT default_rate_group_id FROM registration_settings WHERE singleton=true")}
+      catch(e){throw Object.assign(new Error("Registration is temporarily unavailable because settings cannot be read"),{statusCode:503})}
+      const configuredGroupId=settings.rows[0]?.default_rate_group_id ?? null;
+      let rateGroupId:string|null=null,rateGroupName:string|null=null;
+      if(configuredGroupId){
+        const group=await client.query("SELECT id,name FROM rate_groups WHERE id=$1 AND status='active' AND side IN ('customer','shared')",[configuredGroupId]);
+        if(group.rowCount){rateGroupId=group.rows[0].id;rateGroupName=group.rows[0].name}
+      }
+      if((await client.query("SELECT 1 FROM users WHERE email=$1",[email])).rowCount)
+        throw Object.assign(new Error("An account with this email already exists"),{statusCode:409,code:"DUPLICATE_EMAIL",field:"email"});
+      const organizationId=(await client.query("INSERT INTO organizations(name,status) VALUES($1,'active') RETURNING id",[organizationName])).rows[0].id;
+      const role=await client.query("SELECT id FROM roles WHERE code='owner' AND scope='client'");
+      if(!role.rowCount) throw Object.assign(new Error("Client role configuration is missing"),{statusCode:503});
+      const userId=(await client.query(
+        `INSERT INTO users(organization_id,email,password_hash,display_name,user_type) VALUES($1,$2,$3,$4,'client') RETURNING id`,
+        [organizationId,email,passwordHash,email.split("@")[0]]
+      )).rows[0].id;
+      const customerId=(await client.query(
+        `INSERT INTO customers(organization_id,account_name,currency,rate_group_id) VALUES($1,$2,'USD',$3) RETURNING id`,
+        [organizationId,organizationName,rateGroupId]
+      )).rows[0].id;
+      await client.query("INSERT INTO user_roles(user_id,role_id) VALUES($1,$2)",[userId,role.rows[0].id]);
+      await client.query(
+        `INSERT INTO ledger_entries(customer_id,direction,amount,currency,reason,idempotency_key) VALUES($1,'credit',0,'USD','Account created',$2)`,
+        [customerId,`self-registration:${customerId}`]
+      );
+      await client.query("COMMIT");
+      created={organizationId,userId,email,customerId,rateGroupId,rateGroupName};
+    }catch(e:any){
+      await client.query("ROLLBACK");
+      if(e?.code==="23505") throw Object.assign(new Error("An account with this email already exists"),{statusCode:409,code:"DUPLICATE_EMAIL",field:"email"});
+      throw e;
+    }finally{client.release()}
+
+    const actor={userId:created.userId,email,role:"owner",tenantId:created.customerId,organizationId:created.organizationId,permissions:[],side:"client" as const,authType:"session" as const,sessionId:"registration",exp:Math.floor(Date.now()/1000)};
+    const request_id=crypto.randomUUID();
+    try{
+      await this.sources.audit(actor,request_id,"POST /api/v1/auth/register","customer",created.customerId,undefined,{account_name:organizationName,rate_group_id:created.rateGroupId},meta.ip);
+      await this.sources.audit(actor,request_id,"customer.rate_group_assigned","customer",created.customerId,{rate_group_id:null},{rate_group_id:created.rateGroupId,rate_group_name:created.rateGroupName},meta.ip);
+      await this.sources.publish("portal.events",{id:request_id,type:"portal.customer.created",organization_id:created.organizationId,customer_id:created.customerId,user_id:created.userId,actor:created.userId,created_at:new Date().toISOString()},request_id);
+    }catch{/* transactional signup remains authoritative; observability failures are separately observable */}
+    const permissions=await this.sources.permissionsForUser(created.userId);
+    const session=await this.createSession({userId:created.userId,email,role:"owner",tenantId:created.customerId,organizationId:created.organizationId,permissions,side:"client"},meta);
+    return {...session,rate_group_id:created.rateGroupId,rate_group_name:created.rateGroupName};
+  }
+
   async adminResetCustomerPassword(customerId:string,input:any,actor?:AuthContext){
     const newPassword=String(input?.newPassword??input?.password??"");
     const targetUserId=input?.userId?String(input.userId):undefined;

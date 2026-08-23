@@ -296,7 +296,7 @@ export function Shell({
           {/* NOC Support Card */}
           <div
             style={{
-              background: "linear-gradient(135deg, rgba(37,99,235,0.15), rgba(6,182,212,0.1))",
+              background: "var(--nav2)",
               border: "1px solid var(--nav-border)",
               borderRadius: "var(--radius)",
               padding: "12px 14px",
@@ -415,20 +415,8 @@ export function Shell({
               className="iconBtn"
               title="Notifications & Alarms"
               aria-label="Notifications"
-              style={{ position: "relative" }}
             >
               <Icon name="bell" size={16} />
-              <span
-                style={{
-                  position: "absolute",
-                  top: 4,
-                  right: 4,
-                  width: 7,
-                  height: 7,
-                  borderRadius: "50%",
-                  background: "var(--danger)",
-                }}
-              />
             </Link>
 
             {/* Dark / Light Toggle */}

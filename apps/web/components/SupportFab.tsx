@@ -34,6 +34,12 @@ export function SupportFab() {
   }, []);
 
   useEffect(() => {
+    function open() { setOpen(true); }
+    window.addEventListener("vos:support-open", open);
+    return () => window.removeEventListener("vos:support-open", open);
+  }, []);
+
+  useEffect(() => {
     if (!open) return;
     function onKey(e: KeyboardEvent) {
       if (e.key === "Escape") {

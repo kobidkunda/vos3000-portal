@@ -794,6 +794,15 @@ export class PlatformService {
     let customPayload:any=undefined;
 
     if(ctx){
+      if(routePath==="/app"&&ctx.tenantId){
+        try{
+          const [customerRows,settings]=await Promise.all([
+            this.sources.pg!.query("SELECT rate_group_id FROM customers WHERE id=$1",[ctx.tenantId]),
+            this.sources.getRegistrationSettings()
+          ]);
+          customPayload={custom_plan:{customer_rate_group_id:customerRows.rows[0]?.rate_group_id??null,default_rate_group_id:settings.default_rate_group_id,updated_at:settings.updated_at}};
+        }catch{warnings.push("Registration plan state is unavailable.")}
+      }
       if(routePath==="/app/devices/setup"||routePath.startsWith("/app/devices/setup/")||routePath==="/admin/devices/setup"||routePath.startsWith("/admin/devices/setup/")){
         // Device Setup pages are fully client-rendered from the device registry; no rows needed.
         rows=[];source="postgres";

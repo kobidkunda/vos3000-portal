@@ -7,3 +7,4 @@ export * from "./api-registry.generated.js";
 export * from "./actions.generated.js";
 export * from "./device-setup.types.js";
 export * from "./support-config.js";
+export * from "./registration-config.js";

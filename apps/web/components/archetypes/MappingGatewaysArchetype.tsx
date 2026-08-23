@@ -314,7 +314,6 @@ export function MappingGatewaysArchetype({
             type="button"
             className="btn primary sm"
             onClick={() => setIsCreateModalOpen(true)}
-            style={{ background: "linear-gradient(135deg, var(--primary) 0%, var(--cyan-deep) 100%)", borderColor: "transparent" }}
           >
             <Icon name="plus" size={13} />
             <span>Add Mapping Gateway</span>

@@ -1,7 +1,7 @@
 import test from "node:test";
 import assert from "node:assert/strict";
 import { findPortalRoute, portalRoutes } from "../index.js";
-test("contains all 145 routes",()=>assert.equal(portalRoutes.length,145));
+test("contains all 146 routes",()=>assert.equal(portalRoutes.length,146));
 test("resolves /admin/settings/support to Support Settings",()=>assert.equal(findPortalRoute("/admin/settings/support")?.name,"Support Settings"));
 test("matches dynamic customer route",()=>assert.equal(findPortalRoute("/admin/customers/cus_123")?.name,"Customer Overview"));
 test("matches client gateway",()=>assert.equal(findPortalRoute("/app/gateways/gw_1")?.name,"Gateway Detail"));

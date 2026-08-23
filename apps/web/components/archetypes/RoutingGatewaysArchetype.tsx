@@ -436,7 +436,6 @@ export function RoutingGatewaysArchetype({
             type="button"
             className="btn primary sm"
             onClick={() => setIsSimulatorOpen(true)}
-            style={{ background: "linear-gradient(135deg, var(--primary) 0%, var(--cyan-deep) 100%)", borderColor: "transparent" }}
           >
             <Icon name="radar" size={13} />
             <span>Rewrite Simulator</span>

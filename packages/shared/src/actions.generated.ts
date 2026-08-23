@@ -2145,6 +2145,18 @@ export const actionSchemas = [
 ,
   {
     "method": "PUT",
+    "path": "/api/v1/admin/settings/registration",
+    "title": "Save self-registration default rate group",
+    "fields": [
+      {"name": "default_rate_group_id", "label": "Default rate group ID", "type": "text", "required": false}
+    ],
+    "handler": "portal",
+    "resource": "system_settings",
+    "idempotent": true
+  }
+,
+  {
+    "method": "PUT",
     "path": "/api/v1/admin/settings/support",
     "title": "Save global support contacts (Telegram + Teams)",
     "fields": [

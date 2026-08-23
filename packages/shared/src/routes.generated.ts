@@ -2,6 +2,28 @@
 export const portalRoutes = [
   {
     "side": "Admin",
+    "group": "Portal Operations",
+    "name": "Registration Settings",
+    "route": "/admin/settings/registration",
+    "archetype": "SETTINGS",
+    "data_mode": "transactional/configuration",
+    "phase": "P02 — Identity, RBAC, Tenant Isolation & Audit Foundation",
+    "template_file": "04_ADMIN_PAGES/registration-settings.md",
+    "features": [
+      "Active rate group picker",
+      "Transactional signup assignment",
+      "Validation + audit + RBAC",
+      "Degraded state handling"
+    ],
+    "apis": [
+      "GET /api/v1/admin/settings/registration",
+      "PUT /api/v1/admin/settings/registration"
+    ],
+    "basis": "[PORTAL]",
+    "purpose": "Select the rate group automatically assigned to self-registered customers"
+  },
+  {
+    "side": "Admin",
     "group": "Access & Identity",
     "name": "Admin Login",
     "route": "/admin/login",

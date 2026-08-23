@@ -9,7 +9,7 @@ import { PlatformService } from "./platform.service.js";
 import { DataSourcesService } from "./data-sources.service.js";
 import { NowpaymentsService } from "./nowpayments.service.js";
 import { authorizeProductApi, validateBrowserOrigin } from "./access-policy.js";
-import { productApis, type ProductApiDefinition, validateSupportConfigPutBody } from "@vos/shared";
+import { productApis, type ProductApiDefinition, validateSupportConfigPutBody, validateRegistrationSettingsPutBody } from "@vos/shared";
 import { SupportService } from "./support/support.service.js";
 
 const rid=()=>crypto.randomUUID();
@@ -36,6 +36,16 @@ export class AppController {
 
   @Post("admin/auth/login") adminLogin(@Body() b:any,@Req() req:FastifyRequest,@Res({passthrough:true}) res:FastifyReply){return this.login(b,"admin",req,res)}
   @Post("auth/login") clientLogin(@Body() b:any,@Req() req:FastifyRequest,@Res({passthrough:true}) res:FastifyReply){return this.login(b,"client",req,res)}
+  @Post("auth/register")
+  async register(@Body() body:any,@Req() req:FastifyRequest,@Res({passthrough:true}) res:FastifyReply){
+    const request_id=rid();
+    if(!this.originOk(req,"POST")){res.status(403);return {ok:false,request_id,error:{code:"INVALID_ORIGIN",message:"Browser origin rejected"}}}
+    try{
+      const result=await this.auth.registerSelfServiceCustomer(body,meta(req));
+      res.header("Set-Cookie",cookie(result.token,Number(process.env.SESSION_TTL_SECONDS??43200)));
+      return {ok:true,request_id,data:{user:result.user,rate_group_id:result.rate_group_id,rate_group_name:result.rate_group_name}};
+    }catch(e:any){res.status(e.statusCode??500);return {ok:false,request_id,error:{code:e.code??"REGISTRATION_FAILED",message:e.message,details:e.field?{fields:[{field:e.field,message:e.message}]}:undefined}}}
+  }
   private async login(b:any,side:"admin"|"client",req:FastifyRequest,res:FastifyReply){
     const request_id=rid();
     try{const result=await this.auth.login(String(b?.email??b?.username??""),String(b?.password??""),side,meta(req));if(!result){res.status(401);return {ok:false,request_id,error:{code:"INVALID_CREDENTIALS",message:"Invalid credentials"}}}if(result.mfaRequired===true)return {ok:false,request_id,error:{code:"MFA_REQUIRED",message:"Multi-factor authentication required",details:{ticket:result.ticket}}};if(!("token" in result)||!("user" in result)){res.status(500);return {ok:false,request_id,error:{code:"SESSION_CREATE_FAILED",message:"Session could not be created"}}}res.header("Set-Cookie",cookie(result.token,Number(process.env.SESSION_TTL_SECONDS??43200)));return {ok:true,request_id,data:{user:result.user}}}catch(e:any){res.status(e.statusCode??500);return {ok:false,request_id,error:{code:e.code??"LOGIN_FAILED",message:e.message}}}
@@ -447,6 +457,34 @@ export class AppController {
       res.status(e.statusCode??500);
       return {ok:false,request_id,error:{code:e.code??"SUPPORT_SETTINGS_ERROR",message:e.message}};
     }
+  }
+
+  @Get("admin/settings/registration")
+  async getRegistrationSettings(@Req() req:FastifyRequest,@Res({passthrough:true}) res:FastifyReply){
+    const request_id=rid(),c=await this.ctx(req);
+    if(!c){res.status(401);return {ok:false,request_id,error:{code:"UNAUTHENTICATED",message:"Authentication required"}}}
+    if(c.side!=="admin"){res.status(403);return {ok:false,request_id,error:{code:"FORBIDDEN",message:"Admin session required"}}}
+    if(c.role!=="super_admin"&&!c.permissions?.includes("settings:write")){res.status(403);return {ok:false,request_id,error:{code:"PERMISSION_DENIED",message:"settings:write required"}}}
+    try{return {ok:true,request_id,data:await this.sources.getRegistrationSettings()}}
+    catch(e:any){res.status(e.statusCode??500);return {ok:false,request_id,error:{code:e.code??"REGISTRATION_SETTINGS_ERROR",message:e.message,degraded:true}}}
+  }
+
+  @Put("admin/settings/registration")
+  async putRegistrationSettings(@Body() body:any,@Req() req:FastifyRequest,@Res({passthrough:true}) res:FastifyReply){
+    const request_id=rid(),c=await this.ctx(req);
+    if(!c){res.status(401);return {ok:false,request_id,error:{code:"UNAUTHENTICATED",message:"Authentication required"}}}
+    if(c.side!=="admin"){res.status(403);return {ok:false,request_id,error:{code:"FORBIDDEN",message:"Admin session required"}}}
+    if(!this.originOk(req,"PUT")){res.status(403);return {ok:false,request_id,error:{code:"INVALID_ORIGIN",message:"Browser origin rejected"}}}
+    if(c.role!=="super_admin"&&!c.permissions?.includes("settings:write")){res.status(403);return {ok:false,request_id,error:{code:"PERMISSION_DENIED",message:"settings:write required"}}}
+    const errors=validateRegistrationSettingsPutBody(body);
+    if(errors.length){res.status(400);return {ok:false,request_id,error:{code:"VALIDATION_ERROR",message:errors[0].message,details:{fields:errors}}}}
+    try{
+      const before=await this.sources.getRegistrationSettings().catch(()=>null);
+      const result=await this.sources.saveRegistrationSettings(c,{default_rate_group_id:body.default_rate_group_id||null});
+      await this.sources.audit(c,request_id,"PUT /api/v1/admin/settings/registration","system_settings","self_registration_default_rate_group_id",before,{default_rate_group_id:result.default_rate_group_id,default_rate_group_name:result.default_rate_group_name},req.ip);
+      await this.sources.publish("portal.events",{id:request_id,type:"portal.settings.updated",setting:"self_registration_default_rate_group_id",value:result.default_rate_group_id,actor:c.userId,created_at:new Date().toISOString()},request_id);
+      return {ok:true,request_id,data:{default_rate_group_id:result.default_rate_group_id,default_rate_group_name:result.default_rate_group_name,updated_at:new Date().toISOString(),updated_by:c.userId}};
+    }catch(e:any){res.status(e.statusCode??500);return {ok:false,request_id,error:{code:e.code??"REGISTRATION_SETTINGS_UPDATE_FAILED",message:e.message,degraded:e.statusCode===503}}}
   }
 
   @Put("admin/settings/support")

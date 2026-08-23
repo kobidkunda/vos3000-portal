@@ -1466,6 +1466,37 @@ export class DataSourcesService implements OnModuleDestroy {
     return {...r.rows[0], rate_group_name: rgName};
   }
 
+  async getRegistrationSettings(){
+    if(!this.pg) throw Object.assign(new Error("Database is required"),{statusCode:503,code:"DATABASE_REQUIRED"});
+    const r=await this.pg.query("SELECT default_rate_group_id,updated_at,updated_by FROM registration_settings WHERE singleton=true");
+    return {default_rate_group_id:r.rows[0]?.default_rate_group_id ?? null,updated_at:r.rows[0]?.updated_at ?? null,updated_by:r.rows[0]?.updated_by ?? null};
+  }
+
+  async saveRegistrationSettings(ctx:AuthContext,input:{default_rate_group_id:string|null}){
+    if(!this.pg) throw Object.assign(new Error("Database is required"),{statusCode:503,code:"DATABASE_REQUIRED"});
+    const requested=input.default_rate_group_id;
+    const client=await this.pg.connect();
+    try{
+      await client.query("BEGIN");
+      let groupName:string|null=null;
+      if(requested){
+        const group=await client.query("SELECT name FROM rate_groups WHERE id=$1 AND status='active' AND side IN ('customer','shared') FOR UPDATE",[requested]);
+      if(!group.rowCount) throw Object.assign(new Error("Default rate group must exist and be active"),{statusCode:400,code:"INVALID_DEFAULT_RATE_GROUP"});
+        groupName=group.rows[0].name;
+      }
+      const current=await client.query("SELECT default_rate_group_id FROM registration_settings WHERE singleton=true FOR UPDATE");
+      const before={default_rate_group_id:current.rows[0]?.default_rate_group_id ?? null};
+      await client.query(
+        `INSERT INTO registration_settings(singleton,default_rate_group_id,updated_by) VALUES(true,$1,$2)
+         ON CONFLICT (singleton) DO UPDATE SET default_rate_group_id=EXCLUDED.default_rate_group_id,updated_by=EXCLUDED.updated_by,updated_at=now()`,
+        [requested,ctx.userId]
+      );
+      await client.query("COMMIT");
+      return {default_rate_group_id:requested,default_rate_group_name:groupName,before_data:before};
+    }catch(e){await client.query("ROLLBACK");throw e}
+    finally{client.release()}
+  }
+
   async listRatesPaginated(ctx:AuthContext, groupId:string, query:any = {}){
     if(!groupId || !/^[0-9a-f-]{36}$/i.test(groupId)) throw Object.assign(new Error("Invalid rate group ID"),{statusCode:400,code:"VALIDATION_ERROR"});
     const page = Math.max(1, parseInt(query.page || "1", 10) || 1);
