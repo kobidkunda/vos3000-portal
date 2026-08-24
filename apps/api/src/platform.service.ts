@@ -635,8 +635,8 @@ export class PlatformService {
   }
 
   private async readProductApi(def:ProductApiDefinition,ctx:AuthContext|undefined,params:any={},query:any={}){
-    const result=await this.readProductApiRaw(def,ctx,params,query);
-    if(result?.pagination)return result;
+    const result=await this.readProductApiRaw(def,ctx,params,query) as any;
+    if((result as any)?.pagination)return result;
     const paginated=this.paginateRows(result?.items??[],query);
     return {...result,...paginated};
   }

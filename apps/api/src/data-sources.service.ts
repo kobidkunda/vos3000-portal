@@ -488,7 +488,7 @@ export class DataSourcesService implements OnModuleDestroy {
     if(opts.includeTotal){
       const {limit:_limit,offset:_offset,...filterParams}=qp;
       const countRs=await this.ch.query({query:`SELECT count() AS total FROM vos.cdr_events FINAL ${filterSql}`,query_params:filterParams,format:"JSONEachRow"});
-      const total=Number((await countRs.json())[0]?.total??0);
+      const total=Number(((await countRs.json()) as any)[0]?.total??0);
       const page=Math.floor(offset/limit)+1;
       const rs=await this.ch.query({query:`SELECT ${cols} FROM vos.cdr_events FINAL ${filterSql} ORDER BY begin_time DESC LIMIT {limit:UInt32} OFFSET {offset:UInt32}`,query_params:qp,format:"JSONEachRow"});
       const items=await rs.json();
