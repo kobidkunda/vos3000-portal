@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 set -euo pipefail
-until rpk cluster health -X brokers=redpanda:9092 >/dev/null 2>&1; do sleep 2; done
+until rpk cluster health -X brokers=redpanda:9092 -X admin.hosts=redpanda:9644 >/dev/null 2>&1; do sleep 2; done
 for spec in \
   "cdr.raw:12" \
   "cdr.unmapped:3" \
@@ -10,5 +10,5 @@ for spec in \
   "report.jobs:3" \
   "audit.events:3"; do
   topic=${spec%%:*}; parts=${spec##*:}
-  rpk topic create "$topic" --partitions "$parts" -X brokers=redpanda:9092 || true
+  rpk topic create "$topic" --partitions "$parts" -X brokers=redpanda:9092 -X admin.hosts=redpanda:9644 || true
 done
